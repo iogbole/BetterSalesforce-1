@@ -9,7 +9,6 @@ var getId = function(arg) { return document.getElementById(arg); };
 var getClass = function(arg) { return document.getElementsByClassName(arg); };
 
 // Reverse-engineered salesforce hack(s)
-var TIER_2_QUEUE = 'Tier 2'
 function assignToQueue(sf_id, queue) {
   $.get('/' + sf_id + '/a', function(data) { 
 
@@ -60,6 +59,18 @@ var CASES_TAKEN_Q = '00B50000006MYd5';
 // Salesforce
 var SF_URL = "500?fcf=";
 
+// Descriptions of Links
+var JIVECOMMUNITY_DESC = 'Open Case in Jive Community'
+var ACCEPT_DESC = 'Accept this case.'
+var T2_DESC = 'Bump IT!'
+var HOSTING_DESC = 'Send to Hosting Queue'
+var ACCOUNT_DESC = 'Send to Account Support Queue'
+
+// Queue Names
+var BACKLINE_QUEUE = 'Backline'
+var ACCOUNT_SUPPORT_QUEUE = 'accountsupport'
+var HOSTING_QUEUE = 'Hosting'
+
 function setQueueCount(view_id, dom_obj) {
   $.post("/_ui/common/list/ListServlet", {
     'action':'filter',
@@ -76,6 +87,7 @@ var waitingDiv;
 var caseLinks = {};
 var inProgressCount = 0;
 var queueTitle;
+var alertCount = 1;
 var paused = false; // is the 30 second refresh paused?
 
 if( isQPage() ) {
@@ -451,17 +463,42 @@ function highlightFrontlineQueue(){
     var arr = new Array('support-queue');
 
     $.each(arr, function() {
-	var count = $('#' + this).text();
-	if (count != '*'){
-		var num = parseInt(count);
-		if(num < 15){
-               		$('#' + this).css({'font-weight':'bolder', 'color':'green'});
-           	} else if (num >= 15 && num < 40){
-	       		$('#' + this).css({'font-weight':'bolder', 'color':'orange'});
-   		} else {
-              		$('#' + this).css({'font-weight':'bolder', 'color':'red'});
-           	}
-	}
+        var count = $('#' + this).text();
+		if (count != '*'){
+           var num = parseInt(count);
+           var qCount = parseInt(localStorage.getItem('qAlertCount'));
+           
+           if(isNaN(qCount))
+            var alertCounts = parseInt(alertCount);
+		   else
+            var alertCounts = parseInt(localStorage.getItem('qAlertCount'));
+           
+           // Stop Annoying PopUp if queue is above 40
+           if(num >= 40 && (alertCounts == 1 || alertCounts%10 == 0)){
+            supportQAlert(num);
+           }
+		   
+           if(num < 35){
+            alertCounts = 0;
+		   
+           localStorage.setItem('qAlertCount', alertCounts);
+		   
+           if(num == 0){
+            $('#' + this).css({'font-weight':'bolder', 'color':'green'});}
+           }
+		   
+		   else if (num >= 30 && num < 40){
+            alertCounts = 0;
+            localStorage.setItem('qAlertCount', alertCounts);
+            $('#' + this).css({'font-weight':'bolder', 'color':'orange'});
+		   }
+		   
+		   else {
+            alertCounts++;
+            localStorage.setItem('qAlertCount', alertCounts);
+            $('#' + this).css({'font-weight':'bolder', 'color':'red'});
+           }
+        }
     });
 }
 
@@ -561,13 +598,34 @@ function addLinksToRows( case_rows ) {
 }
 
 function createCaseLinks( sf_id , jive_case_url ) {
-    return '<a href="'+jive_case_url+'"><img src="' + chrome.extension.getURL("favicon.png") + '" /></a> &nbsp; ' +          
+    return '<a href="'+jive_case_url+'"><img src="' + chrome.extension.getURL("images/favicon.png") + '" /></a> &nbsp; ' +          
            '<a href="' + '/' + sf_id + '/a?retURL=' + location.href.replace('https://na3.salesforce.com', '') + '"><em>[C]</em></a> &nbsp;';
 }
 
+function createCaseLinksFrontline( sf_id , jive_case_url ) {
+    return '<a href="'+jive_case_url+'" title="'+ JIVECOMMUNITY_DESC +'"><img src="' + chrome.extension.getURL("images/favicon.png") + '" /></a> &nbsp; ' +
+    '<a href="javascript:;" id="' + sf_id + '_LEVEL_UP" title="'+ T2_DESC +'"><img src="' + chrome.extension.getURL("images/tier2-icon.png") + '" /></a> &nbsp; ' +
+    '<a href="javascript:;" id="' + sf_id + '_ACCOUNT_SUPPORT" title="'+ ACCOUNT_DESC +'"><img src="' + chrome.extension.getURL("images/account_support.png") + '" /></a> &nbsp; ' +
+    '<a href="javascript:;" id="' + sf_id + '_HOSTING" title="'+ HOSTING_DESC +'"><img src="' + chrome.extension.getURL("images/hosting.png") + '" /></a> &nbsp; ' +
+    '<a href="' + '/' + sf_id + '/a?retURL=' + location.href.replace('https://na3.salesforce.com', '') + '"><em>[C]</em></a> &nbsp;';
+}
+
 function insertCaseLinks( dom , sf_id , links ) {
-  if($(dom).find('a[href*=jivesoftware]"').length) return; // Links already populated
+  if($(dom).find('a[href*=jivesoftware]"').length) 
+      return; // Links already populated
   $(dom).prepend(links);
+    if(localStorage.mode == 'Frontline'){
+    $(dom).find('a[id$="_LEVEL_UP"]').click(function() {
+        assignToQueue(sf_id, BACKLINE_QUEUE);
+    });
+    $(dom).find('a[id$="_ACCOUNT_SUPPORT"]').click(function() {
+        assignToQueue(sf_id, ACCOUNT_SUPPORT_QUEUE);
+    });
+    
+    $(dom).find('a[id$="_HOSTING"]').click(function() {
+        assignToQueue(sf_id, HOSTING_QUEUE);
+    });
+    }
 }
 
 function addLinksToRow(linkTag) {
@@ -585,8 +643,11 @@ function addLinksToRow(linkTag) {
               added = true;
               var href = $(data).find('a[href^="https://community.jivesoftware.com"]').attr('href');
               if( !href ) $(data).find('a[href^="http://www.jivesoftware.com/jivespace"]').attr('href');
-              if( href ) {                    
-                caseLinks[sf_id] = createCaseLinks(sf_id, href);
+              if( href ) {
+                if(localStorage.mode == 'Frontline')
+                    caseLinks[sf_id] = createCaseLinksFrontline(sf_id, href);
+                else
+                    caseLinks[sf_id] = createCaseLinks(sf_id, href);
                 insertCaseLinks(linkTag, sf_id, caseLinks[sf_id]);
               }
           }); 
@@ -634,4 +695,11 @@ function inArray(arr,obj) {
 
 function destroy(el) {
   if( el && el.parentNode ) el.parentNode.removeChild(el);
+}
+
+// Support Queue Alert!
+function supportQAlert(number){
+	var num = parseInt(number);
+	alert('The Support Queue is above 40 !!!!' + '\n' +
+		  'The Queue is currenty at '+ num + '!!!!');
 }
