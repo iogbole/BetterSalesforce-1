@@ -184,11 +184,20 @@ function getModes() {
 // Initialize GUI objects
 function initJiveUI() {
 if ( localStorage.mode==undefined || localStorage.mode=='undefined' || localStorage.mode=='Backline') localStorage.mode='SnM';
+	
+if ( localStorage.refreshTime==undefined || localStorage.refreshTime=='undefined' || localStorage.refreshTime=='NaN' )
+	localStorage.setItem('refreshTime', 25);
 
 var appensionHtml ='<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; } .t2-queue span {padding-right:0 !important;} .big {float: right;}</style><div id="q-panel" style="margin:5px 0px; padding: 5px; border:#CCC solid 1px">' +
         '<div style="float:left;width:25%"><div>Mode: ';
 
 	appensionHtml += '<select id="change-mode" onChange="window.location.reload()">' + getModes() + '</select>';
+	
+	appensionHtml += '<br>';
+	
+	appensionHtml += 'Refresh: ';
+	
+	appensionHtml += '<input type="range" min="5" max="45" step="5" value="'+ localStorage.refreshTime +'" onChange="localStorage.refreshTime = value;" title="'+ localStorage.refreshTime +'" />';
 
 	appensionHtml += '</div></div><div style="float:left;width:40%;">';
 
@@ -316,7 +325,7 @@ function initQDetails(firstRun) {
 }
 
 function refreshQ() {
-  $('#q-refresh-count').text(30);
+  $('#q-refresh-count').text(localStorage.refreshTime);
   //if not already refreshing
   // TODO: Do we need to guard against multiple refreshes?
 //  if( getId('q-refresh-count') ) {
