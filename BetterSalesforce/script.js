@@ -258,7 +258,7 @@ var appensionHtml ='<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; }
   document.title = '(*) ' +  queueTitle;
 }
 
-var subjCol, statusCol, pCol, accountCol, selectedCase=null, selectedRow=null;
+var subjCol, statusCol, pCol, slaCol, accountCol, selectedCase=null, selectedRow=null;
 function isQPage() {
   if( document.title.indexOf('Cases')==0 ) {
     return true;
@@ -269,7 +269,8 @@ function isQPage() {
 function isQEmpty() {
   return getClass("x-grid-empty").length > 0;
 }  
- 
+
+// TODO: Tyler has two extra buttons that cause issues. Remove them if they exist would be awesome to remove. Buttons are "Close" and "Change Status"
 function fixSalesforceUI() {
   // Get rid of the screen-wasting sidebar
   $('#sidebarCell').hide();
@@ -320,6 +321,8 @@ function initQDetails(firstRun) {
       pCol = i;
     else if( classes.indexOf('x-grid3-td-ACCOUNT_NAME')>-1 )
       accountCol = i;
+	else if( classes.indexOf('x-grid3-td-00N50000002SfG9')>-1 )
+	  slaCol = i;
   }
   return true;
 }
@@ -580,12 +583,18 @@ function initRows() {
             case_rows[i].style.backgroundColor = '#fdffe3';
             selectedRow = case_rows[i];
           }
-          
-          if( statusCol && cols[statusCol].textContent!='In Progress' )
-            case_rows[i].parentNode.style.backgroundColor = '#EEE';
+		  else if( statusCol && cols[statusCol].textContent!='In Progress' )
+			  case_rows[i].parentNode.style.backgroundColor = '#EEE';
           else
-            inProgressCount += 1;
+			  inProgressCount += 1;
+			
+		  //Check to see what the SLA Status Is and Highlight
+		  if( slaCol && cols[slaCol].textContent=='Gold')
+			case_rows[i].parentNode.style.backgroundColor = '#FFC125';
+		  else if ( slaCol && cols[slaCol].textContent=='Platinum' )
+		    case_rows[i].parentNode.style.backgroundColor = '#C0C0C0'; 
           
+		  //Is it a P1? If so, bold it!
           if( pCol && cols[pCol].textContent=='Level 1' ) {
             for( var j in case_rows[i].childNodes )
                 if(case_rows[i].childNodes[j].style)            
