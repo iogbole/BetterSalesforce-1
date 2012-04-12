@@ -321,6 +321,8 @@ function initQDetails(firstRun) {
       pCol = i;
     else if( classes.indexOf('x-grid3-td-ACCOUNT_NAME')>-1 )
       accountCol = i;
+	
+	// Checks to find the SLA Field and record the field column number
 	else if( classes.indexOf('x-grid3-td-00N50000002SfG9')>-1 )
 	  slaCol = i;
   }
@@ -590,9 +592,9 @@ function initRows() {
 			
 		  //Check to see what the SLA Status Is and Highlight
 		  if( slaCol && cols[slaCol].textContent=='Gold')
-			case_rows[i].parentNode.style.backgroundColor = '#FFC125';
+			case_rows[i].parentNode.style.backgroundColor = '#EEE685';
 		  else if ( slaCol && cols[slaCol].textContent=='Platinum' )
-		    case_rows[i].parentNode.style.backgroundColor = '#C0C0C0'; 
+		    case_rows[i].parentNode.style.backgroundColor = '#E6E8FA'; 
           
 		  //Is it a P1? If so, bold it!
           if( pCol && cols[pCol].textContent=='Level 1' ) {
