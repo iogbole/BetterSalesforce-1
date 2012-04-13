@@ -494,10 +494,9 @@ function highlightFrontlineQueue(){
 		   
            if(num < 35){
             alertCounts = 0;
+            localStorage.setItem('qAlertCount', alertCounts);
 		   
-           localStorage.setItem('qAlertCount', alertCounts);
-		   
-           if(num == 0){
+           if(num >= 0 || num < 30){
             $('#' + this).css({'font-weight':'bolder', 'color':'green'});}
            }
 		   
