@@ -497,7 +497,8 @@ function highlightFrontlineQueue(){
 		   
            localStorage.setItem('qAlertCount', alertCounts);
 		   
-           if(num == 0){
+		   // Color Code Fix for 3.2.0
+           if(num >= 0 && < 30){
             $('#' + this).css({'font-weight':'bolder', 'color':'green'});}
            }
 		   
