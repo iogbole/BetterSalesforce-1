@@ -75,6 +75,7 @@ var FRONTLINE_DESC = 'Send to Frontline Queue'
 var BACKLINE_QUEUE = 'Backline'
 var ACCOUNT_SUPPORT_QUEUE = 'accountsupport'
 var HOSTING_QUEUE = 'Hosting'
+var SUPPORT_QUEUE = 'Support'
 
 function setQueueCount(view_id, dom_obj) {
   $.post("/_ui/common/list/ListServlet", {
@@ -188,10 +189,10 @@ function getModes() {
 	 '<OPTION VALUE = "Surgical" selected>Surgical</OPTION>' +
  	 '<OPTION VALUE = "SnM">SnM</OPTION>';
     } else if ( currMode == 'Account Support' ) {
-	 modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+	 modeString = '<OPTION VALUE = "Account Support" selected>Account Support</OPTION>' +
 	 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
 	 '<OPTION VALUE = "Girth">Girth</OPTION>' +
-	 '<OPTION VALUE = "Surgical" selected>Surgical</OPTION>' +
+	 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
 	 '<OPTION VALUE = "SnM">SnM</OPTION>';
 	}
 	else {
@@ -250,13 +251,11 @@ var appensionHtml ='<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; }
 	 
 	 // Account Support View
 	 if (localStorage.mode == 'Account Support' ) {
-	 appensionHtml +=	 
+		 appensionHtml +=
+		 '<span class="t2-queue big"><a href="500?fcf=00B50000006LnHq" style="color:black">Account Support (<span id="account-support-queue-count">*</span>)</a></span>' +
 		 '<span class="t2-queue big"><a href="500?fcf=00B50000006LTCj" style="color:black">Frontline (<span id="support-queue">*</span>)</a></span>' +
-		 '<span class="t2-queue big"><a href="500?fcf=00B50000006LnHq" style="color:black">Account Support (<span id="account-support-queue-count">*</span>)</a></span>'
 		 
 		 // Daily
-		 '<br /><span class="t2-queue big" id="us"><a href="500?fcf=00B50000006Mi54" style="color:black">From_US (<span id="us2emea-queue">*</span>)</a></span>' +
-		 '<span class="t2-queue big" id="us"><a href="500?fcf=00B50000006Mi4v" style="color:black">From_EMEA (<span id="emea2us-queue">*</span>)</a></span>' +
 		 '<br /><span class="t2-queue">You\'ve taken <span id="cases-taken">*</span> today.</span>' +
 		 '</div>' +	
 		 '<div id="q-refresh" style="float:right;width:20%;text-align:right"><p>refreshing in <strong id="q-refresh-count">0</strong> seconds</p>' +
@@ -409,6 +408,7 @@ function highlightQueues(){
     } else if ( localStorage.mode == 'SnM' ) {
     	highlightSnM();
     } else if (localStorage.mode == 'Account Support' ) {
+		highlightSolo();
 		highlightAS();
 	} else {
 	highlightSolo();
@@ -696,7 +696,7 @@ function createCaseLinksFrontline( sf_id , jive_case_url ) {
 
 function createCaseLinksAccountSupport( sf_id, jive_case_url ) {
 	return '<a href="'+jive_case_url+'"><img src="' + chrome.extension.getURL("images/favicon.png") + '" /></a> &nbsp; ' +
-	'<a href="javascript:;" id="' + sf_id + '_SUPPORT_Q" title="Send to Frontline Queue"><img src="' + chrome.extension.getURL("images/support.png") + '" /></a> &nbsp; ' +
+	'<a href="javascript:;" id="' + sf_id + '_SUPPORT_Q" title="Send to Frontline Queue"><img src="' + chrome.extension.getURL("images/tier2-icon.png") + '" /></a> &nbsp; ' +
 	'<a href="javascript:;" id="' + sf_id + '_HOSTING" title="Send to Hosting Queue"><img src="' + chrome.extension.getURL("images/hosting.png") + '" /></a> &nbsp; ' +
 	'<a href="' + '/' + sf_id + '/a?retURL=' + location.href.replace('https://na3.salesforce.com', '') + '"><em>[C]</em></a> &nbsp;';
 }
@@ -748,11 +748,13 @@ function addLinksToRow(linkTag) {
               var href = $(data).find('a[href^="https://community.jivesoftware.com"]').attr('href');
               if( !href ) $(data).find('a[href^="http://www.jivesoftware.com/jivespace"]').attr('href');
               if( href ) {
-                if(localStorage.mode == 'Frontline')
-                    caseLinks[sf_id] = createCaseLinksFrontline(sf_id, href);
+                if( localStorage.mode == 'Frontline' )
+                    caseLinks[sf_id] = createCaseLinksFrontline( sf_id, href );
+				else if ( localStorage.mode == 'Account Support' )
+				    caseLinks[sf_id] = createCaseLinksAccountSupport( sf_id, href );
                 else
-                    caseLinks[sf_id] = createCaseLinks(sf_id, href);
-                insertCaseLinks(linkTag, sf_id, caseLinks[sf_id]);
+                    caseLinks[sf_id] = createCaseLinks( sf_id, href );
+                insertCaseLinks( linkTag, sf_id, caseLinks[sf_id] );
               }
           }); 
       }, i*650 );
