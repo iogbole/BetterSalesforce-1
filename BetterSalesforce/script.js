@@ -24,6 +24,10 @@ function assignToQueue(sf_id, queue) {
   });
 }
 
+// Account Support
+var ACCOUNT_Q = '00B50000006LnHq'
+var MODULE_Q = '00B50000005nIpQ'
+
 // Frontline
 var SOLO_Q = '00B50000006MDyq';
 
@@ -65,6 +69,7 @@ var ACCEPT_DESC = 'Accept this case.'
 var T2_DESC = 'Bump IT!'
 var HOSTING_DESC = 'Send to Hosting Queue'
 var ACCOUNT_DESC = 'Send to Account Support Queue'
+var FRONTLINE_DESC = 'Send to Frontline Queue'
 
 // Queue Names
 var BACKLINE_QUEUE = 'Backline'
@@ -136,13 +141,21 @@ function fireQChangesWhenReady(firstRun, timesRun) {
     }
 
     // Bigs
-    setQueueCount(BACKLINE_Q, $('#backline-in-progress'));
-    setQueueCount(BACKLINE_ESCALATED_Q, $('#backline-escalated'));
-    setQueueCount(CASES_TAKEN_Q, $('#cases-taken'));
-    setQueueCount(SUPPORT_Q, $('#support-queue'));
-    setQueueCount(SEV1_Q, $('#sev1-queue'));
-    setQueueCount(US2EMEA_Q, $('#us2emea-queue'));
-    setQueueCount(EMEA2US_Q, $('#emea2us-queue'));  
+	if ( curr_mode == 'Account Support' ) {
+		setQueueCount(ACCOUNT_Q, $('#account-support-queue-count'));
+		setQueueCount(CASES_TAKEN_Q, $('#cases-taken'));
+		setQueueCount(SUPPORT_Q, $('#support-queue'));
+		setQueueCount(US2EMEA_Q, $('#us2emea-queue'));
+		setQueueCount(EMEA2US_Q, $('#emea2us-queue')); 
+	} else {
+        setQueueCount(BACKLINE_Q, $('#backline-in-progress'));
+        setQueueCount(BACKLINE_ESCALATED_Q, $('#backline-escalated'));
+        setQueueCount(CASES_TAKEN_Q, $('#cases-taken'));
+        setQueueCount(SUPPORT_Q, $('#support-queue'));
+        setQueueCount(SEV1_Q, $('#sev1-queue'));
+        setQueueCount(US2EMEA_Q, $('#us2emea-queue'));
+        setQueueCount(EMEA2US_Q, $('#emea2us-queue')); 
+	}
 
     highlightQueues();
 
@@ -157,22 +170,33 @@ function getModes() {
     var currMode = localStorage.mode;
     
     if (currMode == 'Frontline') {
-  	modeString = '<OPTION VALUE = "Frontline" selected>Frontline</OPTION>' +
+  	modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+	 '<OPTION VALUE = "Frontline" selected>Frontline</OPTION>' +
 	 '<OPTION VALUE = "Girth">Girth</OPTION>' +
 	 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
  	 '<OPTION VALUE = "SnM">SnM</OPTION>';
     } else if ( currMode == 'Girth' ) {
-	modeString = '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
+	modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+	 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
 	 '<OPTION VALUE = "Girth" selected>Girth</OPTION>' +
 	 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
  	 '<OPTION VALUE = "SnM">SnM</OPTION>';
     } else if ( currMode == 'Surgical' ) {
-	modeString = '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
+	modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+	 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
 	 '<OPTION VALUE = "Girth">Girth</OPTION>' +
 	 '<OPTION VALUE = "Surgical" selected>Surgical</OPTION>' +
  	 '<OPTION VALUE = "SnM">SnM</OPTION>';
-    } else {
-	modeString = '<OPTION VALUE = "Frontline">Frontline</OPTION>' +
+    } else if ( currMode == 'Account Support' ) {
+	 modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+	 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
+	 '<OPTION VALUE = "Girth">Girth</OPTION>' +
+	 '<OPTION VALUE = "Surgical" selected>Surgical</OPTION>' +
+	 '<OPTION VALUE = "SnM">SnM</OPTION>';
+	}
+	else {
+	modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+	 '<OPTION VALUE = "Frontline">Frontline</OPTION>' +
 	 '<OPTION VALUE = "Girth">Girth</OPTION>' +
 	 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
  	 '<OPTION VALUE = "SnM" selected>SnM</OPTION>';
@@ -223,7 +247,24 @@ var appensionHtml ='<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; }
 	 appensionHtml +=
 	 '<span class="t2-queue"><a href="500?fcf=00B50000006MDyq" style="color:black">My Queue(<span id="solo-in-progress">*</span>)</a></span>';
 	 }
-
+	 
+	 // Account Support View
+	 if (localStorage.mode == 'Account Support' ) {
+	 appensionHtml +=	 
+		 '<span class="t2-queue big"><a href="500?fcf=00B50000006LTCj" style="color:black">Frontline (<span id="support-queue">*</span>)</a></span>' +
+		 '<span class="t2-queue big"><a href="500?fcf=00B50000006LnHq" style="color:black">Account Support (<span id="account-support-queue-count">*</span>)</a></span>'
+		 
+		 // Daily
+		 '<br /><span class="t2-queue big" id="us"><a href="500?fcf=00B50000006Mi54" style="color:black">From_US (<span id="us2emea-queue">*</span>)</a></span>' +
+		 '<span class="t2-queue big" id="us"><a href="500?fcf=00B50000006Mi4v" style="color:black">From_EMEA (<span id="emea2us-queue">*</span>)</a></span>' +
+		 '<br /><span class="t2-queue">You\'ve taken <span id="cases-taken">*</span> today.</span>' +
+		 '</div>' +	
+		 '<div id="q-refresh" style="float:right;width:20%;text-align:right"><p>refreshing in <strong id="q-refresh-count">0</strong> seconds</p>' +
+         '<a href="javascript:;" id="refresh-q-link">refresh queue</a> &nbsp; &nbsp; <a href="javascript:;" id="refresh-links">refresh links</a> &nbsp; &nbsp; <a href="javascript:;" id="pause-refresh">pause</a>' +
+		 '</div>' +
+		 '<div id="q-loading" style="float:right;width:30%;text-align:right;display:none;">loading...<br /> &nbsp;</div>' +
+		 '<div style="clear:both"></div></div>';
+	 } else {
 	 appensionHtml +=
 	 '<span class="t2-queue big"><a href="500?fcf=00B50000006Lh9v" id="sev1" style="font-size:120%;font-weight:bold;color:red;display:none;">NEW P1!!(<span id="sev1-queue">*</span>)</a></span>' +
 	 '<span class="t2-queue big"><a href="500?fcf=00B50000006MOiU" style="color:black">Backline (<span id="backline-in-progress">*</span>)</a></span>' +	 
@@ -239,7 +280,8 @@ var appensionHtml ='<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; }
          '<a href="javascript:;" id="refresh-q-link">refresh queue</a> &nbsp; &nbsp; <a href="javascript:;" id="refresh-links">refresh links</a> &nbsp; &nbsp; <a href="javascript:;" id="pause-refresh">pause</a>' +
         '</div>' +
         '<div id="q-loading" style="float:right;width:30%;text-align:right;display:none;">loading...<br /> &nbsp;</div>' +
-        '<div style="clear:both"></div></div>';         
+        '<div style="clear:both"></div></div>';
+	 }
 
 
 	 // Append HTML to nav
@@ -366,7 +408,9 @@ function highlightQueues(){
     	highlightSurgical();
     } else if ( localStorage.mode == 'SnM' ) {
     	highlightSnM();
-    } else {
+    } else if (localStorage.mode == 'Account Support' ) {
+		highlightAS();
+	} else {
 	highlightSolo();
     }
 
@@ -473,6 +517,25 @@ function highlightSevOnes(){
     });
 }
 
+function highlightAS() {
+	var arr = new Array('account-support-queue-count');
+	
+    $.each(arr, function() {
+	    var count = $('#' + this).text();
+	    if (count != '*'){
+	        var num = parseInt(count);
+            //alert(num);
+            if(num < 20){
+		        $('#' + this).css({'font-weight':'bolder', 'color':'green'});
+            } else if (num >= 20 && num < 30){
+	            $('#' + this).css({'font-weight':'bolder', 'color':'orange'});
+			} else {
+		        $('#' + this).css({'font-weight':'bolder', 'color':'red'});
+            }
+		}
+	});
+}
+
 function highlightFrontlineQueue(){
     var arr = new Array('support-queue');
 
@@ -498,7 +561,7 @@ function highlightFrontlineQueue(){
            localStorage.setItem('qAlertCount', alertCounts);
 		   
 		   // Color Code Fix for 3.2.0
-           if(num >= 0 && < 30){
+           if(num >= 0 && num < 30){
             $('#' + this).css({'font-weight':'bolder', 'color':'green'});}
            }
 		   
@@ -631,22 +694,42 @@ function createCaseLinksFrontline( sf_id , jive_case_url ) {
     '<a href="' + '/' + sf_id + '/a?retURL=' + location.href.replace('https://na3.salesforce.com', '') + '"><em>[C]</em></a> &nbsp;';
 }
 
+function createCaseLinksAccountSupport( sf_id, jive_case_url ) {
+	return '<a href="'+jive_case_url+'"><img src="' + chrome.extension.getURL("images/favicon.png") + '" /></a> &nbsp; ' +
+	'<a href="javascript:;" id="' + sf_id + '_SUPPORT_Q" title="Send to Frontline Queue"><img src="' + chrome.extension.getURL("images/support.png") + '" /></a> &nbsp; ' +
+	'<a href="javascript:;" id="' + sf_id + '_HOSTING" title="Send to Hosting Queue"><img src="' + chrome.extension.getURL("images/hosting.png") + '" /></a> &nbsp; ' +
+	'<a href="' + '/' + sf_id + '/a?retURL=' + location.href.replace('https://na3.salesforce.com', '') + '"><em>[C]</em></a> &nbsp;';
+}
+
 function insertCaseLinks( dom , sf_id , links ) {
-  if($(dom).find('a[href*=jivesoftware]"').length) 
-      return; // Links already populated
-  $(dom).prepend(links);
-    if(localStorage.mode == 'Frontline'){
-    $(dom).find('a[id$="_LEVEL_UP"]').click(function() {
-        assignToQueue(sf_id, BACKLINE_QUEUE);
-    });
+    if($(dom).find('a[href*=jivesoftware]"').length) 
+        return; // Links already populated
+	$(dom).prepend(links);
+    
+	// If in Frontline View
+	if(localStorage.mode == 'Frontline'){
+        $(dom).find('a[id$="_LEVEL_UP"]').click(function() {
+            assignToQueue(sf_id, BACKLINE_QUEUE);
+        });
     $(dom).find('a[id$="_ACCOUNT_SUPPORT"]').click(function() {
         assignToQueue(sf_id, ACCOUNT_SUPPORT_QUEUE);
     });
-    
     $(dom).find('a[id$="_HOSTING"]').click(function() {
         assignToQueue(sf_id, HOSTING_QUEUE);
     });
     }
+	
+	// If in Account Support View
+    if ( localStorage.mode == 'Account Support') {
+    if($(dom).find('a[href*=jivesoftware]"').length) return; // Links already populated
+	    $(dom).prepend(links);
+		$(dom).find('a[id$="_SUPPORT_Q"]').click(function() {
+		    assignToQueue(sf_id, SUPPORT_QUEUE);
+	    });
+		$(dom).find('a[id$="_HOSTING"]').click(function() {
+		    assignToQueue(sf_id, HOSTING_QUEUE);
+		});
+	}
 }
 
 function addLinksToRow(linkTag) {
