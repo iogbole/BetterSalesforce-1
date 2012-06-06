@@ -451,16 +451,12 @@ function highlightQueues(){
     	highlightSurgical();
     } else if ( localStorage.mode == 'SnM' ) {
     	highlightSnM();
-<<<<<<< HEAD
     } else if (localStorage.mode == 'Account Support' ) {
 		highlightSolo();
 		highlightAS();
-	} else {
-=======
     } else if ( localStorage.mode == 'UK' ) {
 	highlightUK();
     } else {
->>>>>>> origin/bettersalesforce_3_3_0
 	highlightSolo();
     }
 
@@ -607,8 +603,8 @@ function highlightAS() {
 }
 
 function highlightFrontlineQueue(){
-    var mediumCount = 20;
-    var highCount = 40;
+    var mediumCount = 25;
+    var highCount = 50;
     var arr = new Array('support-queue');
 
     $.each(arr, function() {
@@ -620,32 +616,21 @@ function highlightFrontlineQueue(){
 		 if (localStorage.mode == 'Frontline') {
 				var qCount = parseInt(localStorage.getItem('qAlertCount'));
 		   
-<<<<<<< HEAD
-           if(num < 35){
-            alertCounts = 0;
+		if(isNaN(qCount)) {
+		   		var alertCounts = parseInt(alertCount);
+			}
+		
+		    else {
+		        var alertCounts = parseInt(localStorage.getItem('qAlertCount'));
+			}
 		   
-           localStorage.setItem('qAlertCount', alertCounts);
-		   
-		   // Color Code Fix for 3.2.0
-           if(num >= 0 && num < 30){
-            $('#' + this).css({'font-weight':'bolder', 'color':'green'});}
-           }
-		   
-		   else if (num >= 30 && num < 40){
-=======
-		   	if(isNaN(qCount)) {
-		    		var alertCounts = parseInt(alertCount);
-				}
-			   	else {
-		   	 var alertCounts = parseInt(localStorage.getItem('qAlertCount'));
-				}
-
-		   	if(num >= 40 && (alertCounts == 1 || alertCounts%10 == 0)){
-		   	 supportQAlert(num);
-		  	 }
-			   
-		  	 if(num < 35){
-		  	  alertCounts = 0;
+		    // Fixed Double-Alert Bug by removing alert count = 1
+		  	if(num >= 50 && alertCounts%15 == 0){
+		   	   supportQAlert(num);
+		  	}
+			
+		  	if(num < 35){
+		  	    alertCounts = 0;
 				 }
 			   
 		  	 localStorage.setItem('qAlertCount', alertCounts);
@@ -655,7 +640,6 @@ function highlightFrontlineQueue(){
             $('#' + this).css({'font-weight':'bolder', 'color':'green'});
            } 
 		 else if (num >= mediumCount && num < highCount){
->>>>>>> origin/bettersalesforce_3_3_0
             alertCounts = 0;
             localStorage.setItem('qAlertCount', alertCounts);
             $('#' + this).css({'font-weight':'bolder', 'color':'orange'});
