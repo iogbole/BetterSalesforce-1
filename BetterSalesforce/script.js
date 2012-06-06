@@ -194,51 +194,45 @@ function getModes() {
     
     if (currMode == 'Frontline') {
   	modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
-	 '<OPTION VALUE = "Frontline" selected>Frontline</OPTION>' +
-	 '<OPTION VALUE = "Girth">Girth</OPTION>' +
-	 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
- 	 '<OPTION VALUE = "SnM">SnM</OPTION>' +
-	 '<OPTION VALUE = "UK">UK</OPTION>';
+	    '<OPTION VALUE = "Frontline" selected>Frontline</OPTION>' +
+	    '<OPTION VALUE = "Girth">Girth</OPTION>' +
+	    '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
+ 	    '<OPTION VALUE = "SnM">SnM</OPTION>' +
+		'<OPTION VALUE = "UK">UK</OPTION>';
     } else if ( currMode == 'Girth' ) {
 	modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
-	 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-	 '<OPTION VALUE = "Girth" selected>Girth</OPTION>' +
-	 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
- 	 '<OPTION VALUE = "SnM">SnM</OPTION>' +
-	 '<OPTION VALUE = "UK">UK</OPTION>';
+		'<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
+	    '<OPTION VALUE = "Girth" selected>Girth</OPTION>' +
+	    '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
+ 	    '<OPTION VALUE = "SnM">SnM</OPTION>' +
+	    '<OPTION VALUE = "UK">UK</OPTION>';
     } else if ( currMode == 'Surgical' ) {
 	modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
-	 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-	 '<OPTION VALUE = "Girth">Girth</OPTION>' +
-	 '<OPTION VALUE = "Surgical" selected>Surgical</OPTION>' +
-<<<<<<< HEAD
- 	 '<OPTION VALUE = "SnM">SnM</OPTION>';
+		'<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
+		'<OPTION VALUE = "Girth">Girth</OPTION>' +
+	    '<OPTION VALUE = "Surgical" selected>Surgical</OPTION>' +
+	    '<OPTION VALUE = "UK">UK</OPTION>';
     } else if ( currMode == 'Account Support' ) {
 	 modeString = '<OPTION VALUE = "Account Support" selected>Account Support</OPTION>' +
-	 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-	 '<OPTION VALUE = "Girth">Girth</OPTION>' +
-	 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-	 '<OPTION VALUE = "SnM">SnM</OPTION>';
-	}
-	else {
-	modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
-	 '<OPTION VALUE = "Frontline">Frontline</OPTION>' +
-=======
- 	 '<OPTION VALUE = "SnM">SnM</OPTION>' +
-	 '<OPTION VALUE = "UK">UK</OPTION>';
+	    '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
+	    '<OPTION VALUE = "Girth">Girth</OPTION>' +
+	    '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
+		'<OPTION VALUE = "SnM">SnM</OPTION>';
+	    '<OPTION VALUE = "UK">UK</OPTION>';
     } else if ( currMode == 'UK' ) {
-	modeString = '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-	 '<OPTION VALUE = "Girth">Girth</OPTION>' +
-	 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
- 	 '<OPTION VALUE = "SnM">SnM</OPTION>' +
-	 '<OPTION VALUE = "UK" selected>UK</OPTION>';
+	modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+		'<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
+	    '<OPTION VALUE = "Girth">Girth</OPTION>' +
+	    '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
+ 	    '<OPTION VALUE = "SnM">SnM</OPTION>' +
+	    '<OPTION VALUE = "UK" selected>UK</OPTION>';
     } else {
-	modeString = '<OPTION VALUE = "Frontline">Frontline</OPTION>' +
->>>>>>> origin/bettersalesforce_3_3_0
-	 '<OPTION VALUE = "Girth">Girth</OPTION>' +
-	 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
- 	 '<OPTION VALUE = "SnM" selected>SnM</OPTION>' +
-	 '<OPTION VALUE = "UK">UK</OPTION>';
+	    modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+		'<OPTION VALUE = "Frontline">Frontline</OPTION>' +	 
+		'<OPTION VALUE = "Girth">Girth</OPTION>' +
+		'<OPTION VALUE = "Surgical">Surgical</OPTION>' +
+		'<OPTION VALUE = "SnM" selected>SnM</OPTION>' +
+		'<OPTION VALUE = "UK">UK</OPTION>';
     }
 
     return modeString;
@@ -590,7 +584,6 @@ function highlightAS() {
 	    var count = $('#' + this).text();
 	    if (count != '*'){
 	        var num = parseInt(count);
-            //alert(num);
             if(num < 20){
 		        $('#' + this).css({'font-weight':'bolder', 'color':'green'});
             } else if (num >= 20 && num < 30){
@@ -624,7 +617,7 @@ function highlightFrontlineQueue(){
 		        var alertCounts = parseInt(localStorage.getItem('qAlertCount'));
 			}
 		   
-		    // Fixed Double-Alert Bug by removing alert count = 1
+		    // Fixed Double-Alert Bug by removing alert count = 1 and decreased number of time you will see the error.
 		  	if(num >= 50 && alertCounts%15 == 0){
 		   	   supportQAlert(num);
 		  	}
