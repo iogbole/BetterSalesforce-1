@@ -32,7 +32,7 @@ var MODULE_Q = '00B50000005nIpQ'
 var SOLO_Q = '00B50000006MDyq';
 
 // Surgical
-var ARNOLD_Q = '00B50000006Mk6c';
+var DANIEL_Q = '00B50000006MQxg';
 var ELIZ_Q = '00B50000006Mk6X';
 var JACOB_Q = '00B50000006MQxl';
 var RUSSELL_Q = '00B50000006Mk64';
@@ -43,15 +43,22 @@ var DANE_Q = '00B50000006MkPA';
 
 // Girth
 var ALEX_Q = '00B50000006MQxb';
-var DANIEL_Q = '00B50000006MQxg';
+var ARNOLD_Q = '00B50000006Mk6c';
+var DUSTIN_Q = '00B50000006MQxv';
+var FRANK_Q = '00B50000006Mz3S';
 var JOSH_Q = '00B50000006MQxq';
-var MATT_Q = '00B50000006MQxv';
 var TATSURO_Q = '00B50000006MXuZ';
 var TAYLOR_Q = '00B50000006MQy0';
+
+// UK
+var PAUL_Q = '00B50000006Muvm';
+var IZABELA_Q = '00B50000006Muvr';
+var SHAILESH_Q = '00B50000006Muvw';
 
 // Big Qs
 var BACKLINE_Q = '00B50000006MOiU';
 var SUPPORT_Q = '00B50000006LTCj';
+var EMEA_Q = '00B50000006LMxJ';
 var US2EMEA_Q = '00B50000006Mi54';
 var EMEA2US_Q = '00B50000006Mi4v';
 var SEV1_Q = '00B50000006Lh9v';
@@ -124,24 +131,29 @@ function fireQChangesWhenReady(firstRun, timesRun) {
     
     if ( curr_mode == 'Girth' ) {
 	    setQueueCount(ALEX_Q, $('#alex_evans-in-progress'));
-	    setQueueCount(DANIEL_Q, $('#daniel_shaver-in-progress'));
-	    setQueueCount(TATSURO_Q, $('#tatsuro_alpert-in-progress'));
+	    setQueueCount(ARNOLD_Q, $('#arnold-in-progress'));
+	    setQueueCount(DUSTIN_Q, $('#dustin_castor-in-progress'));
+	    setQueueCount(FRANK_Q, $('#frank-in-progress'));
 	    setQueueCount(JOSH_Q, $('#josh_leckbee-in-progress'));
-	    setQueueCount(MATT_Q, $('#matt_jarvie-in-progress'));
+	    setQueueCount(TATSURO_Q, $('#tatsuro_alpert-in-progress'));
 	    setQueueCount(TAYLOR_Q, $('#taylor_thornton-in-progress'));    
     } else if ( curr_mode == 'Surgical') {	
-	    setQueueCount(ARNOLD_Q, $('#arnold-in-progress'));
-	    setQueueCount(ELIZ_Q, $('#eliz-in-progress'));
+	    setQueueCount(DANIEL_Q, $('#daniel_shaver-in-progress'));
 	    setQueueCount(JACOB_Q, $('#jacob-in-progress'));
 	    setQueueCount(RUSSELL_Q, $('#russell-in-progress'));    
     } else if ( curr_mode == 'SnM' ) {
 	    setQueueCount(BEN_Q, $('#ben-in-progress'));
-	    setQueueCount(DANE_Q, $('#dane-in-progress'));
+	    setQueueCount(ELIZ_Q, $('#eliz-in-progress'));
+    } else if ( curr_mode == 'UK' ) {
+	    setQueueCount(PAUL_Q, $('#paul-in-progress'));
+	    setQueueCount(IZABELA_Q, $('#izabela-in-progress'));
+	    setQueueCount(SHAILESH_Q, $('#shailesh-in-progress'));
     } else {
 	    setQueueCount(SOLO_Q, $('#solo-in-progress'));     
     }
 
     // Bigs
+<<<<<<< HEAD
 	if ( curr_mode == 'Account Support' ) {
 		setQueueCount(ACCOUNT_Q, $('#account-support-queue-count'));
 		setQueueCount(CASES_TAKEN_Q, $('#cases-taken'));
@@ -157,6 +169,16 @@ function fireQChangesWhenReady(firstRun, timesRun) {
         setQueueCount(US2EMEA_Q, $('#us2emea-queue'));
         setQueueCount(EMEA2US_Q, $('#emea2us-queue')); 
 	}
+=======
+    setQueueCount(BACKLINE_Q, $('#backline-in-progress'));
+    setQueueCount(BACKLINE_ESCALATED_Q, $('#backline-escalated'));
+    setQueueCount(CASES_TAKEN_Q, $('#cases-taken'));
+    setQueueCount(SUPPORT_Q, $('#support-queue'));
+    setQueueCount(EMEA_Q, $('#emea-queue'));
+    setQueueCount(SEV1_Q, $('#sev1-queue'));
+    setQueueCount(US2EMEA_Q, $('#us2emea-queue'));
+    setQueueCount(EMEA2US_Q, $('#emea2us-queue'));  
+>>>>>>> origin/bettersalesforce_3_3_0
 
     highlightQueues();
 
@@ -175,18 +197,21 @@ function getModes() {
 	 '<OPTION VALUE = "Frontline" selected>Frontline</OPTION>' +
 	 '<OPTION VALUE = "Girth">Girth</OPTION>' +
 	 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
- 	 '<OPTION VALUE = "SnM">SnM</OPTION>';
+ 	 '<OPTION VALUE = "SnM">SnM</OPTION>' +
+	 '<OPTION VALUE = "UK">UK</OPTION>';
     } else if ( currMode == 'Girth' ) {
 	modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
 	 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
 	 '<OPTION VALUE = "Girth" selected>Girth</OPTION>' +
 	 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
- 	 '<OPTION VALUE = "SnM">SnM</OPTION>';
+ 	 '<OPTION VALUE = "SnM">SnM</OPTION>' +
+	 '<OPTION VALUE = "UK">UK</OPTION>';
     } else if ( currMode == 'Surgical' ) {
 	modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
 	 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
 	 '<OPTION VALUE = "Girth">Girth</OPTION>' +
 	 '<OPTION VALUE = "Surgical" selected>Surgical</OPTION>' +
+<<<<<<< HEAD
  	 '<OPTION VALUE = "SnM">SnM</OPTION>';
     } else if ( currMode == 'Account Support' ) {
 	 modeString = '<OPTION VALUE = "Account Support" selected>Account Support</OPTION>' +
@@ -198,9 +223,22 @@ function getModes() {
 	else {
 	modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
 	 '<OPTION VALUE = "Frontline">Frontline</OPTION>' +
+=======
+ 	 '<OPTION VALUE = "SnM">SnM</OPTION>' +
+	 '<OPTION VALUE = "UK">UK</OPTION>';
+    } else if ( currMode == 'UK' ) {
+	modeString = '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
 	 '<OPTION VALUE = "Girth">Girth</OPTION>' +
 	 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
- 	 '<OPTION VALUE = "SnM" selected>SnM</OPTION>';
+ 	 '<OPTION VALUE = "SnM">SnM</OPTION>' +
+	 '<OPTION VALUE = "UK" selected>UK</OPTION>';
+    } else {
+	modeString = '<OPTION VALUE = "Frontline">Frontline</OPTION>' +
+>>>>>>> origin/bettersalesforce_3_3_0
+	 '<OPTION VALUE = "Girth">Girth</OPTION>' +
+	 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
+ 	 '<OPTION VALUE = "SnM" selected>SnM</OPTION>' +
+	 '<OPTION VALUE = "UK">UK</OPTION>';
     }
 
     return modeString;
@@ -228,22 +266,27 @@ var appensionHtml ='<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; }
 
 	if ( localStorage.mode=='Girth' ) {
 	 appensionHtml +=
-         '<span class="t2-queue"><a href="500?fcf=00B50000006MQxb" style="color:black">Alex (<span id="alex_evans-in-progress">*</span>)</a></span>' +	 
-         '<span class="t2-queue"><a href="500?fcf=00B50000006MQxg" style="color:black">Daniel (<span id="daniel_shaver-in-progress">*</span>)</a></span>' +
-         '<span class="t2-queue"><a href="500?fcf=00B50000006MDyq" style="color:black">Josh (<span id="josh_leckbee-in-progress">*</span>)</a></span>' +
-         '<span class="t2-queue"><a href="500?fcf=00B50000006MQxv" style="color:black">Matt (<span id="matt_jarvie-in-progress">*</span>)</a></span>' +	 
+         '<span class="t2-queue"><a href="500?fcf=00B50000006MQxb" style="color:black">Alex (<span id="alex_evans-in-progress">*</span>)</a></span>' +
+	 '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6c" style="color:black">Arnold (<span id="arnold-in-progress">*</span>)</a></span>' +	 
+	 '<span class="t2-queue"><a href="500?fcf=00B50000006MQxv" style="color:black">Dustin (<span id="dustin_castor-in-progress">*</span>)</a></span>' +
+         '<span class="t2-queue"><a href="500?fcf=00B50000006Mz3S" style="color:black">Frank (<span id="frank-in-progress">*</span>)</a></span>' +
+         '<span class="t2-queue"><a href="500?fcf=00B50000006MDyq" style="color:black">Josh (<span id="josh_leckbee-in-progress">*</span>)</a></span>' +	 
          '<span class="t2-queue"><a href="500?fcf=00B50000006MXuZ" style="color:black">Tatsuro (<span id="tatsuro_alpert-in-progress">*</span>)</a></span>' +
          '<span class="t2-queue"><a href="500?fcf=00B50000006MQy0" style="color:black">Taylor (<span id="taylor_thornton-in-progress">*</span>)</a></span>';
 	 } else if ( localStorage.mode=='Surgical' ) {
 	 appensionHtml +=
-	 '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6c" style="color:black">Arnold (<span id="arnold-in-progress">*</span>)</a></span>' +
-	 '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6X" style="color:black">Eliz (<span id="eliz-in-progress">*</span>)</a></span>' +
+         '<span class="t2-queue"><a href="500?fcf=00B50000006MQxg" style="color:black">Daniel (<span id="daniel_shaver-in-progress">*</span>)</a></span>' +
 	 '<span class="t2-queue"><a href="500?fcf=00B50000006MQxl" style="color:black">Jacob (<span id="jacob-in-progress">*</span>)</a></span>' +
 	 '<span class="t2-queue"><a href="500?fcf=00B50000006Mk64" style="color:black">Rusty (<span id="russell-in-progress">*</span>)</a></span>';	 
 	 } else if ( localStorage.mode=='SnM' ) {
 	 appensionHtml +=
 	 '<span class="t2-queue"><a href="500?fcf=00B50000006MkP5" style="color:black">Ben (<span id="ben-in-progress">*</span>)</a></span>' +
-	 '<span class="t2-queue"><a href="500?fcf=00B50000006MkPA" style="color:black">Dane (<span id="dane-in-progress">*</span>)</a></span>';
+	 '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6X" style="color:black">Eliz (<span id="eliz-in-progress">*</span>)</a></span>';
+	 } else if ( localStorage.mode=='UK' ) {
+	 appensionHtml +=
+	 '<span class="t2-queue"><a href="500?fcf=00B50000006Muvr" style="color:black">Izabela (<span id="izabela-in-progress">*</span>)</a></span>' +
+	 '<span class="t2-queue"><a href="500?fcf=00B50000006Muvm" style="color:black">Paul (<span id="paul-in-progress">*</span>)</a></span>' +
+	 '<span class="t2-queue"><a href="500?fcf=00B50000006Muvw" style="color:black">Shailesh (<span id="shailesh-in-progress">*</span>)</a></span>';
 	 } else {
 	 appensionHtml +=
 	 '<span class="t2-queue"><a href="500?fcf=00B50000006MDyq" style="color:black">My Queue(<span id="solo-in-progress">*</span>)</a></span>';
@@ -268,6 +311,7 @@ var appensionHtml ='<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; }
 	 '<span class="t2-queue big"><a href="500?fcf=00B50000006Lh9v" id="sev1" style="font-size:120%;font-weight:bold;color:red;display:none;">NEW P1!!(<span id="sev1-queue">*</span>)</a></span>' +
 	 '<span class="t2-queue big"><a href="500?fcf=00B50000006MOiU" style="color:black">Backline (<span id="backline-in-progress">*</span>)</a></span>' +	 
 	 '<span class="t2-queue big"><a href="500?fcf=00B50000006LTCj" style="color:black">Frontline (<span id="support-queue">*</span>)</a></span>' +	 
+	 '<span class="t2-queue big"><a href="500?fcf=00B50000006LMxJ" style="color:black">EMEA (<span id="emea-queue">*</span>)</a></span>' +
 	 
 	 // Daily
 	 '<br /><span class="t2-queue">Today <span id="backline-escalated">*</span> cases have been escalated to Backline.</span>' +
@@ -407,10 +451,16 @@ function highlightQueues(){
     	highlightSurgical();
     } else if ( localStorage.mode == 'SnM' ) {
     	highlightSnM();
+<<<<<<< HEAD
     } else if (localStorage.mode == 'Account Support' ) {
 		highlightSolo();
 		highlightAS();
 	} else {
+=======
+    } else if ( localStorage.mode == 'UK' ) {
+	highlightUK();
+    } else {
+>>>>>>> origin/bettersalesforce_3_3_0
 	highlightSolo();
     }
 
@@ -419,6 +469,26 @@ function highlightQueues(){
     highlightBacklineQueue();
     highlightEscalatedQueue();
     highlightTaken();
+}
+
+function highlightUK() {
+    var low = 6;
+    var high = 13;
+    var arr = new Array('paul-in-progress', 'izabela-in-progress', 'shailesh-in-progress');
+  
+    $.each(arr, function() {
+       var count = $('#' + this).text();
+       if (count != '*'){
+       	   var num = parseInt(count);
+           if(num < low){
+               $('#' + this).css({'font-weight':'bolder', 'color':'green'});
+           } else if (num >= low && num < high){
+	       $('#' + this).css({'font-weight':'bolder', 'color':'orange'});
+           } else {
+               $('#' + this).css({'font-weight':'bolder', 'color':'red'});
+           }
+       }
+    });
 }
 
 function highlightSolo() {
@@ -444,7 +514,7 @@ function highlightSolo() {
 function highlightSurgical(){
     var low = 6;
     var high = 13;
-    var arr = new Array('arnold-in-progress', 'eliz-in-progress', 'jacob-in-progress', 'russell-in-progress');
+    var arr = new Array('jacob-in-progress', 'russell-in-progress', 'daniel_shaver-in-progress');
   
     $.each(arr, function() {
        var count = $('#' + this).text();
@@ -464,7 +534,7 @@ function highlightSurgical(){
 function highlightSnM(){
     var low = 6;
     var high = 13;
-    var arr = new Array('ben-in-progress', 'dane-in-progress');
+    var arr = new Array('ben-in-progress','eliz-in-progress');
   
     $.each(arr, function() {
        var count = $('#' + this).text();
@@ -484,15 +554,15 @@ function highlightSnM(){
 function highlightGirth(){
     var low = 6;
     var high = 13;
-    var arr = new Array('alex_evans-in-progress', 'daniel_shaver-in-progress', 'tatsuro_alpert-in-progress', 'josh_leckbee-in-progress', 'matt_jarvie-in-progress', 'taylor_thornton-in-progress');
+    var arr = new Array('alex_evans-in-progress', 'arnold-in-progress', 'dustin_castor-in-progress', 'frank-in-progress', 'josh_leckbee-in-progress', 'taylor_thornton-in-progress', 'tatsuro_alpert-in-progress');
   
     $.each(arr, function() {
        var count = $('#' + this).text();
        if (count != '*'){
        	   var num = parseInt(count);
-           if(num < low){
+           if(num <= low){
                $('#' + this).css({'font-weight':'bolder', 'color':'green'});
-           } else if (num >= low && num < high){
+           } else if (num > low && num < high){
 	       $('#' + this).css({'font-weight':'bolder', 'color':'orange'});
            } else {
                $('#' + this).css({'font-weight':'bolder', 'color':'red'});
@@ -537,24 +607,20 @@ function highlightAS() {
 }
 
 function highlightFrontlineQueue(){
+    var mediumCount = 20;
+    var highCount = 40;
     var arr = new Array('support-queue');
 
     $.each(arr, function() {
         var count = $('#' + this).text();
 		if (count != '*'){
            var num = parseInt(count);
-           var qCount = parseInt(localStorage.getItem('qAlertCount'));
-           
-           if(isNaN(qCount))
-            var alertCounts = parseInt(alertCount);
-		   else
-            var alertCounts = parseInt(localStorage.getItem('qAlertCount'));
-           
+                      
            // Stop Annoying PopUp if queue is above 40
-           if(num >= 40 && (alertCounts == 1 || alertCounts%10 == 0)){
-            supportQAlert(num);
-           }
+		 if (localStorage.mode == 'Frontline') {
+				var qCount = parseInt(localStorage.getItem('qAlertCount'));
 		   
+<<<<<<< HEAD
            if(num < 35){
             alertCounts = 0;
 		   
@@ -566,12 +632,35 @@ function highlightFrontlineQueue(){
            }
 		   
 		   else if (num >= 30 && num < 40){
+=======
+		   	if(isNaN(qCount)) {
+		    		var alertCounts = parseInt(alertCount);
+				}
+			   	else {
+		   	 var alertCounts = parseInt(localStorage.getItem('qAlertCount'));
+				}
+
+		   	if(num >= 40 && (alertCounts == 1 || alertCounts%10 == 0)){
+		   	 supportQAlert(num);
+		  	 }
+			   
+		  	 if(num < 35){
+		  	  alertCounts = 0;
+				 }
+			   
+		  	 localStorage.setItem('qAlertCount', alertCounts);
+		   }	   
+
+           if(num < mediumCount){
+            $('#' + this).css({'font-weight':'bolder', 'color':'green'});
+           } 
+		 else if (num >= mediumCount && num < highCount){
+>>>>>>> origin/bettersalesforce_3_3_0
             alertCounts = 0;
             localStorage.setItem('qAlertCount', alertCounts);
             $('#' + this).css({'font-weight':'bolder', 'color':'orange'});
-		   }
-		   
-		   else {
+		 }
+		 else {
             alertCounts++;
             localStorage.setItem('qAlertCount', alertCounts);
             $('#' + this).css({'font-weight':'bolder', 'color':'red'});
@@ -581,7 +670,7 @@ function highlightFrontlineQueue(){
 }
 
 function highlightBacklineQueue(){
-    var arr = new Array('backline-in-progress');
+    var arr = new Array('backline-in-progress', 'emea-queue');
 
     $.each(arr, function() {
 	var count = $('#' + this).text();
@@ -653,13 +742,23 @@ function initRows() {
 			  case_rows[i].parentNode.style.backgroundColor = '#EEE';
           else
 			  inProgressCount += 1;
-			
+		/**	
 		  //Check to see what the SLA Status Is and Highlight
+<<<<<<< HEAD
 		  if( slaCol && cols[slaCol].textContent=='Gold')
 			case_rows[i].parentNode.style.backgroundColor = '#EEE685';
 		  else if ( slaCol && cols[slaCol].textContent=='Platinum' )
 		    case_rows[i].parentNode.style.backgroundColor = '#E6E8FA'; 
           
+=======
+		  if( slaCol && cols[slaCol].textContent=='Gold') {
+			case_rows[i].parentNode.style.backgroundColor = '#FFC125';
+		  }
+		  else if ( slaCol && cols[slaCol].textContent=='Platinum' ) {
+		    case_rows[i].parentNode.style.backgroundColor = '#C0C0C0'; 
+		  }
+          	*/
+>>>>>>> origin/bettersalesforce_3_3_0
 		  //Is it a P1? If so, bold it!
           if( pCol && cols[pCol].textContent=='Level 1' ) {
             for( var j in case_rows[i].childNodes )
@@ -682,7 +781,7 @@ function addLinksToRows( case_rows ) {
 }
 
 function createCaseLinks( sf_id , jive_case_url ) {
-    return '<a href="'+jive_case_url+'"><img src="' + chrome.extension.getURL("images/favicon.png") + '" /></a> &nbsp; ' +          
+    return '<a href="'+jive_case_url+'" target="_blank"><img src="' + chrome.extension.getURL("images/favicon.png") + '" /></a> &nbsp; ' +          
            '<a href="' + '/' + sf_id + '/a?retURL=' + location.href.replace('https://na3.salesforce.com', '') + '"><em>[C]</em></a> &nbsp;';
 }
 
