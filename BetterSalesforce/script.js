@@ -153,7 +153,6 @@ function fireQChangesWhenReady(firstRun, timesRun) {
     }
 
     // Bigs
-<<<<<<< HEAD
 	if ( curr_mode == 'Account Support' ) {
 		setQueueCount(ACCOUNT_Q, $('#account-support-queue-count'));
 		setQueueCount(CASES_TAKEN_Q, $('#cases-taken'));
@@ -161,29 +160,20 @@ function fireQChangesWhenReady(firstRun, timesRun) {
 		setQueueCount(US2EMEA_Q, $('#us2emea-queue'));
 		setQueueCount(EMEA2US_Q, $('#emea2us-queue')); 
 	} else {
-        setQueueCount(BACKLINE_Q, $('#backline-in-progress'));
-        setQueueCount(BACKLINE_ESCALATED_Q, $('#backline-escalated'));
-        setQueueCount(CASES_TAKEN_Q, $('#cases-taken'));
-        setQueueCount(SUPPORT_Q, $('#support-queue'));
-        setQueueCount(SEV1_Q, $('#sev1-queue'));
-        setQueueCount(US2EMEA_Q, $('#us2emea-queue'));
-        setQueueCount(EMEA2US_Q, $('#emea2us-queue')); 
+		setQueueCount(BACKLINE_Q, $('#backline-in-progress'));
+		setQueueCount(BACKLINE_ESCALATED_Q, $('#backline-escalated'));
+		setQueueCount(CASES_TAKEN_Q, $('#cases-taken'));
+		setQueueCount(SUPPORT_Q, $('#support-queue'));
+		setQueueCount(EMEA_Q, $('#emea-queue'));
+		setQueueCount(SEV1_Q, $('#sev1-queue'));
+		setQueueCount(US2EMEA_Q, $('#us2emea-queue'));
+		setQueueCount(EMEA2US_Q, $('#emea2us-queue'));
 	}
-=======
-    setQueueCount(BACKLINE_Q, $('#backline-in-progress'));
-    setQueueCount(BACKLINE_ESCALATED_Q, $('#backline-escalated'));
-    setQueueCount(CASES_TAKEN_Q, $('#cases-taken'));
-    setQueueCount(SUPPORT_Q, $('#support-queue'));
-    setQueueCount(EMEA_Q, $('#emea-queue'));
-    setQueueCount(SEV1_Q, $('#sev1-queue'));
-    setQueueCount(US2EMEA_Q, $('#us2emea-queue'));
-    setQueueCount(EMEA2US_Q, $('#emea2us-queue'));  
->>>>>>> origin/bettersalesforce_3_3_0
 
     highlightQueues();
 
     if( firstRun ) window.addEventListener('resize',initRows,true);
-  } else if( timesRun<100 ) {
+   } else if( timesRun<100 ) {
     setTimeout( (function() { fireQChangesWhenReady(firstRun, timesRun+1) }), (firstRun ? 500 : 250));
   }
 }
@@ -719,23 +709,23 @@ function initRows() {
 			  case_rows[i].parentNode.style.backgroundColor = '#EEE';
           else
 			  inProgressCount += 1;
-		/**	
-		  //Check to see what the SLA Status Is and Highlight
-<<<<<<< HEAD
-		  if( slaCol && cols[slaCol].textContent=='Gold')
-			case_rows[i].parentNode.style.backgroundColor = '#EEE685';
-		  else if ( slaCol && cols[slaCol].textContent=='Platinum' )
-		    case_rows[i].parentNode.style.backgroundColor = '#E6E8FA'; 
+			
+			// TODO: Need to implement a check to see if the column is even there. If not, then do not do this.
+			if( localStorage.mode == 'Frontline' || localStorage.mode == 'Account Support' ) {
+			
+				//Check to see what the SLA Status Is and Highlight
+				if( slaCol && cols[slaCol].textContent=='Gold')
+					case_rows[i].parentNode.style.backgroundColor = '#EEE685';
+				else if ( slaCol && cols[slaCol].textContent=='Platinum' )
+					case_rows[i].parentNode.style.backgroundColor = '#E6E8FA'; 
           
-=======
-		  if( slaCol && cols[slaCol].textContent=='Gold') {
-			case_rows[i].parentNode.style.backgroundColor = '#FFC125';
-		  }
-		  else if ( slaCol && cols[slaCol].textContent=='Platinum' ) {
-		    case_rows[i].parentNode.style.backgroundColor = '#C0C0C0'; 
-		  }
-          	*/
->>>>>>> origin/bettersalesforce_3_3_0
+				if( slaCol && cols[slaCol].textContent=='Gold') {
+					case_rows[i].parentNode.style.backgroundColor = '#FFC125';
+				}
+				else if ( slaCol && cols[slaCol].textContent=='Platinum' ) {
+					case_rows[i].parentNode.style.backgroundColor = '#C0C0C0'; 
+				}
+			}
 		  //Is it a P1? If so, bold it!
           if( pCol && cols[pCol].textContent=='Level 1' ) {
             for( var j in case_rows[i].childNodes )
@@ -766,15 +756,13 @@ function createCaseLinksFrontline( sf_id , jive_case_url ) {
     return '<a href="'+jive_case_url+'" title="'+ JIVECOMMUNITY_DESC +'"><img src="' + chrome.extension.getURL("images/favicon.png") + '" /></a> &nbsp; ' +
     '<a href="javascript:;" id="' + sf_id + '_LEVEL_UP" title="'+ T2_DESC +'"><img src="' + chrome.extension.getURL("images/tier2-icon.png") + '" /></a> &nbsp; ' +
     '<a href="javascript:;" id="' + sf_id + '_ACCOUNT_SUPPORT" title="'+ ACCOUNT_DESC +'"><img src="' + chrome.extension.getURL("images/account_support.png") + '" /></a> &nbsp; ' +
-    '<a href="javascript:;" id="' + sf_id + '_HOSTING" title="'+ HOSTING_DESC +'"><img src="' + chrome.extension.getURL("images/hosting.png") + '" /></a> &nbsp; ' +
-    '<a href="' + '/' + sf_id + '/a?retURL=' + location.href.replace('https://na3.salesforce.com', '') + '"><em>[C]</em></a> &nbsp;';
+    '<a href="javascript:;" id="' + sf_id + '_HOSTING" title="'+ HOSTING_DESC +'"><img src="' + chrome.extension.getURL("images/hosting.png") + '" /></a> &nbsp; ';
 }
 
 function createCaseLinksAccountSupport( sf_id, jive_case_url ) {
 	return '<a href="'+jive_case_url+'"><img src="' + chrome.extension.getURL("images/favicon.png") + '" /></a> &nbsp; ' +
 	'<a href="javascript:;" id="' + sf_id + '_SUPPORT_Q" title="Send to Frontline Queue"><img src="' + chrome.extension.getURL("images/tier2-icon.png") + '" /></a> &nbsp; ' +
-	'<a href="javascript:;" id="' + sf_id + '_HOSTING" title="Send to Hosting Queue"><img src="' + chrome.extension.getURL("images/hosting.png") + '" /></a> &nbsp; ' +
-	'<a href="' + '/' + sf_id + '/a?retURL=' + location.href.replace('https://na3.salesforce.com', '') + '"><em>[C]</em></a> &nbsp;';
+	'<a href="javascript:;" id="' + sf_id + '_HOSTING" title="Send to Hosting Queue"><img src="' + chrome.extension.getURL("images/hosting.png") + '" /></a> &nbsp; ';
 }
 
 function insertCaseLinks( dom , sf_id , links ) {
@@ -805,6 +793,8 @@ function insertCaseLinks( dom , sf_id , links ) {
 		$(dom).find('a[id$="_HOSTING"]').click(function() {
 		    assignToQueue(sf_id, HOSTING_QUEUE);
 		});
+	    
+		//TODO: Add Liz Savage Button to this view
 	}
 }
 
