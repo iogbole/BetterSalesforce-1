@@ -235,8 +235,13 @@ if ( localStorage.mode==undefined || localStorage.mode=='undefined' || localStor
 if ( localStorage.refreshTime==undefined || localStorage.refreshTime=='undefined' || localStorage.refreshTime=='NaN' )
 	localStorage.setItem('refreshTime', 25);
 
-var appensionHtml ='<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; } .t2-queue span {padding-right:0 !important;} .big {float: right;}</style><div id="q-panel" style="margin:5px 0px; padding: 5px; border:#CCC solid 1px">' +
-        '<div style="float:left;width:25%"><div>Mode: ';
+	//<div id="q-panel" style="margin:5px 0px; padding: 5px; border:#CCC solid 1px"></div>
+	
+var appensionHtml ='<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; } .t2-queue span {padding-right:0 !important;} .big {float: right;} ' +
+					'.sprite-icon { background: url(http://dl.dropbox.com/u/3327650/bsf-sprites.png) no-repeat top left; width:16px; height:16px; display:inline-block; } ' + 
+					'.sprite-tier2-icon{ background-position:0 -376px; } .sprite-account_support{ background-position:0 0; } ' +
+					'.sprite-hosting{background-position:0 -132px;} .sprite-favicon{background-position:0 -66px;} </style>' +
+					'<div id="q-panel" style="margin:5px 0px; padding: 5px; border:#CCC solid 1px"> <div style="float:left;width:25%"><div>Mode: ';
 
 	appensionHtml += '<select id="change-mode" onChange="window.location.reload()">' + getModes() + '</select>';
 	
@@ -748,21 +753,21 @@ function addLinksToRows( case_rows ) {
 }
 
 function createCaseLinks( sf_id , jive_case_url ) {
-    return '<a href="'+jive_case_url+'" target="_blank"><img src="' + chrome.extension.getURL("images/favicon.png") + '" /></a> &nbsp; ' +          
+    return '<a href="'+jive_case_url+'" target="_blank" class="sprite-icon sprite-favicon"> </a> &nbsp; ' +          
            '<a href="' + '/' + sf_id + '/a?retURL=' + location.href.replace('https://na3.salesforce.com', '') + '"><em>[C]</em></a> &nbsp;';
 }
 
 function createCaseLinksFrontline( sf_id , jive_case_url ) {
-    return '<a href="'+jive_case_url+'" title="'+ JIVECOMMUNITY_DESC +'"><img src="' + chrome.extension.getURL("images/favicon.png") + '" /></a> &nbsp; ' +
-    '<a href="javascript:;" id="' + sf_id + '_LEVEL_UP" title="'+ T2_DESC +'"><img src="' + chrome.extension.getURL("images/tier2-icon.png") + '" /></a> &nbsp; ' +
-    '<a href="javascript:;" id="' + sf_id + '_ACCOUNT_SUPPORT" title="'+ ACCOUNT_DESC +'"><img src="' + chrome.extension.getURL("images/account_support.png") + '" /></a> &nbsp; ' +
-    '<a href="javascript:;" id="' + sf_id + '_HOSTING" title="'+ HOSTING_DESC +'"><img src="' + chrome.extension.getURL("images/hosting.png") + '" /></a> &nbsp; ';
+    return '<a href="'+jive_case_url+'" title="'+ JIVECOMMUNITY_DESC +'" class="sprite-icon sprite-favicon"> </a> &nbsp; ' +
+    '<a href="javascript:;" id="' + sf_id + '_LEVEL_UP" title="'+ T2_DESC +'" class="sprite-icon sprite-tier2-icon"> </a> &nbsp; ' +
+    '<a href="javascript:;" id="' + sf_id + '_ACCOUNT_SUPPORT" title="'+ ACCOUNT_DESC +'" class="sprite-icon sprite-account_support"> </a> &nbsp; ' +
+    '<a href="javascript:;" id="' + sf_id + '_HOSTING" title="'+ HOSTING_DESC +'" class="sprite-icon sprite-hosting"> </a> &nbsp;';
 }
 
 function createCaseLinksAccountSupport( sf_id, jive_case_url ) {
-	return '<a href="'+jive_case_url+'"><img src="' + chrome.extension.getURL("images/favicon.png") + '" /></a> &nbsp; ' +
-	'<a href="javascript:;" id="' + sf_id + '_SUPPORT_Q" title="Send to Frontline Queue"><img src="' + chrome.extension.getURL("images/tier2-icon.png") + '" /></a> &nbsp; ' +
-	'<a href="javascript:;" id="' + sf_id + '_HOSTING" title="Send to Hosting Queue"><img src="' + chrome.extension.getURL("images/hosting.png") + '" /></a> &nbsp; ';
+	return '<a href="'+jive_case_url+'" class="sprite-icon sprite-favicon"> </a> &nbsp; ' +
+	'<a href="javascript:;" id="' + sf_id + '_SUPPORT_Q" title="Send to Frontline Queue" class="sprite-icon sprite-tier2-icon"> </a> &nbsp; ' +
+	'<a href="javascript:;" id="' + sf_id + '_HOSTING" title="Send to Hosting Queue" class="sprite-icon sprite-hosting"> </a> &nbsp; ';
 }
 
 function insertCaseLinks( dom , sf_id , links ) {
