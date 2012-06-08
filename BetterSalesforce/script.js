@@ -243,7 +243,10 @@ if ( localStorage.refreshTime==undefined || localStorage.refreshTime=='undefined
 var appensionHtml ='<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; } .t2-queue span {padding-right:0 !important;} .big {float: right;} ' +
 					'.sprite-icon { background: url('+ SPRITE_IMAGE +') no-repeat top left; width:16px; height:16px; display:inline-block; } ' + 
 					'.sprite-tier2-icon{ background-position:0 -376px; } .sprite-account_support{ background-position:0 0; } ' +
-					'.sprite-hosting{background-position:0 -132px;} .sprite-favicon{background-position:0 -66px;} </style>' +
+					'.sprite-hosting{background-position:0 -132px;} .sprite-favicon{background-position:0 -66px;} ' +
+					
+					//TODO: Fix the CSS to stop the shifting.
+					'.ext-strict .x-grid3-cell-inner .ext-strict .x-grid3-hd-inner .x-grid3-col-ACTION_COLUMN{ width:64px; } </style> ' +
 					'<div id="q-panel" style="margin:5px 0px; padding: 5px; border:#CCC solid 1px"> <div style="float:left;width:25%"><div>Mode: ';
 
 	appensionHtml += '<select id="change-mode" onChange="window.location.reload()">' + getModes() + '</select>';
