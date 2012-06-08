@@ -84,6 +84,9 @@ var ACCOUNT_SUPPORT_QUEUE = 'accountsupport'
 var HOSTING_QUEUE = 'Hosting'
 var SUPPORT_QUEUE = 'Support'
 
+//Sprite Image File
+var SPRITE_IMAGE = chrome.extension.getURL("images/bsf-sprites.png");
+
 function setQueueCount(view_id, dom_obj) {
   $.post("/_ui/common/list/ListServlet", {
     'action':'filter',
@@ -238,7 +241,7 @@ if ( localStorage.refreshTime==undefined || localStorage.refreshTime=='undefined
 	//<div id="q-panel" style="margin:5px 0px; padding: 5px; border:#CCC solid 1px"></div>
 	
 var appensionHtml ='<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; } .t2-queue span {padding-right:0 !important;} .big {float: right;} ' +
-					'.sprite-icon { background: url(http://dl.dropbox.com/u/3327650/bsf-sprites.png) no-repeat top left; width:16px; height:16px; display:inline-block; } ' + 
+					'.sprite-icon { background: url('+ SPRITE_IMAGE +') no-repeat top left; width:16px; height:16px; display:inline-block; } ' + 
 					'.sprite-tier2-icon{ background-position:0 -376px; } .sprite-account_support{ background-position:0 0; } ' +
 					'.sprite-hosting{background-position:0 -132px;} .sprite-favicon{background-position:0 -66px;} </style>' +
 					'<div id="q-panel" style="margin:5px 0px; padding: 5px; border:#CCC solid 1px"> <div style="float:left;width:25%"><div>Mode: ';
