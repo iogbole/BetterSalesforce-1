@@ -3,9 +3,9 @@ Version 3.5.0
 ==========================================================================================
 
 Added Functions:
-* Add Sean to Girth View - Not Done
-* Added console logging to application - Sean
-*
+* Add Sean to Girth View - Not Implemented
+* Added console logging to extension - Sean
+* Fixed color-coding issue when SLA Contract Type Field was not in table. - Sean 
 
 Improvements:
 * Added Release Notes to GIT for easy updating.

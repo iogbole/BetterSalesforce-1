@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name BetterSalesforce
 // @description Makes Salesforce a bit more bearable
+// @author Cory G., Seth P., Taylor T., Sean S., Josh L.
 // @match https://na3.salesforce.com/*
 // ==/UserScript==
 
@@ -233,14 +234,12 @@ function getModes() {
 
 // Initialize GUI objects
 function initJiveUI() {
-if ( localStorage.mode==undefined || localStorage.mode=='undefined' || localStorage.mode=='Backline') localStorage.mode='SnM';
+    if ( localStorage.mode==undefined || localStorage.mode=='undefined' || localStorage.mode=='Backline') localStorage.mode='SnM';
 	
-if ( localStorage.refreshTime==undefined || localStorage.refreshTime=='undefined' || localStorage.refreshTime=='NaN' )
-	localStorage.setItem('refreshTime', 25);
-
-	//<div id="q-panel" style="margin:5px 0px; padding: 5px; border:#CCC solid 1px"></div>
+    if ( localStorage.refreshTime==undefined || localStorage.refreshTime=='undefined' || localStorage.refreshTime=='NaN' )
+	    localStorage.setItem('refreshTime', 25);
 	
-var appensionHtml ='<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; } .t2-queue span {padding-right:0 !important;} .big {float: right;} ' +
+    var appensionHtml ='<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; } .t2-queue span {padding-right:0 !important;} .big {float: right;} ' +
 	
 	//Sprite CSS	
 	'.sprite-icon { background: url('+ SPRITE_IMAGE +') no-repeat top left; width:16px; height:16px; display:inline-block; } ' + 
@@ -262,31 +261,31 @@ var appensionHtml ='<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; }
 	appensionHtml += '</div></div><div style="float:left;width:40%;">';
 
 	if ( localStorage.mode=='Girth' ) {
-	 appensionHtml +=
+		 appensionHtml +=
          '<span class="t2-queue"><a href="500?fcf=00B50000006MQxb" style="color:black">Alex (<span id="alex_evans-in-progress">*</span>)</a></span>' +
-	 '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6c" style="color:black">Arnold (<span id="arnold-in-progress">*</span>)</a></span>' +	 
-	 '<span class="t2-queue"><a href="500?fcf=00B50000006MQxv" style="color:black">Dustin (<span id="dustin_castor-in-progress">*</span>)</a></span>' +
+		 '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6c" style="color:black">Arnold (<span id="arnold-in-progress">*</span>)</a></span>' +	 
+		 '<span class="t2-queue"><a href="500?fcf=00B50000006MQxv" style="color:black">Dustin (<span id="dustin_castor-in-progress">*</span>)</a></span>' +
          '<span class="t2-queue"><a href="500?fcf=00B50000006Mz3S" style="color:black">Frank (<span id="frank-in-progress">*</span>)</a></span>' +
          '<span class="t2-queue"><a href="500?fcf=00B50000006MDyq" style="color:black">Josh (<span id="josh_leckbee-in-progress">*</span>)</a></span>' +	 
          '<span class="t2-queue"><a href="500?fcf=00B50000006MXuZ" style="color:black">Tatsuro (<span id="tatsuro_alpert-in-progress">*</span>)</a></span>' +
          '<span class="t2-queue"><a href="500?fcf=00B50000006MQy0" style="color:black">Taylor (<span id="taylor_thornton-in-progress">*</span>)</a></span>';
 	 } else if ( localStorage.mode=='Surgical' ) {
-	 appensionHtml +=
+	     appensionHtml +=
          '<span class="t2-queue"><a href="500?fcf=00B50000006MQxg" style="color:black">Daniel (<span id="daniel_shaver-in-progress">*</span>)</a></span>' +
-	 '<span class="t2-queue"><a href="500?fcf=00B50000006MQxl" style="color:black">Jacob (<span id="jacob-in-progress">*</span>)</a></span>' +
-	 '<span class="t2-queue"><a href="500?fcf=00B50000006Mk64" style="color:black">Rusty (<span id="russell-in-progress">*</span>)</a></span>';	 
+		 '<span class="t2-queue"><a href="500?fcf=00B50000006MQxl" style="color:black">Jacob (<span id="jacob-in-progress">*</span>)</a></span>' +
+		 '<span class="t2-queue"><a href="500?fcf=00B50000006Mk64" style="color:black">Rusty (<span id="russell-in-progress">*</span>)</a></span>';	 
 	 } else if ( localStorage.mode=='SnM' ) {
-	 appensionHtml +=
-	 '<span class="t2-queue"><a href="500?fcf=00B50000006MkP5" style="color:black">Ben (<span id="ben-in-progress">*</span>)</a></span>' +
-	 '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6X" style="color:black">Eliz (<span id="eliz-in-progress">*</span>)</a></span>';
+		 appensionHtml +=
+		 '<span class="t2-queue"><a href="500?fcf=00B50000006MkP5" style="color:black">Ben (<span id="ben-in-progress">*</span>)</a></span>' +
+		 '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6X" style="color:black">Eliz (<span id="eliz-in-progress">*</span>)</a></span>';
 	 } else if ( localStorage.mode=='UK' ) {
-	 appensionHtml +=
-	 '<span class="t2-queue"><a href="500?fcf=00B50000006Muvr" style="color:black">Izabela (<span id="izabela-in-progress">*</span>)</a></span>' +
-	 '<span class="t2-queue"><a href="500?fcf=00B50000006Muvm" style="color:black">Paul (<span id="paul-in-progress">*</span>)</a></span>' +
-	 '<span class="t2-queue"><a href="500?fcf=00B50000006Muvw" style="color:black">Shailesh (<span id="shailesh-in-progress">*</span>)</a></span>';
+		 appensionHtml +=
+		 '<span class="t2-queue"><a href="500?fcf=00B50000006Muvr" style="color:black">Izabela (<span id="izabela-in-progress">*</span>)</a></span>' +
+		 '<span class="t2-queue"><a href="500?fcf=00B50000006Muvm" style="color:black">Paul (<span id="paul-in-progress">*</span>)</a></span>' +
+		 '<span class="t2-queue"><a href="500?fcf=00B50000006Muvw" style="color:black">Shailesh (<span id="shailesh-in-progress">*</span>)</a></span>';
 	 } else {
-	 appensionHtml +=
-	 '<span class="t2-queue"><a href="500?fcf=00B50000006MDyq" style="color:black">My Queue(<span id="solo-in-progress">*</span>)</a></span>';
+		 appensionHtml +=
+		 '<span class="t2-queue"><a href="500?fcf=00B50000006MDyq" style="color:black">My Queue(<span id="solo-in-progress">*</span>)</a></span>';
 	 }
 	 
 	 // Account Support View
@@ -303,41 +302,41 @@ var appensionHtml ='<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; }
 		 '</div>' +
 		 '<div id="q-loading" style="float:right;width:30%;text-align:right;display:none;">loading...<br /> &nbsp;</div>' +
 		 '<div style="clear:both"></div></div>';
-	 } else {
-	 appensionHtml +=
-	 '<span class="t2-queue big"><a href="500?fcf=00B50000006Lh9v" id="sev1" style="font-size:120%;font-weight:bold;color:red;display:none;">NEW P1!!(<span id="sev1-queue">*</span>)</a></span>' +
-	 '<span class="t2-queue big"><a href="500?fcf=00B50000006MOiU" style="color:black">Backline (<span id="backline-in-progress">*</span>)</a></span>' +	 
-	 '<span class="t2-queue big"><a href="500?fcf=00B50000006LTCj" style="color:black">Frontline (<span id="support-queue">*</span>)</a></span>' +	 
-	 '<span class="t2-queue big"><a href="500?fcf=00B50000006LMxJ" style="color:black">EMEA (<span id="emea-queue">*</span>)</a></span>' +
+    } else {
+	    appensionHtml +=
+	    '<span class="t2-queue big"><a href="500?fcf=00B50000006Lh9v" id="sev1" style="font-size:120%;font-weight:bold;color:red;display:none;">NEW P1!!(<span id="sev1-queue">*</span>)</a></span>' +
+	    '<span class="t2-queue big"><a href="500?fcf=00B50000006MOiU" style="color:black">Backline (<span id="backline-in-progress">*</span>)</a></span>' +	 
+	    '<span class="t2-queue big"><a href="500?fcf=00B50000006LTCj" style="color:black">Frontline (<span id="support-queue">*</span>)</a></span>' +	 
+	    '<span class="t2-queue big"><a href="500?fcf=00B50000006LMxJ" style="color:black">EMEA (<span id="emea-queue">*</span>)</a></span>' +
 	 
-	 // Daily
-	 '<br /><span class="t2-queue">Today <span id="backline-escalated">*</span> cases have been escalated to Backline.</span>' +
-	 '<span class="t2-queue big" id="us"><a href="500?fcf=00B50000006Mi54" style="color:black">From_US (<span id="us2emea-queue">*</span>)</a></span>' +
- 	 '<span class="t2-queue big" id="us"><a href="500?fcf=00B50000006Mi4v" style="color:black">From_EMEA (<span id="emea2us-queue">*</span>)</a></span>' +
-	 '<br /><span class="t2-queue">You\'ve taken <span id="cases-taken">*</span> today.</span>' +
+	    // Daily
+	    '<br /><span class="t2-queue">Today <span id="backline-escalated">*</span> cases have been escalated to Backline.</span>' +
+	    '<span class="t2-queue big" id="us"><a href="500?fcf=00B50000006Mi54" style="color:black">From_US (<span id="us2emea-queue">*</span>)</a></span>' +
+ 	    '<span class="t2-queue big" id="us"><a href="500?fcf=00B50000006Mi4v" style="color:black">From_EMEA (<span id="emea2us-queue">*</span>)</a></span>' +
+	    '<br /><span class="t2-queue">You\'ve taken <span id="cases-taken">*</span> today.</span>' +
         '</div>' +	
         '<div id="q-refresh" style="float:right;width:20%;text-align:right"><p>refreshing in <strong id="q-refresh-count">0</strong> seconds</p>' +
-         '<a href="javascript:;" id="refresh-q-link">refresh queue</a> &nbsp; &nbsp; <a href="javascript:;" id="refresh-links">refresh links</a> &nbsp; &nbsp; <a href="javascript:;" id="pause-refresh">pause</a>' +
-        '</div>' +
+		'<a href="javascript:;" id="refresh-q-link">refresh queue</a> &nbsp; &nbsp; <a href="javascript:;" id="refresh-links">refresh links</a> &nbsp; &nbsp; <a href="javascript:;" id="pause-refresh">pause</a>' +
+	 '</div>' +
         '<div id="q-loading" style="float:right;width:30%;text-align:right;display:none;">loading...<br /> &nbsp;</div>' +
         '<div style="clear:both"></div></div>';
-	 }
+	}
 
 
-	 // Append HTML to nav
-	 $('.topNav.primaryPalette').append(appensionHtml);
+	// Append HTML to nav
+	$('.topNav.primaryPalette').append(appensionHtml);
 	
-  $('#change-mode').change(changeMode);
-  $('#refresh-q-link').click(refreshQ);
-  $('#refresh-links').click(initRows);
-  $('#pause-refresh').click(function() {
-     paused = !paused;
-     $('#pause-refresh').text(paused ? 'resume' : 'pause');
-  });
+    $('#change-mode').change(changeMode);
+    $('#refresh-q-link').click(refreshQ);
+    $('#refresh-links').click(initRows);
+    $('#pause-refresh').click(function() {
+        paused = !paused;
+        $('#pause-refresh').text(paused ? 'resume' : 'pause');
+    });
 
-  //Set title of page
-  queueTitle = $('.title option:selected').text();
-  document.title = '(*) ' +  queueTitle;
+    //Set title of page
+    queueTitle = $('.title option:selected').text();
+    document.title = '(*) ' +  queueTitle;
 }
 
 var subjCol, statusCol, pCol, slaCol, accountCol, selectedCase=null, selectedRow=null;
@@ -731,21 +730,24 @@ function initRows() {
             else
 			    inProgressCount += 1;
 			
-			// TODO: Need to implement a check to see if the column is even there. If not, then do not do this.
-			if( localStorage.mode == 'Frontline' || localStorage.mode == 'Account Support' ) {
-			
+		    //Fix: Buttons not appearing when SLA Contract Type field is not in current table.
+			if( typeof(cols[slaCol]) != 'undefined') {
 				//Check to see what the SLA Status Is and Highlight
 				if( slaCol && cols[slaCol].textContent=='Gold')
 					case_rows[i].parentNode.style.backgroundColor = '#EEE685';
 				else if ( slaCol && cols[slaCol].textContent=='Platinum' )
-					case_rows[i].parentNode.style.backgroundColor = '#E6E8FA'; 
+					case_rows[i].parentNode.style.backgroundColor = '#CCCCFF'; 
           
 				if( slaCol && cols[slaCol].textContent=='Gold') {
 					case_rows[i].parentNode.style.backgroundColor = '#FFC125';
 				}
 				else if ( slaCol && cols[slaCol].textContent=='Platinum' ) {
-					case_rows[i].parentNode.style.backgroundColor = '#C0C0C0'; 
+					case_rows[i].parentNode.style.backgroundColor = '#CCCCFF'; 
 				}
+			} else {
+				console.error("BetterSalesforce: slaCol ID is " + slaCol + ".");
+				console.error("BetterSalesforce: cols[slaCol] is " + cols[slaCol] + ".");
+				console.error("BetterSalesforce: typeof(cols[slaCol]) is " + typeof(cols[slaCol]) + ".");
 			}
 		  
                 //Is it a P1? If so, bold it!
