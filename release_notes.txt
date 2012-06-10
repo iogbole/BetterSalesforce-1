@@ -1,0 +1,25 @@
+==========================================================================================
+Version 3.5.0
+==========================================================================================
+
+Added Functions:
+* Add Sean to Girth View - Not Done
+* Added console logging to application - Sean
+*
+
+Improvements:
+* Added Release Notes to GIT for easy updating.
+
+==========================================================================================
+Version 3.4.0
+==========================================================================================
+
+Added Functions:
+* Added sprite image reference to improve performance - Sean 
+* Adjusted CSS to fix width issue with Actions column - Sean
+* Adjusted Frontline Queue Alert to appear at 50 instead of 40 - Sean
+* Fixed bug with notifying window to display first and every 15 refreshes - Sean
+
+Improvements:
+* Minor Code Cleanup - Sean
+* Cleaned GIT and Merged 3.3.0 with MASTER - Sean
