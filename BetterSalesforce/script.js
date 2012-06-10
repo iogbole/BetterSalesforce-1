@@ -437,24 +437,31 @@ function refreshQ() {
 }
 
 function changeMode() {
-   localStorage.mode = $('#change-mode').val();
+	console.info("Changing Mode to " + $('#change-mode').val());
+    localStorage.mode = $('#change-mode').val();
 }
 
 function highlightQueues(){    
     
     if ( localStorage.mode=='Girth' ) {
+		console.log("BetterSalesforce: Highlighting for Girth.");
     	highlightGirth();
     } else if ( localStorage.mode=='Surgical' ) {
+		console.log("BetterSalesforce: Highlighting for Surgical.");
     	highlightSurgical();
     } else if ( localStorage.mode == 'SnM' ) {
+		console.log("BetterSalesforce: Highlighting for Services and Modules.");
     	highlightSnM();
     } else if (localStorage.mode == 'Account Support' ) {
+		console.log("BetterSalesforce: Highlighting for Account Support.");
 		highlightSolo();
 		highlightAS();
     } else if ( localStorage.mode == 'UK' ) {
-	highlightUK();
+		console.log("BetterSalesforce: Highlighting for UK.");
+		highlightUK();
     } else {
-	highlightSolo();
+		console.log("BetterSalesforce: Highlighting for Frontline.");
+		highlightSolo();
     }
 
     highlightSevOnes();
@@ -606,18 +613,17 @@ function highlightFrontlineQueue(){
     $.each(arr, function() {
         var count = $('#' + this).text();
 		if (count != '*'){
-           var num = parseInt(count);
+            var num = parseInt(count);
                       
-           // Stop Annoying PopUp if queue is above 40
-		 if (localStorage.mode == 'Frontline') {
-				var qCount = parseInt(localStorage.getItem('qAlertCount'));
+            // Stop Annoying PopUp if queue is above 40
+		    if (localStorage.mode == 'Frontline') {
+                var qCount = parseInt(localStorage.getItem('qAlertCount'));
 		   
-		if(isNaN(qCount)) {
-		   		var alertCounts = parseInt(alertCount);
-			}
-		
-		    else {
+		    if(isNaN(qCount)) {
+			    var alertCounts = parseInt(alertCount);
+			} else {
 		        var alertCounts = parseInt(localStorage.getItem('qAlertCount'));
+		        console.log("BetterSalesforce: Number of times you have been alerted is at " + alertCounts + ".");
 			}
 		   
 		    // Fixed Double-Alert Bug by removing alert count = 1 and decreased number of time you will see the error.
@@ -704,24 +710,26 @@ function highlightTaken(){
 }
 
 function initRows() {
-		if( getClass('x-grid3-td-CASES_SUBJECT').length ) {
-      inProgressCount = 0;
+    if( getClass('x-grid3-td-CASES_SUBJECT').length ) {
+        inProgressCount = 0;
       
-      var case_rows = getCaseRows();
-      //Highlight the row after the row is clicked 
-      for( var i in case_rows ) {
-        var cols = case_rows[i].childNodes;
-        var sfurl = recursiveChild( cols[subjCol], 'a' ).href;
-        if( sfurl ) {          
-          //If this was refreshed, see if this case was selected
-          if( selectedCase==sfurl ) {
-            case_rows[i].style.backgroundColor = '#fdffe3';
-            selectedRow = case_rows[i];
-          }
-		  else if( statusCol && cols[statusCol].textContent!='In Progress' )
-			  case_rows[i].parentNode.style.backgroundColor = '#EEE';
-          else
-			  inProgressCount += 1;
+        var case_rows = getCaseRows();
+      
+        //Highlight the row after the row is clicked 
+        for( var i in case_rows ) {
+            var cols = case_rows[i].childNodes;
+            var sfurl = recursiveChild( cols[subjCol], 'a' ).href;
+            
+			if( sfurl ) {          
+		        //If this was refreshed, see if this case was selected
+			    if( selectedCase==sfurl ) {
+                    case_rows[i].style.backgroundColor = '#fdffe3';
+                    selectedRow = case_rows[i];
+                }
+		    else if( statusCol && cols[statusCol].textContent!='In Progress' )
+			    case_rows[i].parentNode.style.backgroundColor = '#EEE';
+            else
+			    inProgressCount += 1;
 			
 			// TODO: Need to implement a check to see if the column is even there. If not, then do not do this.
 			if( localStorage.mode == 'Frontline' || localStorage.mode == 'Account Support' ) {
@@ -739,19 +747,19 @@ function initRows() {
 					case_rows[i].parentNode.style.backgroundColor = '#C0C0C0'; 
 				}
 			}
-		  //Is it a P1? If so, bold it!
-          if( pCol && cols[pCol].textContent=='Level 1' ) {
-            for( var j in case_rows[i].childNodes )
-                if(case_rows[i].childNodes[j].style)            
-                    case_rows[i].childNodes[j].style.fontWeight = 'bold';
-          }
-        }
+		  
+                //Is it a P1? If so, bold it!
+            if( pCol && cols[pCol].textContent=='Level 1' ) {
+                for( var j in case_rows[i].childNodes )
+                   if(case_rows[i].childNodes[j].style)            
+                       case_rows[i].childNodes[j].style.fontWeight = 'bold';
+			}
+           } 
       }
 
-      document.title = '(' + inProgressCount + ') ' + queueTitle;
-
+	  document.title = '(' + inProgressCount + ') ' + queueTitle;
       addLinksToRows( case_rows );
-		}
+    }
 }
 
 function addLinksToRows( case_rows ) {
@@ -885,6 +893,8 @@ function destroy(el) {
 // Support Queue Alert!
 function supportQAlert(number){
 	var num = parseInt(number);
+	
+	console.log("BetterSalesforce: There are " + num + "in the queue. Receive alert.");
 	alert('The Support Queue is above 40 !!!!' + '\n' +
 		  'The Queue is currenty at '+ num + '!!!!');
 }
