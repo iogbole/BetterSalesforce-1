@@ -1,0 +1,50 @@
+div .container {
+  width: 500px;
+}
+
+div .header {
+  background-color: #000000;
+  color: #FFFFFF;
+  text-align: center;
+}
+
+div h1 {
+  margin-bottom: 0;
+}
+
+div .menu {
+  background-color: #FFFFFF;
+  height: 190px;
+  width: 100px;
+  float: left;
+  padding: 10px 0 0 3px;
+  border: 1px solid black;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  text-align: middle;
+  color: #696969;
+}
+
+a:active, a:hover {
+  text-decoration: underline;
+  color: #D0D0D0;
+} 
+
+
+div .content {
+  background-color: #FFFFFF;
+  height: 200px;
+  width: 400px;
+  border: 1px solid black;
+  color: #000000;  
+}
+
+div .footer {
+  background-color: #FFFFFF;
+  clear: both;
+  text-align: center;
+  font-size: 11px;
+}

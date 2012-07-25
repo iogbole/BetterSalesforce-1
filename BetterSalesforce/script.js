@@ -573,11 +573,16 @@ function highlightSevOnes(){
        	   var num = parseInt(count);
            if(num < 1){
                $('#sev1').css({'display':'none'});
+               chrome.extension.sendMessage({greeting: '0'});
            } else {
                $('#sev1').css({'display':'inline'});
-           }
+               chrome.extension.sendMessage({greeting: '' + num});
+           };
+           
        }
     });
+
+  
 }
 
 function highlightAS() {
@@ -657,12 +662,12 @@ function highlightBacklineQueue(){
 	if (count != '*'){
 		var num = parseInt(count);
 		if(num < 10){
-               		$('#' + this).css({'font-weight':'bolder', 'color':'green'});
-           	} else if (num >= 10 && num < 25){
-	       		$('#' + this).css({'font-weight':'bolder', 'color':'orange'});
-   		} else {
-              		$('#' + this).css({'font-weight':'bolder', 'color':'red'});
-           	}
+     		$('#' + this).css({'font-weight':'bolder', 'color':'green'});
+   	} else if (num >= 10 && num < 25){
+	      $('#' + this).css({'font-weight':'bolder', 'color':'orange'});
+ 		} else {
+    		$('#' + this).css({'font-weight':'bolder', 'color':'red'});                
+   	}
 	}
     });
 }
