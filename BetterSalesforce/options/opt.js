@@ -1,9 +1,16 @@
 // Global Variables
 var CONTENT_CLASS = 'content';
-var alertOnP1 = false;
+var alertOnP1 = localStorage.getItem('alertonp1');
 var MAX_MODES = 10;
+var first_run = true;
 
-
+$(document).ready(function() {
+if (first_run) {
+	menu(true);
+	first_run = false;
+	console.log('first_run complete');
+}
+});
 
 // Display options page based on menuItem parameter
 function menu(menuItem) {
@@ -18,7 +25,8 @@ function menu(menuItem) {
       setAlertsPage();
       break;
     default:
-      return 'Error';
+      setMainPage();
+      break;
   }
 }
 
@@ -38,8 +46,21 @@ function setModesPage() {
 }
 
 function setAlertsPage() {
-  var alertsHTML = '<div>Alerts Page!</div>';
-
+  var alertsHTML = 'Alert on P1:&nbsp;';
+  
+  if (alertOnP1) {
+  	alertsHTML += '<input type="radio" name="alertonp1" value="alert_true" onClick="javascript: setAlert(true)" checked>Yes</input>&nbsp;' + 
+  	'<input type="radio" name="alertonp1" value="alert_false" onClick="javascript: setAlert(false)">No</input>';
+  } else {
+  	alertsHTML += '<input type="radio" name="alertonp1" value="alert_true" onClick="javascript: setAlert(true)">Yes</input>&nbsp;' + 
+  	'<input type="radio" name="alertonp1" value="alert_false" onClick="javascript: setAlert(false)" checked>No</input>';  
+  }
+  
   $('.content').empty();
   $('.content').append(alertsHTML);
+}
+
+function setAlert(val) {
+	alertOnP1 = val;
+	localStorage.setItem('alertonp1', alertOnP1);
 }
