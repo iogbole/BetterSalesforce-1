@@ -87,7 +87,7 @@ function setQueueCount(view_id, dom_obj) {
     'filterType':'t',
     'page':'1',
     'rowsPerPage':'50',
-  }, function(data) { dom_obj.text(data.match(/"totalRowCount":(\d+)/)[1]) }, 'text');
+  }, function(data) { dom_obj.text(data.match(/"totalRowCount":(\d+)/)[1]); }, 'text');
 }
 
 
@@ -478,7 +478,7 @@ function refreshQ() {
     // so we use the (hopefully working) DOM element's .click method
     $('.btn.refreshListButton').get(0).click();
 
-    setTimeout(function(){fireQChangesWhenReady(false)},0);
+    setTimeout(function(){fireQChangesWhenReady(false);},0);
 }
 
 function changeMode() {
@@ -915,7 +915,7 @@ function getCaseRows() {
 
 //Returns the first result of the child object of obj that matches selector
 function recursiveChild(obj,selector) {
-    var res, children, i;
+    var res, i;
     selector = selector.toUpperCase();
   
     for( i=0; i<obj.childNodes.length; ++i ) {
