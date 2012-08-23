@@ -915,7 +915,7 @@ function getCaseRows() {
 
 //Returns the first result of the child object of obj that matches selector
 function recursiveChild(obj,selector) {
-    var res, i;
+    var res, children, i;
     selector = selector.toUpperCase();
   
     for( i=0; i<obj.childNodes.length; ++i ) {
