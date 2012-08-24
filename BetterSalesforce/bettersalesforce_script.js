@@ -312,7 +312,7 @@ function getBigQueuesHtml() {
         '<div id="q-refresh" style="float:right;width:20%;text-align:right"><p>refreshing in <strong id="q-refresh-count">0</strong> seconds</p>' +
          '<a href="javascript:;" id="refresh-q-link">refresh queue</a> &nbsp; &nbsp; <a href="javascript:;" id="refresh-links">refresh links</a> &nbsp; &nbsp; <a href="javascript:;" id="pause-refresh">pause</a>' +
         '</div>' +
-        '<div id="q-loading" style="float:right;width:30%;text-align:right;display:none;">loading...<br /> &nbsp;</div>' +
+        '<div id="q-loading" style="float:right;width:30%;text-align:right;display:none;">brewing...<br /> &nbsp;</div>' +
         '<div style="clear:both"></div></div>';
         
 	return bigQHtml;
@@ -351,10 +351,9 @@ function initJiveUI() {
 	 
     // Account Support View	
     if (localStorage.mode == 'Account Support' ) {
-    	//TODO: Should this be the BigQueuesHtml()?
 	    appensionHtml +=
 		    '<span class="t2-queue big"><a href="500?fcf=00B50000006LnHq" style="color:black">Account Support (<span id="account-support-queue-count">*</span>)</a></span>' +
-		    '<span class="t2-queue big"><a href="500?fcf=00B50000006LTCj" style="color:black">Frontline (<span id="support-queue">*</span>)</a></span>' +
+		    '<span class="t2-queue big"><a href="500?fcf=00B50000006LTCj" style="color:black">Support (<span id="support-queue">*</span>)</a></span>' +
 		 
 		    // Daily Queues for Account Support
 		    '<br /><span class="t2-queue">You\'ve taken <span id="cases-taken">*</span> today.</span>' +
@@ -362,7 +361,7 @@ function initJiveUI() {
 		    '<div id="q-refresh" style="float:right;width:20%;text-align:right"><p>refreshing in <strong id="q-refresh-count">0</strong> seconds</p>' +
             '<a href="javascript:;" id="refresh-q-link">refresh queue</a> &nbsp; &nbsp; <a href="javascript:;" id="refresh-links">refresh links</a> &nbsp; &nbsp; <a href="javascript:;" id="pause-refresh">pause</a>' +
 		    '</div>' +
-		    '<div id="q-loading" style="float:right;width:30%;text-align:right;display:none;">loading...<br /> &nbsp;</div>' +
+		    '<div id="q-loading" style="float:right;width:30%;text-align:right;display:none;">brewing...<br /> &nbsp;</div>' +
 	        '<div style="clear:both"></div></div>';
     } else {
         appensionHtml += getBigQueuesHtml();
@@ -865,8 +864,6 @@ function insertCaseLinks( dom , sf_id , links ) {
 		$(dom).find('a[id$="_HOSTING"]').click(function() {
 		    assignToQueue(sf_id, HOSTING_QUEUE);
 		});
-	    
-		//TODO: Add Liz Savage Button to this view
 	}
 }
 
