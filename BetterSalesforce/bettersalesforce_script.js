@@ -379,6 +379,7 @@ function initJiveUI() {
 
     //Set title of page
     queueTitle = $('.title option:selected').text();
+    console.log("Queue Title is " + queueTitle);
     document.title = '(*) ' +  queueTitle;
 }
 
@@ -387,6 +388,14 @@ function isQPage() {
     return true;
   }
   return false;
+}
+
+function isSupportQPage() {
+	var supportIndex = document.title.indexOf('Support');
+	if( supportIndex == 4 || supportIndex == 5 ) {
+		return true;
+	}
+	return false;
 }
 
 function isQEmpty() {
@@ -471,6 +480,10 @@ function refreshQ() {
     } else {
         getClass('x-grid3-row')[0].appendChild(el);
     }
+    
+    queueTitle = $('.title option:selected').text();
+    document.title = '(*) ' +  queueTitle;
+    
     
     //Trigger the SalesForce refresh 
     //jQuery's click() doesn't seem to fire the handler defined in the onclick attribute (boo),
@@ -824,10 +837,13 @@ function createCaseLinks( sf_id , jive_case_url ) {
 }
 
 function createCaseLinksFrontline( sf_id , jive_case_url ) {
-    return '<a href="'+jive_case_url+'" title="'+ JIVECOMMUNITY_DESC +'" class="sprite-icon sprite-favicon"> </a> &nbsp; ' +
-        '<a href="javascript:;" id="' + sf_id + '_LEVEL_UP" title="'+ T2_DESC +'" class="sprite-icon sprite-tier2-icon"> </a> &nbsp; ' +
-        '<a href="javascript:;" id="' + sf_id + '_ACCOUNT_SUPPORT" title="'+ ACCOUNT_DESC +'" class="sprite-icon sprite-account_support"> </a> &nbsp; ' +
-        '<a href="javascript:;" id="' + sf_id + '_HOSTING" title="'+ HOSTING_DESC +'" class="sprite-icon sprite-hosting"> </a> &nbsp;';
+    if(isSupportQPage() == false) {
+		return '<a href="'+jive_case_url+'" title="'+ JIVECOMMUNITY_DESC +'" class="sprite-icon sprite-favicon"> </a> &nbsp; ' +
+        	'<a href="javascript:;" id="' + sf_id + '_LEVEL_UP" title="'+ T2_DESC +'" class="sprite-icon sprite-tier2-icon"> </a> &nbsp; ' +
+        	'<a href="javascript:;" id="' + sf_id + '_ACCOUNT_SUPPORT" title="'+ ACCOUNT_DESC +'" class="sprite-icon sprite-account_support"> </a> &nbsp; ' +
+        	'<a href="javascript:;" id="' + sf_id + '_HOSTING" title="'+ HOSTING_DESC +'" class="sprite-icon sprite-hosting"> </a> &nbsp;';
+    }
+    return '<a href="'+jive_case_url+'" title="'+ JIVECOMMUNITY_DESC +'" class="sprite-icon sprite-favicon"> </a> &nbsp;'; 
 }
 
 function createCaseLinksAccountSupport( sf_id, jive_case_url ) {
@@ -846,25 +862,25 @@ function insertCaseLinks( dom , sf_id , links ) {
         $(dom).find('a[id$="_LEVEL_UP"]').click(function() {
             assignToQueue(sf_id, BACKLINE_QUEUE);
         });
-    $(dom).find('a[id$="_ACCOUNT_SUPPORT"]').click(function() {
-        assignToQueue(sf_id, ACCOUNT_SUPPORT_QUEUE);
-    });
-    $(dom).find('a[id$="_HOSTING"]').click(function() {
-        assignToQueue(sf_id, HOSTING_QUEUE);
-    });
-}
+        $(dom).find('a[id$="_ACCOUNT_SUPPORT"]').click(function() {
+            assignToQueue(sf_id, ACCOUNT_SUPPORT_QUEUE);
+        });
+        $(dom).find('a[id$="_HOSTING"]').click(function() {
+            assignToQueue(sf_id, HOSTING_QUEUE);
+        });
+	}
 	
 	// If in Account Support View
-    if ( localStorage.mode == 'Account Support') {
-    if($(dom).find('a[href*=jivesoftware]"').length) return; // Links already populated
+	else if ( localStorage.mode == 'Account Support') {
+        if($(dom).find('a[href*=jivesoftware]"').length) return; // Links already populated
 	    $(dom).prepend(links);
 		$(dom).find('a[id$="_SUPPORT_Q"]').click(function() {
 		    assignToQueue(sf_id, SUPPORT_QUEUE);
-	    });
-		$(dom).find('a[id$="_HOSTING"]').click(function() {
-		    assignToQueue(sf_id, HOSTING_QUEUE);
 		});
-	}
+	    $(dom).find('a[id$="_HOSTING"]').click(function() {
+            assignToQueue(sf_id, HOSTING_QUEUE);
+	    });
+    }
 }
 
 function addLinksToRow(linkTag) {
