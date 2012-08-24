@@ -379,7 +379,6 @@ function initJiveUI() {
 
     //Set title of page
     queueTitle = $('.title option:selected').text();
-    console.log("Queue Title is " + queueTitle);
     document.title = '(*) ' +  queueTitle;
 }
 
