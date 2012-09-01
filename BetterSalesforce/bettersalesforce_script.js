@@ -390,7 +390,7 @@ function initJiveUI() {
     appensionHtml += '<input type="range" min="5" max="45" step="5" value="' + localStorage.refreshTime +
         '" onChange="localStorage.refreshTime = value;" title="' + localStorage.refreshTime + '" />';
 
-    appensionHtml += '</div></div><div style="float:left;width:60%;">';
+    appensionHtml += '</div></div><div style="float:left;width:30%;">';
 
     // Add queues to appending HTML
     appensionHtml += getSoloQueuesHtml();
