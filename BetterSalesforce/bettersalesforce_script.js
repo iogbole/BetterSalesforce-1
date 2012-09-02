@@ -142,7 +142,7 @@ function fireQChangesWhenReady(firstRun, timesRun) {
         $('.waitingSearchDiv').width(0).css('overflow', 'hidden');
         $('.waitingHolder').hide();
 
-        $('#q-refresh').show();
+        $('#q-refresh').fadeIn();
         $('#q-loading').hide();
         initRows();
 
@@ -282,21 +282,20 @@ function getSoloQueuesHtml() {
 
     if (localStorage.mode == 'Girth') {
         html =
-            '<span class="t2-queue"><a href="500?fcf=00B50000006MQxb" style="color:black">Alex (<span id="alex_evans-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006MkP5" style="color:black">Ben (<span id="ben-in-progress">*</span>)</a></span>' +
+            '<span class="t2-queue"><a href="500?fcf=00B50000006MkP5" style="color:black">Ben (<span id="ben-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MQxv" style="color:black">Dustin (<span id="dustin_castor-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006Mz3S" style="color:black">Frank (<span id="frank-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MDyq" style="color:black">Josh (<span id="josh_leckbee-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NB7g" style="color:black">Sean (<span id="sean_staley-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MXuZ" style="color:black">Tatsuro (<span id="tatsuro_alpert-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006MQy0" style="color:black">Taylor (<span id="taylor_thornton-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NB7W" style="color:black">Tim (<span id="tim_dooher-in-progress">*</span>)</a></span>';
     }
     else if (localStorage.mode == 'Surgical') {
         html =
-            '<span class="t2-queue"><a href="500?fcf=00B50000006MQxg" style="color:black">Daniel (<span id="daniel_shaver-in-progress">*</span>)</a></span>' +
+            '<span class="t2-queue"><a href="500?fcf=00B50000006MQxb" style="color:black">Alex (<span id="alex_evans-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MQxl" style="color:black">Jacob (<span id="jacob-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006Mk64" style="color:black">Rusty (<span id="russell-in-progress">*</span>)</a></span>';
+                '<span class="t2-queue"><a href="500?fcf=00B50000006Mk64" style="color:black">Rusty (<span id="russell-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006MQy0" style="color:black">Taylor (<span id="taylor_thornton-in-progress">*</span>)</a></span>';
     }
     else if (localStorage.mode == 'SnM') {
         html =
@@ -366,7 +365,7 @@ function initJiveUI() {
     if (localStorage.refreshTime == undefined || localStorage.refreshTime == 'undefined' ||
         localStorage.refreshTime == 'NaN')
     {
-        localStorage.setItem('refreshTime', 25);
+        localStorage.refreshTime = 25;
     }
 
     var appensionHtml = '<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; } .t2-queue span {padding-right:0 !important;} .big {float: right;} ' +
@@ -390,7 +389,7 @@ function initJiveUI() {
     appensionHtml += '<input type="range" min="5" max="45" step="5" value="' + localStorage.refreshTime +
         '" onChange="localStorage.refreshTime = value;" title="' + localStorage.refreshTime + '" />';
 
-    appensionHtml += '</div></div><div style="float:left;width:30%;">';
+    appensionHtml += '</div></div><div style="float:left;width:60%;">';
 
     // Add queues to appending HTML
     appensionHtml += getSoloQueuesHtml();
@@ -438,7 +437,7 @@ function isQPage() {
 
 function isSupportQPage() {
     var supportIndex = document.title.indexOf('Support');
-    if (supportIndex == 4 || supportIndex == 5) {
+    if (supportIndex >= 4) {
         return true;
     }
     return false;
@@ -448,7 +447,7 @@ function isQEmpty() {
     return getClass("x-grid-empty").length > 0;
 }
 
-// TODO: Tyler has two extra buttons that cause issues. Remove them if they exist would be awesome to remove. Buttons are "Close" and "Change Status"
+// TODO: Special buttons that Account Support has causes buttons not to appear. Need to hide them as well
 function fixSalesforceUI() {
     // Get rid of the screen-wasting sidebar
     $('#sidebarCell').hide();
@@ -646,7 +645,7 @@ function highlightSolo() {
 function highlightSurgical() {
     var low = 6;
     var high = 13;
-    var arr = new Array('jacob-in-progress', 'russell-in-progress', 'daniel_shaver-in-progress');
+    var arr = new Array('alex_evans-in-progress', 'jacob-in-progress', 'russell-in-progress', 'taylor_thornton-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
@@ -690,9 +689,8 @@ function highlightSnM() {
 function highlightGirth() {
     var low = 6;
     var high = 13;
-    var arr = new Array('alex_evans-in-progress', 'ben-in-progress', 'dustin_castor-in-progress', 'frank-in-progress'
-        , 'josh_leckbee-in-progress', 'taylor_thornton-in-progress', 'tatsuro_alpert-in-progress',
-        'tim_dooher-in-progress', 'sean_staley-in-progress');
+    var arr = new Array('ben-in-progress', 'dustin_castor-in-progress', 'frank-in-progress',
+        'josh_leckbee-in-progress', 'tatsuro_alpert-in-progress', 'tim_dooher-in-progress', 'sean_staley-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
@@ -770,7 +768,6 @@ function highlightFrontlineQueue() {
                 }
                 else {
                     var alertCounts = parseInt(localStorage.getItem('qAlertCount'));
-                    console.log("BetterSalesforce: Number of times you have been alerted is at " + alertCounts + ".");
                 }
 
                 // Fixed Double-Alert Bug by removing alert count = 1 and decreased number of time you will see the error.
