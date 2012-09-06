@@ -451,6 +451,9 @@ function isQEmpty() {
 function fixSalesforceUI() {
     // Get rid of the screen-wasting sidebar
     $('#sidebarCell').hide();
+    /**
+     * TODO: if close and change status buttons do exist, move them!
+     */
     // Move the New Case, Accept, Change Owner, and Refresh links up to the top bar
     $('.controls .clearingBox').replaceWith($('.subNav > .linkBar > .listButtons').remove());
     $('.controls').append($('<div class="clearingBox" />'));
@@ -895,17 +898,6 @@ function initRows() {
 
                 //Fix: Buttons not appearing when SLA Contract Type field is not in current table.
                 if (typeof(cols[slaCol]) != 'undefined') {
-
-                    //Check to see what the SLA Status Is and Highlight
-                    if (slaCol && cols[slaCol].textContent == 'Gold')
-                    {
-                        case_rows[i].parentNode.style.backgroundColor = '#EEE685';
-                    }
-                    else if (slaCol && cols[slaCol].textContent == 'Platinum')
-                    {
-                        case_rows[i].parentNode.style.backgroundColor = '#CCCCFF';
-                    }
-
                     if (slaCol && cols[slaCol].textContent == 'Gold') {
                         case_rows[i].parentNode.style.backgroundColor = '#FFC125';
                     }
