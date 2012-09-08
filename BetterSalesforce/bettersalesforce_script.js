@@ -350,7 +350,7 @@ function getBigQueuesHtml() {
             '<div id="q-refresh" style="float:right;width:20%;text-align:right"><p>refreshing in <strong id="q-refresh-count">0</strong> seconds</p>' +
             '<a href="javascript:;" id="refresh-q-link">refresh queue</a> &nbsp; &nbsp; <a href="javascript:;" id="refresh-links">refresh links</a> &nbsp; &nbsp; <a href="javascript:;" id="pause-refresh">pause</a>' +
             '</div>' +
-            '<div id="q-loading" style="float:right;width:30%;text-align:right;display:none;">brewing...<br /> &nbsp;</div>' +
+            '<div id="q-loading" style="float:right;width:20%;text-align:right;display:none;">brewing...<br /> &nbsp;</div>' +
             '<div style="clear:both"></div></div>';
 
     return bigQHtml;
@@ -537,7 +537,7 @@ function refreshQ() {
     //if not already refreshing
     // TODO: Do we need to guard against multiple refreshes?
     $('#q-refresh').hide();
-    $('#q-loading').show();
+    $('#q-loading').fadeIn();
 
     // SalesForce will remove this element when the refresh is complete
     el = document.createElement('span');
