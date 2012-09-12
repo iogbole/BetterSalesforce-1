@@ -32,21 +32,21 @@ function menu(menuItem) {
 
 
 function setMainPage() {
-    var mainHTML = '<div>Main Page!</div>';
+    var mainHTML = '<div>Coming soon...</div>';
   
     $('.content').empty();
     $('.content').append(mainHTML);
 }
 
 function setModesPage() {
-    var modesHTML = '<div>Modes Page!</div>';
+    var modesHTML = '<div>Coming soon...</div>';
 
     $('.content').empty();
     $('.content').append(modesHTML);
 }
 
 function setAlertsPage() {
-    var alertsHTML = 'Alert on P1:&nbsp;';
+    var alertsHTML = 'Coming soon...<p>Alert on P1:&nbsp;';
   
     if (alertOnP1) {
   	    alertsHTML += '<input type="radio" name="alertonp1" value="alert_true" onClick="javascript: setAlert(true)" checked>Yes</input>&nbsp;' + 

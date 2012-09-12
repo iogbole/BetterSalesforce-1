@@ -21,24 +21,24 @@ var MODULE_Q = '00B50000005nIpQ';
 var SOLO_Q = '00B50000006MDyq';
 
 // Surgical
-var DANIEL_Q = '00B50000006MQxg';
+var ALEX_Q = '00B50000006MQxb';
 var JACOB_Q = '00B50000006MQxl';
 var RUSSELL_Q = '00B50000006Mk64';
+var TAYLOR_Q = '00B50000006MQy0';
 
 // S&M
 var ARNOLD_Q = '00B50000006Mk6c';
 var ELIZ_Q = '00B50000006Mk6X';
 
 // Girth
-var ALEX_Q = '00B50000006MQxb';
 var BEN_Q = '00B50000006MkP5';
 var DUSTIN_Q = '00B50000006MQxv';
 var FRANK_Q = '00B50000006Mz3S';
 var JOSH_Q = '00B50000006MQxq';
 var SEAN_Q = '00B50000006NB7g';
 var TATSURO_Q = '00B50000006MXuZ';
-var TAYLOR_Q = '00B50000006MQy0';
 var TIM_Q = '00B50000006NB7W';
+var VINCE_Q = '00B50000006NL86';
 
 // UK
 var PAUL_Q = '00B50000006Muvm';
@@ -149,20 +149,20 @@ function fireQChangesWhenReady(firstRun, timesRun) {
         var curr_mode = localStorage.mode; // Get currently set queue mode
 
         if (curr_mode == 'Girth') {
-            setQueueCount(ALEX_Q, $('#alex_evans-in-progress'));
             setQueueCount(BEN_Q, $('#ben-in-progress'));
             setQueueCount(DUSTIN_Q, $('#dustin_castor-in-progress'));
             setQueueCount(FRANK_Q, $('#frank-in-progress'));
             setQueueCount(JOSH_Q, $('#josh_leckbee-in-progress'));
             setQueueCount(SEAN_Q, $('#sean_staley-in-progress'));
             setQueueCount(TATSURO_Q, $('#tatsuro_alpert-in-progress'));
-            setQueueCount(TAYLOR_Q, $('#taylor_thornton-in-progress'));
             setQueueCount(TIM_Q, $('#tim_dooher-in-progress'));
+            setQueueCount(VINCE_Q, $('#vince-in-progress'));
         }
         else if (curr_mode == 'Surgical') {
-            setQueueCount(DANIEL_Q, $('#daniel_shaver-in-progress'));
+            setQueueCount(ALEX_Q, $('#alex_evans-in-progress'));
             setQueueCount(JACOB_Q, $('#jacob-in-progress'));
             setQueueCount(RUSSELL_Q, $('#russell-in-progress'));
+            setQueueCount(TAYLOR_Q, $('#taylor_thornton-in-progress'));
         }
         else if (curr_mode == 'SnM') {
             setQueueCount(ARNOLD_Q, $('#arnold-in-progress'));
@@ -227,7 +227,8 @@ function getModes() {
     var currMode = localStorage.mode;
 
     if (currMode == 'Frontline') {
-        modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+        modeString = 
+            '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
             '<OPTION VALUE = "Frontline" selected>Frontline</OPTION>' +
             '<OPTION VALUE = "Girth">Girth</OPTION>' +
             '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
@@ -235,7 +236,8 @@ function getModes() {
             '<OPTION VALUE = "UK">UK</OPTION>';
     }
     else if (currMode == 'Girth') {
-        modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+        modeString = 
+            '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
             '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
             '<OPTION VALUE = "Girth" selected>Girth</OPTION>' +
             '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
@@ -243,22 +245,26 @@ function getModes() {
             '<OPTION VALUE = "UK">UK</OPTION>';
     }
     else if (currMode == 'Surgical') {
-        modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+        modeString = 
+            '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
             '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
             '<OPTION VALUE = "Girth">Girth</OPTION>' +
-            '<OPTION VALUE = "Surgical" selected>Surgical</OPTION>' +
+            '<OPTION VALUE = "Surgical" selected>Surgical</OPTION>' +            
+            '<OPTION VALUE = "SnM">SnM</OPTION>' +
             '<OPTION VALUE = "UK">UK</OPTION>';
     }
     else if (currMode == 'Account Support') {
-        modeString = '<OPTION VALUE = "Account Support" selected>Account Support</OPTION>' +
+        modeString = 
+            '<OPTION VALUE = "Account Support" selected>Account Support</OPTION>' +
             '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
             '<OPTION VALUE = "Girth">Girth</OPTION>' +
             '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-            '<OPTION VALUE = "SnM">SnM</OPTION>';
-        '<OPTION VALUE = "UK">UK</OPTION>';
+            '<OPTION VALUE = "SnM">SnM</OPTION>' +
+            '<OPTION VALUE = "UK">UK</OPTION>';
     }
     else if (currMode == 'UK') {
-        modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+        modeString = 
+            '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
             '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
             '<OPTION VALUE = "Girth">Girth</OPTION>' +
             '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
@@ -266,7 +272,8 @@ function getModes() {
             '<OPTION VALUE = "UK" selected>UK</OPTION>';
     }
     else {
-        modeString = '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+        modeString = 
+            '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
             '<OPTION VALUE = "Frontline">Frontline</OPTION>' +
             '<OPTION VALUE = "Girth">Girth</OPTION>' +
             '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
@@ -288,7 +295,8 @@ function getSoloQueuesHtml() {
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MDyq" style="color:black">Josh (<span id="josh_leckbee-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NB7g" style="color:black">Sean (<span id="sean_staley-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MXuZ" style="color:black">Tatsuro (<span id="tatsuro_alpert-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006NB7W" style="color:black">Tim (<span id="tim_dooher-in-progress">*</span>)</a></span>';
+                '<span class="t2-queue"><a href="500?fcf=00B50000006NB7W" style="color:black">Tim (<span id="tim_dooher-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006NL86" style="color:black">Vince (<span id="vince-in-progress">*</span>)</a></span>';
     }
     else if (localStorage.mode == 'Surgical') {
         html =
@@ -693,7 +701,7 @@ function highlightGirth() {
     var low = 6;
     var high = 13;
     var arr = new Array('ben-in-progress', 'dustin_castor-in-progress', 'frank-in-progress',
-        'josh_leckbee-in-progress', 'tatsuro_alpert-in-progress', 'tim_dooher-in-progress', 'sean_staley-in-progress');
+        'josh_leckbee-in-progress', 'tatsuro_alpert-in-progress', 'tim_dooher-in-progress', 'sean_staley-in-progress', 'vince-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
