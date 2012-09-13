@@ -918,7 +918,7 @@ function initRows() {
                         console.error("BetterSalesforce: typeof(cols[slaCol]) is " + typeof(cols[slaCol]) + ".");
                     }
 
-                    //Is it a P1? If so, bold it!
+                    //Is it a P1? If so, bold it! 
                     if (pCol && cols[pCol].textContent == 'Level 1') {
                         for (var j in case_rows[i].childNodes)
                         {
