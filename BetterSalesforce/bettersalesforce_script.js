@@ -83,6 +83,10 @@ var SPRITE_IMAGE = chrome.extension.getURL("images/bsf-sprites.png");
 // Some variables that are used in the script.
 var subjCol, statusCol, pCol, slaCol, accountCol, selectedCase = null, selectedRow = null;
 
+// Frontline High Count and Medium Count
+var mediumCount = 25;
+var highCount = 50;
+
 
 function setQueueCount(view_id, dom_obj) {
     $.post("/_ui/common/list/ListServlet", {
@@ -763,8 +767,6 @@ function highlightAS() {
 }
 
 function highlightFrontlineQueue() {
-    var mediumCount = 25;
-    var highCount = 50;
     var arr = new Array('support-queue');
 
     $.each(arr, function () {
@@ -784,7 +786,7 @@ function highlightFrontlineQueue() {
                 }
 
                 // Fixed Double-Alert Bug by removing alert count = 1 and decreased number of time you will see the error.
-                if (num >= 50 && alertCounts % 15 == 0) {
+                if (num >= highCount && alertCounts % 15 == 0) {
                     supportQAlert(num);
                 }
                 else if (num < 35) {
@@ -1102,7 +1104,6 @@ function destroy(el) {
 
 // Support Queue Alert!
 function supportQAlert(number) {
-    var num = parseInt(number);
-    console.log("BetterSalesforce: There are " + num + "in the queue. Receive alert.");
-    alert('The Support Queue is above 40 !!!!' + '\n' + 'The Queue is currenty at ' + num + '!!!!');
+    var currentCaseCount = parseInt(number);
+    alert('The Support Queue is above ' + highCount + ' !!!!' + '\n' + 'The Queue is currenty at ' + currentCaseCount + '!!!!');
 }
