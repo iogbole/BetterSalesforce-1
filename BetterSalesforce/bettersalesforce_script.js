@@ -144,7 +144,6 @@ function fireQChangesWhenReady(firstRun, timesRun) {
 
         $('#q-refresh').fadeIn();
         $('#q-loading').hide();
-        initRows();
 
         var curr_mode = localStorage.mode; // Get currently set queue mode
 
@@ -210,6 +209,8 @@ function fireQChangesWhenReady(firstRun, timesRun) {
         }
         highlightQueues();
 
+        //Start building the links after everything else calculates.
+        initRows();
         if (firstRun)
         {
             window.addEventListener('resize', initRows, true);
@@ -454,7 +455,7 @@ function fixSalesforceUI() {
     /**
      * TODO: if close and change status buttons do exist, move them!
      */
-    // Move the New Case, Accept, Change Owner, and Refresh links up to the top bar
+        // Move the New Case, Accept, Change Owner, and Refresh links up to the top bar
     $('.controls .clearingBox').replaceWith($('.subNav > .linkBar > .listButtons').remove());
     $('.controls').append($('<div class="clearingBox" />'));
     // Hide where those links used to be
@@ -648,7 +649,8 @@ function highlightSolo() {
 function highlightSurgical() {
     var low = 6;
     var high = 13;
-    var arr = new Array('alex_evans-in-progress', 'jacob-in-progress', 'russell-in-progress', 'taylor_thornton-in-progress');
+    var arr = new Array('alex_evans-in-progress', 'jacob-in-progress', 'russell-in-progress',
+        'taylor_thornton-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
@@ -904,11 +906,6 @@ function initRows() {
                     else if (slaCol && cols[slaCol].textContent == 'Platinum') {
                         case_rows[i].parentNode.style.backgroundColor = '#CCCCFF';
                     }
-                    else {
-                        console.error("BetterSalesforce: slaCol ID is " + slaCol + ".");
-                        console.error("BetterSalesforce: cols[slaCol] is " + cols[slaCol] + ".");
-                        console.error("BetterSalesforce: typeof(cols[slaCol]) is " + typeof(cols[slaCol]) + ".");
-                    }
 
                     //Is it a P1? If so, bold it!
                     if (pCol && cols[pCol].textContent == 'Level 1') {
@@ -930,7 +927,9 @@ function initRows() {
 
 function addLinksToRows(case_rows) {
     for (var i in case_rows) {
-        addLinksToRow(case_rows[i].childNodes[subjCol].childNodes[0]);
+        if(i <= 10){
+            addLinksToRow(case_rows[i].childNodes[subjCol].childNodes[0]);
+        }
     }
 }
 
@@ -956,18 +955,20 @@ function createCaseLinksFrontline(sf_id, jive_case_url) {
 }
 
 function createCaseLinksAccountSupport(sf_id, jive_case_url) {
-    return '<a href="' + jive_case_url + '" class="sprite-icon sprite-favicon"> </a> &nbsp; ' +
+    return '<a href="' + jive_case_url + '" title="' + JIVECOMMUNITY_DESC + '" ' +
+        'class="sprite-icon sprite-favicon"> </a> &nbsp; ' +
         '<a href="javascript:;" id="' + sf_id +
-        '_SUPPORT_Q" title="Send to Frontline Queue" class="sprite-icon sprite-tier2-icon"> </a> &nbsp; ' +
+        '_SUPPORT_Q" title="' + FRONTLINE_DESC + '" class="sprite-icon sprite-tier2-icon"> </a> &nbsp; ' +
         '<a href="javascript:;" id="' + sf_id +
-        '_HOSTING" title="Send to Hosting Queue" class="sprite-icon sprite-hosting"> </a> &nbsp; ';
+        '_HOSTING" title="' + HOSTING_DESC + '" class="sprite-icon sprite-hosting"> </a> &nbsp; ';
 }
 
 function insertCaseLinks(dom, sf_id, links) {
+    // Check to see if links are already populated
     if ($(dom).find('a[href*=jivesoftware]').length)
     {
         return;
-    } // Links already populated
+    }
     $(dom).prepend(links);
 
     // If in Frontline View
@@ -1001,43 +1002,41 @@ function insertCaseLinks(dom, sf_id, links) {
 function addLinksToRow(linkTag) {
     var sfurl = $(linkTag).find('a:last').attr('href');
     var sf_id = sfurl.substring(1);
+
+    console.log("sfurl " + sfurl);
+    console.log("sf_id " + sf_id);
+    console.log("caseLinks[sf_id] " + caseLinks[sf_id]);
     if (caseLinks[sf_id]) {
         insertCaseLinks(linkTag, sf_id, caseLinks[sf_id]);
     }
     else {
         var added = false;
 
-        for (var i = 0; i < 6 && !added; ++i)
-        {
-            setTimeout(function () {
-                if (added) {
-                    return;
-                }
-
-                //Set up ajax request
-                $.get(sfurl).success(function (data) {
-                    added = true;
-                    var href = $(data).find('a[href^="https://community.jivesoftware.com"]').attr('href');
-                    if (!href) {
-                        $(data).find('a[href^="http://www.jivesoftware.com/jivespace"]').attr('href');
-                    }
-                    if (href) {
-                        if (localStorage.mode == 'Frontline')
-                        {
-                            caseLinks[sf_id] = createCaseLinksFrontline(sf_id, href);
-                        }
-                        else if (localStorage.mode == 'Account Support')
-                        {
-                            caseLinks[sf_id] = createCaseLinksAccountSupport(sf_id, href);
-                        }
-                        else {
-                            caseLinks[sf_id] = createCaseLinks(sf_id, href);
-                        }
-                        insertCaseLinks(linkTag, sf_id, caseLinks[sf_id]);
-                    }
-                });
-            }, i * 650);
+        if (added) {
+            return;
         }
+
+        //TODO: Bad Performing Code. Need to revamp the code in order to mac
+        //Set up ajax request
+        $.get(sfurl).success(function (data) {
+            added = true;
+            var href = $(data).find('a[href^="https://community.jivesoftware.com"]').attr('href');
+            console.log(href);
+            if (href) {
+                if (localStorage.mode == 'Frontline')
+                {
+                    caseLinks[sf_id] = createCaseLinksFrontline(sf_id, href);
+                }
+                else if (localStorage.mode == 'Account Support')
+                {
+                    caseLinks[sf_id] = createCaseLinksAccountSupport(sf_id, href);
+                }
+                else {
+                    caseLinks[sf_id] = createCaseLinks(sf_id, href);
+                }
+                insertCaseLinks(linkTag, sf_id, caseLinks[sf_id]);
+            }
+        });
     }
 }
 
