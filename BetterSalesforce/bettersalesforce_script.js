@@ -518,7 +518,7 @@ function initQDetails(firstRun) {
     for (var i = 0; i < cols.length; ++i) {
         var classes = cols[i].getAttribute('class');
 
-        if (classes.indexOf('x-grid3-td-CASES_SUBJECT') > -1)
+        if (classes.indexOf('x-grid3-td-CASES_SUBJECT') > -1 || classes.indexOf('x-grid3-td-Subject') > -1)
         {
             subjCol = i;
         }
@@ -886,7 +886,7 @@ function highlightTaken() {
 }
 
 function initRows() {
-    if (getClass('x-grid3-td-CASES_SUBJECT').length) {
+    if (getClass('x-grid3-td-CASES_SUBJECT').length || getClass('x-grid3-td-Subject').length)) {
         inProgressCount = 0;
         var case_rows = getCaseRows();
 
@@ -1013,9 +1013,6 @@ function addLinksToRow(linkTag) {
     var sfurl = $(linkTag).find('a:last').attr('href');
     var sf_id = sfurl.substring(1);
 
-    console.log("sfurl " + sfurl);
-    console.log("sf_id " + sf_id);
-    console.log("caseLinks[sf_id] " + caseLinks[sf_id]);
     if (caseLinks[sf_id]) {
         insertCaseLinks(linkTag, sf_id, caseLinks[sf_id]);
     }
