@@ -388,7 +388,7 @@ function initJiveUI() {
         ') no-repeat top left; width:16px; height:16px; display:inline-block; } ' +
         '.sprite-tier2-icon{ background-position:0 -376px; } .sprite-account_support{ background-position:0 0; } ' +
         '.sprite-hosting{background-position:0 -132px;} .sprite-favicon{background-position:0 -66px;} ' +
-
+        
         //Fixed the Action Column from shifting.
         '.x-grid3-td-ACTION_COLUMN {width:64px !important;} </style> ' +
         '<div id="q-panel" style="margin:5px 0px; padding: 5px; border:#CCC solid 1px"> <div style="float:left;width:15%"><div>Mode: ';
@@ -471,6 +471,14 @@ function fixSalesforceUI() {
     // Hide where those links used to be
     $('.subNav > .linkBar').hide();
     // We hide the refresh button in the fireQChangesWhenReady function to pick up on post-refresh changes
+    removejscssfile("dCustom0.css", "css");
+    removejscssfile("Case.css", "css");
+    removejscssfile("HelpBubble.css","css");
+    removejscssfile("chatterExtended.css","css");
+    removejscssfile("dStandard.css","css");
+    removejscssfile("chatterCore.css","css");
+    //removejscssfile("common.css","css");
+    //removejscssfile("ExtCSS-SFDC.css","css");
 }
 
 function removeOrWaitForRefreshButton() {
@@ -1036,7 +1044,7 @@ function addLinksToRow(linkTag) {
         $.get(sfurl).success(function (data) {
             added = true;
             var href = $(data).find('a[href^="https://community.jivesoftware.com"]').attr('href');
-            console.log(href);
+            //console.log(href);
             if (href) {
                 if (localStorage.mode == 'Frontline')
                 {
@@ -1112,4 +1120,15 @@ function supportQAlert(number) {
     var currentCaseCount = parseInt(number);
     alert('The Support Queue is above ' + highCount + ' !!!!' + '\n' + 'The Queue is currenty at ' + currentCaseCount +
         '!!!!');
+}
+
+// Function for removing unused CSS or JS from page for optimization purposes
+function removejscssfile(filename, filetype){
+ var targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none" //determine element type to create nodelist from
+ var targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none" //determine corresponding attribute to test for
+ var allsuspects=document.getElementsByTagName(targetelement)
+ for (var i=allsuspects.length; i>=0; i--){ //search backwards within nodelist for matching elements to remove
+  if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(filename)!=-1)
+   allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
+ }
 }
