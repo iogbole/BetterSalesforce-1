@@ -232,58 +232,58 @@ function getModes() {
     var currMode = localStorage.mode;
 
     if (currMode == 'Frontline') {
-        modeString = 
+        modeString =
             '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
-            '<OPTION VALUE = "Frontline" selected>Frontline</OPTION>' +
-            '<OPTION VALUE = "Girth">Girth</OPTION>' +
-            '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-            '<OPTION VALUE = "SnM">SnM</OPTION>' +
-            '<OPTION VALUE = "UK">UK</OPTION>';
+                '<OPTION VALUE = "Frontline" selected>Frontline</OPTION>' +
+                '<OPTION VALUE = "Girth">Girth</OPTION>' +
+                '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
+                '<OPTION VALUE = "SnM">SnM</OPTION>' +
+                '<OPTION VALUE = "UK">UK</OPTION>';
     }
     else if (currMode == 'Girth') {
-        modeString = 
+        modeString =
             '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
-            '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-            '<OPTION VALUE = "Girth" selected>Girth</OPTION>' +
-            '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-            '<OPTION VALUE = "SnM">SnM</OPTION>' +
-            '<OPTION VALUE = "UK">UK</OPTION>';
+                '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
+                '<OPTION VALUE = "Girth" selected>Girth</OPTION>' +
+                '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
+                '<OPTION VALUE = "SnM">SnM</OPTION>' +
+                '<OPTION VALUE = "UK">UK</OPTION>';
     }
     else if (currMode == 'Surgical') {
-        modeString = 
+        modeString =
             '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
-            '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-            '<OPTION VALUE = "Girth">Girth</OPTION>' +
-            '<OPTION VALUE = "Surgical" selected>Surgical</OPTION>' +            
-            '<OPTION VALUE = "SnM">SnM</OPTION>' +
-            '<OPTION VALUE = "UK">UK</OPTION>';
+                '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
+                '<OPTION VALUE = "Girth">Girth</OPTION>' +
+                '<OPTION VALUE = "Surgical" selected>Surgical</OPTION>' +
+                '<OPTION VALUE = "SnM">SnM</OPTION>' +
+                '<OPTION VALUE = "UK">UK</OPTION>';
     }
     else if (currMode == 'Account Support') {
-        modeString = 
+        modeString =
             '<OPTION VALUE = "Account Support" selected>Account Support</OPTION>' +
-            '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-            '<OPTION VALUE = "Girth">Girth</OPTION>' +
-            '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-            '<OPTION VALUE = "SnM">SnM</OPTION>' +
-            '<OPTION VALUE = "UK">UK</OPTION>';
+                '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
+                '<OPTION VALUE = "Girth">Girth</OPTION>' +
+                '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
+                '<OPTION VALUE = "SnM">SnM</OPTION>' +
+                '<OPTION VALUE = "UK">UK</OPTION>';
     }
     else if (currMode == 'UK') {
-        modeString = 
+        modeString =
             '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
-            '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-            '<OPTION VALUE = "Girth">Girth</OPTION>' +
-            '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-            '<OPTION VALUE = "SnM">SnM</OPTION>' +
-            '<OPTION VALUE = "UK" selected>UK</OPTION>';
+                '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
+                '<OPTION VALUE = "Girth">Girth</OPTION>' +
+                '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
+                '<OPTION VALUE = "SnM">SnM</OPTION>' +
+                '<OPTION VALUE = "UK" selected>UK</OPTION>';
     }
     else {
-        modeString = 
+        modeString =
             '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
-            '<OPTION VALUE = "Frontline">Frontline</OPTION>' +
-            '<OPTION VALUE = "Girth">Girth</OPTION>' +
-            '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-            '<OPTION VALUE = "SnM" selected>SnM</OPTION>' +
-            '<OPTION VALUE = "UK">UK</OPTION>';
+                '<OPTION VALUE = "Frontline">Frontline</OPTION>' +
+                '<OPTION VALUE = "Girth">Girth</OPTION>' +
+                '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
+                '<OPTION VALUE = "SnM" selected>SnM</OPTION>' +
+                '<OPTION VALUE = "UK">UK</OPTION>';
     }
 
     return modeString;
@@ -464,10 +464,8 @@ function isQEmpty() {
 function fixSalesforceUI() {
     // Get rid of the screen-wasting sidebar
     $('#sidebarCell').hide();
-    /**
-     * TODO: if close and change status buttons do exist, move them!
-     */
-        // Move the New Case, Accept, Change Owner, and Refresh links up to the top bar
+
+    // Move the New Case, Accept, Change Owner, and Refresh links up to the top bar
     $('.controls .clearingBox').replaceWith($('.subNav > .linkBar > .listButtons').remove());
     $('.controls').append($('<div class="clearingBox" />'));
     // Hide where those links used to be
@@ -707,7 +705,8 @@ function highlightGirth() {
     var low = 6;
     var high = 13;
     var arr = new Array('ben-in-progress', 'dustin_castor-in-progress', 'frank-in-progress',
-        'josh_leckbee-in-progress', 'tatsuro_alpert-in-progress', 'tim_dooher-in-progress', 'sean_staley-in-progress', 'vince-in-progress');
+        'josh_leckbee-in-progress', 'tatsuro_alpert-in-progress', 'tim_dooher-in-progress', 'sean_staley-in-progress',
+        'vince-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
@@ -885,61 +884,66 @@ function highlightTaken() {
     });
 }
 
-function initRows() {
-    if (getClass('x-grid3-td-CASES_SUBJECT').length || getClass('x-grid3-td-Subject').length)) {
-        inProgressCount = 0;
-        var case_rows = getCaseRows();
+function highlightRows(case_rows) {
+    for (var i in case_rows) {
+        var cols = case_rows[i].childNodes;
+        var sfurl = recursiveChild(cols[subjCol], 'a').href;
 
-        //Highlight the row after the row is clicked 
-        for (var i in case_rows) {
-            var cols = case_rows[i].childNodes;
-            var sfurl = recursiveChild(cols[subjCol], 'a').href;
-
-            if (sfurl) {
-                //If this was refreshed, see if this case was selected
-                if (selectedCase == sfurl) {
-                    case_rows[i].style.backgroundColor = '#fdffe3';
-                    selectedRow = case_rows[i];
+        if (sfurl) {
+            // Draw the colors for the enhanced support customers
+            if (typeof(cols[slaCol]) != 'undefined') {
+                if (slaCol && cols[slaCol].textContent == 'Gold') {
+                    case_rows[i].parentNode.style.backgroundColor = '#FFC125';
                 }
-                else if (statusCol && cols[statusCol].textContent != 'In Progress') {
-                    case_rows[i].parentNode.style.backgroundColor = '#EEE';
+                else if (slaCol && cols[slaCol].textContent == 'Platinum') {
+                    case_rows[i].parentNode.style.backgroundColor = '#CCCCFF';
                 }
-                else {
-                    inProgressCount += 1;
-                }
+            }
 
-                //Fix: Buttons not appearing when SLA Contract Type field is not in current table.
-                if (typeof(cols[slaCol]) != 'undefined') {
-                    if (slaCol && cols[slaCol].textContent == 'Gold') {
-                        case_rows[i].parentNode.style.backgroundColor = '#FFC125';
-                    }
-                    else if (slaCol && cols[slaCol].textContent == 'Platinum') {
-                        case_rows[i].parentNode.style.backgroundColor = '#CCCCFF';
-                    }
+            // If this was refreshed, see if this case was selected
+            if (selectedCase == sfurl) {
+                case_rows[i].style.backgroundColor = '#fdffe3';
+                selectedRow = case_rows[i];
+            }
+            else if (statusCol && cols[statusCol].textContent != 'In Progress') {
+                case_rows[i].parentNode.style.backgroundColor = '#EEE';
+            }
+            else {
+                inProgressCount += 1;
+            }
 
-                    //Is it a P1? If so, bold it! 
-                    if (pCol && cols[pCol].textContent == 'Level 1') {
-                        for (var j in case_rows[i].childNodes)
-                        {
-                            if (case_rows[i].childNodes[j].style)
-                            {
-                                case_rows[i].childNodes[j].style.fontWeight = 'bold';
-                            }
-                        }
+
+            // Is it a P1? If so, bold it!
+            if (pCol && cols[pCol].textContent == 'Level 1') {
+                for (var j in case_rows[i].childNodes)
+                {
+                    if (case_rows[i].childNodes[j].style)
+                    {
+                        case_rows[i].childNodes[j].style.fontWeight = 'bold';
                     }
                 }
             }
-            document.title = '(' + inProgressCount + ') ' + queueTitle;
-            addLinksToRows(case_rows);
         }
+    }
+}
+
+function initRows() {
+    if (getClass('x-grid3-td-CASES_SUBJECT').length || getClass('x-grid3-td-Subject').length)
+    {
+        inProgressCount = 0;
+        var case_rows = getCaseRows();
+
+        //Highlight the row after the row is clicked
+        highlightRows(case_rows);
+
+        document.title = '(' + inProgressCount + ') ' + queueTitle;
+        addLinksToRows(case_rows);
     }
 }
 
 function addLinksToRows(case_rows) {
     for (var i in case_rows) {
-        if(i <= 10){
             addLinksToRow(case_rows[i].childNodes[subjCol].childNodes[0]);
-        }
     }
 }
 
@@ -1102,5 +1106,6 @@ function destroy(el) {
 // Support Queue Alert!
 function supportQAlert(number) {
     var currentCaseCount = parseInt(number);
-    alert('The Support Queue is above ' + highCount + ' !!!!' + '\n' + 'The Queue is currenty at ' + currentCaseCount + '!!!!');
+    alert('The Support Queue is above ' + highCount + ' !!!!' + '\n' + 'The Queue is currenty at ' + currentCaseCount +
+        '!!!!');
 }
