@@ -943,7 +943,11 @@ function initRows() {
 
 function addLinksToRows(case_rows) {
     for (var i in case_rows) {
+        if(i < 11) {
             addLinksToRow(case_rows[i].childNodes[subjCol].childNodes[0]);
+        } else {
+            setTimeout(addLinksToRow(case_rows[i].childNodes[subjCol].childNodes[0]), (15*i));
+        }
     }
 }
 
