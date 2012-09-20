@@ -18,7 +18,7 @@ var ACCOUNT_Q = '00B50000006LnHq';
 var MODULE_Q = '00B50000005nIpQ';
 
 // Frontline
-var SOLO_Q = '00B50000006MDyq';
+var SOLO_Q = '00B50000006NMcv';
 
 // Surgical
 var ALEX_Q = '00B50000006MQxb';
@@ -323,7 +323,7 @@ function getSoloQueuesHtml() {
     }
     else {
         html =
-            '<span class="t2-queue"><a href="500?fcf=00B50000006MDyq" style="color:black">My Queue(<span id="solo-in-progress">*</span>)</a></span>';
+            '<span class="t2-queue"><a href="500?fcf=00B50000006NMcv" style="color:black">My Queue(<span id="solo-in-progress">*</span>)</a></span>';
     }
 
     return html;
