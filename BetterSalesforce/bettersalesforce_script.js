@@ -15,7 +15,7 @@ var getClass = function (arg) {
 
 // Account Support
 var ACCOUNT_Q = '00B50000006LnHq';
-var MODULE_Q = '00B50000005nIpQ';
+//var MODULE_Q = '00B50000005nIpQ';
 
 // Frontline
 var SOLO_Q = '00B50000006NMcv';
@@ -41,7 +41,6 @@ var TIM_Q = '00B50000006NB7W';
 var VINCE_Q = '00B50000006NL86';
 
 // UK
-var PAUL_Q = '00B50000006Muvm';
 var IZABELA_Q = '00B50000006Muvr';
 var SHAILESH_Q = '00B50000006Muvw';
 
@@ -102,7 +101,6 @@ function setQueueCount(view_id, dom_obj) {
 
 
 // Global Variables
-var waitingDiv;
 var caseLinks = {};
 var inProgressCount = 0;
 var queueTitle;
@@ -172,7 +170,6 @@ function fireQChangesWhenReady(firstRun, timesRun) {
             setQueueCount(ELIZ_Q, $('#eliz-in-progress'));
         }
         else if (curr_mode == 'UK') {
-            setQueueCount(PAUL_Q, $('#paul-in-progress'));
             setQueueCount(IZABELA_Q, $('#izabela-in-progress'));
             setQueueCount(SHAILESH_Q, $('#shailesh-in-progress'));
         }
@@ -318,7 +315,6 @@ function getSoloQueuesHtml() {
     else if (localStorage.mode == 'UK') {
         html =
             '<span class="t2-queue"><a href="500?fcf=00B50000006Muvr" style="color:black">Izabela (<span id="izabela-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006Muvm" style="color:black">Paul (<span id="paul-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006Muvw" style="color:black">Shailesh (<span id="shailesh-in-progress">*</span>)</a></span>';
     }
     else {
@@ -623,7 +619,7 @@ function highlightQueues() {
 function highlightUK() {
     var low = 6;
     var high = 13;
-    var arr = new Array('paul-in-progress', 'izabela-in-progress', 'shailesh-in-progress');
+    var arr = new Array('izabela-in-progress', 'shailesh-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
