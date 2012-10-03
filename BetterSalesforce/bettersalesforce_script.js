@@ -23,18 +23,17 @@ var SOLO_Q = '00B50000006NMcv';
 // Surgical
 var ALEX_Q = '00B50000006MQxb';
 var JACOB_Q = '00B50000006MQxl';
-var RUSSELL_Q = '00B50000006Mk64';
 var TAYLOR_Q = '00B50000006MQy0';
 
 // S&M
 var ARNOLD_Q = '00B50000006Mk6c';
 var ELIZ_Q = '00B50000006Mk6X';
+var JOSH_Q = '00B50000006MQxq';
 
 // Girth
 var BEN_Q = '00B50000006MkP5';
 var DUSTIN_Q = '00B50000006MQxv';
 var FRANK_Q = '00B50000006Mz3S';
-var JOSH_Q = '00B50000006MQxq';
 var SEAN_Q = '00B50000006NB7g';
 var TATSURO_Q = '00B50000006MXuZ';
 var TIM_Q = '00B50000006NB7W';
@@ -153,7 +152,6 @@ function fireQChangesWhenReady(firstRun, timesRun) {
             setQueueCount(BEN_Q, $('#ben-in-progress'));
             setQueueCount(DUSTIN_Q, $('#dustin_castor-in-progress'));
             setQueueCount(FRANK_Q, $('#frank-in-progress'));
-            setQueueCount(JOSH_Q, $('#josh_leckbee-in-progress'));
             setQueueCount(SEAN_Q, $('#sean_staley-in-progress'));
             setQueueCount(TATSURO_Q, $('#tatsuro_alpert-in-progress'));
             setQueueCount(TIM_Q, $('#tim_dooher-in-progress'));
@@ -162,12 +160,12 @@ function fireQChangesWhenReady(firstRun, timesRun) {
         else if (curr_mode == 'Surgical') {
             setQueueCount(ALEX_Q, $('#alex_evans-in-progress'));
             setQueueCount(JACOB_Q, $('#jacob-in-progress'));
-            setQueueCount(RUSSELL_Q, $('#russell-in-progress'));
             setQueueCount(TAYLOR_Q, $('#taylor_thornton-in-progress'));
         }
         else if (curr_mode == 'SnM') {
             setQueueCount(ARNOLD_Q, $('#arnold-in-progress'));
             setQueueCount(ELIZ_Q, $('#eliz-in-progress'));
+            setQueueCount(JOSH_Q, $('#josh_leckbee-in-progress'));
         }
         else if (curr_mode == 'UK') {
             setQueueCount(IZABELA_Q, $('#izabela-in-progress'));
@@ -294,7 +292,6 @@ function getSoloQueuesHtml() {
             '<span class="t2-queue"><a href="500?fcf=00B50000006MkP5" style="color:black">Ben (<span id="ben-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MQxv" style="color:black">Dustin (<span id="dustin_castor-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006Mz3S" style="color:black">Frank (<span id="frank-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006MDyq" style="color:black">Josh (<span id="josh_leckbee-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NB7g" style="color:black">Sean (<span id="sean_staley-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MXuZ" style="color:black">Tatsuro (<span id="tatsuro_alpert-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NB7W" style="color:black">Tim (<span id="tim_dooher-in-progress">*</span>)</a></span>' +
@@ -304,13 +301,13 @@ function getSoloQueuesHtml() {
         html =
             '<span class="t2-queue"><a href="500?fcf=00B50000006MQxb" style="color:black">Alex (<span id="alex_evans-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MQxl" style="color:black">Jacob (<span id="jacob-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006Mk64" style="color:black">Rusty (<span id="russell-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MQy0" style="color:black">Taylor (<span id="taylor_thornton-in-progress">*</span>)</a></span>';
     }
     else if (localStorage.mode == 'SnM') {
         html =
             '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6c" style="color:black">Arnold (<span id="arnold-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6X" style="color:black">Eliz (<span id="eliz-in-progress">*</span>)</a></span>';
+                '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6X" style="color:black">Eliz (<span id="eliz-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006MDyq" style="color:black">Josh (<span id="josh_leckbee-in-progress">*</span>)</a></span>';
     }
     else if (localStorage.mode == 'UK') {
         html =
@@ -663,8 +660,7 @@ function highlightSolo() {
 function highlightSurgical() {
     var low = 6;
     var high = 13;
-    var arr = new Array('alex_evans-in-progress', 'jacob-in-progress', 'russell-in-progress',
-        'taylor_thornton-in-progress');
+    var arr = new Array('alex_evans-in-progress', 'jacob-in-progress','taylor_thornton-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
@@ -686,7 +682,7 @@ function highlightSurgical() {
 function highlightSnM() {
     var low = 6;
     var high = 13;
-    var arr = new Array('arnold-in-progress', 'eliz-in-progress');
+    var arr = new Array('arnold-in-progress', 'eliz-in-progress','josh_leckbee-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
@@ -709,8 +705,7 @@ function highlightGirth() {
     var low = 6;
     var high = 13;
     var arr = new Array('ben-in-progress', 'dustin_castor-in-progress', 'frank-in-progress',
-        'josh_leckbee-in-progress', 'tatsuro_alpert-in-progress', 'tim_dooher-in-progress', 'sean_staley-in-progress',
-        'vince-in-progress');
+        'tatsuro_alpert-in-progress', 'tim_dooher-in-progress', 'sean_staley-in-progress', 'vince-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
@@ -869,16 +864,18 @@ function highlightEscalatedQueue() {
 }
 
 function highlightTaken() {
+    var high = 3;
+    var low = 2;
     var arr = new Array('cases-taken');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
         if (count != '*') {
             var num = parseInt(count);
-            if (num > 6) {
+            if (num > high) {
                 $('#' + this).css({'font-weight':'bolder', 'color':'green'});
             }
-            else if (num <= 6 && num > 2) {
+            else if (num <= high && num > low) {
                 $('#' + this).css({'font-weight':'bolder', 'color':'orange'});
             }
             else {
