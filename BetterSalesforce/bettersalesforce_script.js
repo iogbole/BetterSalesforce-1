@@ -32,10 +32,10 @@ var JOSH_Q = '00B50000006MQxq';
 
 // Girth
 var BEN_Q = '00B50000006MkP5';
-var DUSTIN_Q = '00B50000006MQxv';
+//var BENW_Q = '';
+//var CODY_Q = '';
+//var ELAINE_Q = '';
 var FRANK_Q = '00B50000006Mz3S';
-var SEAN_Q = '00B50000006NB7g';
-var TATSURO_Q = '00B50000006MXuZ';
 var TIM_Q = '00B50000006NB7W';
 var VINCE_Q = '00B50000006NL86';
 
@@ -150,10 +150,10 @@ function fireQChangesWhenReady(firstRun, timesRun) {
 
         if (curr_mode == 'Girth') {
             setQueueCount(BEN_Q, $('#ben-in-progress'));
-            setQueueCount(DUSTIN_Q, $('#dustin_castor-in-progress'));
+            /*setQueueCount(BENW_Q, $('#benw-in-progress'));
+            setQueueCount(CODY_Q, $('#cody-in-progress'));
+            setQueueCount(ELAINE_Q, $('#elaine-in-progress'));*/
             setQueueCount(FRANK_Q, $('#frank-in-progress'));
-            setQueueCount(SEAN_Q, $('#sean_staley-in-progress'));
-            setQueueCount(TATSURO_Q, $('#tatsuro_alpert-in-progress'));
             setQueueCount(TIM_Q, $('#tim_dooher-in-progress'));
             setQueueCount(VINCE_Q, $('#vince-in-progress'));
         }
@@ -290,10 +290,10 @@ function getSoloQueuesHtml() {
     if (localStorage.mode == 'Girth') {
         html =
             '<span class="t2-queue"><a href="500?fcf=00B50000006MkP5" style="color:black">Ben (<span id="ben-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006MQxv" style="color:black">Dustin (<span id="dustin_castor-in-progress">*</span>)</a></span>' +
+                //'<span class="t2-queue"><a href="500?fcf=" style="color:black">Ben_W (<span id="benw-in-progress">*</span>)</a></span>' +
+                //'<span class="t2-queue"><a href="500?fcf=" style="color:black">Cody (<span id="cody-in-progress">*</span>)</a></span>' +
+                //'<span class="t2-queue"><a href="500?fcf=" style="color:black">Elaine (<span id="elaine-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006Mz3S" style="color:black">Frank (<span id="frank-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006NB7g" style="color:black">Sean (<span id="sean_staley-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006MXuZ" style="color:black">Tatsuro (<span id="tatsuro_alpert-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NB7W" style="color:black">Tim (<span id="tim_dooher-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NL86" style="color:black">Vince (<span id="vince-in-progress">*</span>)</a></span>';
     }
@@ -704,8 +704,9 @@ function highlightSnM() {
 function highlightGirth() {
     var low = 6;
     var high = 13;
-    var arr = new Array('ben-in-progress', 'dustin_castor-in-progress', 'frank-in-progress',
-        'tatsuro_alpert-in-progress', 'tim_dooher-in-progress', 'sean_staley-in-progress', 'vince-in-progress');
+    var arr = new Array('ben-in-progress',
+        //'benw-in-progress','cody-in-progress', 'elaine-in-progress',
+        'frank-in-progress', 'tim_dooher-in-progress', 'vince-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
