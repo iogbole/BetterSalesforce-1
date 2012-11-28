@@ -14,7 +14,7 @@
     "description": "Makes Salesforce a bit more girthy",
     "key": "yEGoQ9g7t/p4n0d1Zfb48POSJ09h/+5b8LH1aDnnEjw=",
     "name": "BetterSalesforce",
-    "version": "3.9.0",
+    "version": "3.10.0",
     "icons": {"128": "images/icon.png"},
     "manifest_version": 2,
     "web_accessible_resources": ["images/bsf-sprites.png"]
