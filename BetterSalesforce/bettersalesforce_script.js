@@ -32,10 +32,10 @@ var JOSH_Q = '00B50000006MQxq';
 
 // Girth
 var BEN_Q = '00B50000006MkP5';
-//var BENW_Q = '';
-//var CODY_Q = '';
-//var ELAINE_Q = '';
+var BENW_Q = '00B50000006NcAj';
+var ELAINE_Q = '00B50000006NcBq';
 var FRANK_Q = '00B50000006Mz3S';
+var PATRICK_Q = '00B50000006NcC0';
 var TIM_Q = '00B50000006NB7W';
 var VINCE_Q = '00B50000006NL86';
 
@@ -150,10 +150,10 @@ function fireQChangesWhenReady(firstRun, timesRun) {
 
         if (curr_mode == 'Girth') {
             setQueueCount(BEN_Q, $('#ben-in-progress'));
-            /*setQueueCount(BENW_Q, $('#benw-in-progress'));
-            setQueueCount(CODY_Q, $('#cody-in-progress'));
-            setQueueCount(ELAINE_Q, $('#elaine-in-progress'));*/
+            setQueueCount(BENW_Q, $('#benw-in-progress'));
+            setQueueCount(ELAINE_Q, $('#elaine-in-progress'));
             setQueueCount(FRANK_Q, $('#frank-in-progress'));
+            setQueueCount(PATRICK_Q, $('#patrick-in-progress'));
             setQueueCount(TIM_Q, $('#tim_dooher-in-progress'));
             setQueueCount(VINCE_Q, $('#vince-in-progress'));
         }
@@ -290,10 +290,10 @@ function getSoloQueuesHtml() {
     if (localStorage.mode == 'Girth') {
         html =
             '<span class="t2-queue"><a href="500?fcf=00B50000006MkP5" style="color:black">Ben (<span id="ben-in-progress">*</span>)</a></span>' +
-                //'<span class="t2-queue"><a href="500?fcf=" style="color:black">Ben_W (<span id="benw-in-progress">*</span>)</a></span>' +
-                //'<span class="t2-queue"><a href="500?fcf=" style="color:black">Cody (<span id="cody-in-progress">*</span>)</a></span>' +
-                //'<span class="t2-queue"><a href="500?fcf=" style="color:black">Elaine (<span id="elaine-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006NcAj" style="color:black">Ben2 (<span id="benw-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006NcBq" style="color:black">Elaine (<span id="elaine-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006Mz3S" style="color:black">Frank (<span id="frank-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006NcC0" style="color:black">Patrick (<span id="patrick-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NB7W" style="color:black">Tim (<span id="tim_dooher-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NL86" style="color:black">Vince (<span id="vince-in-progress">*</span>)</a></span>';
     }
@@ -704,9 +704,8 @@ function highlightSnM() {
 function highlightGirth() {
     var low = 6;
     var high = 13;
-    var arr = new Array('ben-in-progress',
-        //'benw-in-progress','cody-in-progress', 'elaine-in-progress',
-        'frank-in-progress', 'tim_dooher-in-progress', 'vince-in-progress');
+    var arr = new Array('ben-in-progress', 'benw-in-progress', 'elaine-in-progress','frank-in-progress',
+        'patrick-in-progress', 'tim_dooher-in-progress', 'vince-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
@@ -772,27 +771,6 @@ function highlightFrontlineQueue() {
         var count = $('#' + this).text();
         if (count != '*') {
             var num = parseInt(count);
-
-            // Stop Annoying PopUp if queue is above 40
-            if (localStorage.mode == 'Frontline') {
-                var qCount = parseInt(localStorage.getItem('qAlertCount'));
-
-                if (isNaN(qCount)) {
-                    var alertCounts = parseInt(alertCount);
-                }
-                else {
-                    var alertCounts = parseInt(localStorage.getItem('qAlertCount'));
-                }
-
-                // Fixed Double-Alert Bug by removing alert count = 1 and decreased number of time you will see the error.
-                if (num >= highCount && alertCounts % 15 == 0) {
-                    supportQAlert(num);
-                }
-                else if (num < 35) {
-                    alertCounts = 0;
-                }
-                localStorage.setItem('qAlertCount', alertCounts);
-            }
 
             if (num < mediumCount) {
                 $('#' + this).css({'font-weight':'bolder', 'color':'green'});
