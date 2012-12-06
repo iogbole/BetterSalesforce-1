@@ -103,7 +103,6 @@ function setQueueCount(view_id, dom_obj) {
 var caseLinks = {};
 var inProgressCount = 0;
 var queueTitle;
-var alertCount = 1;
 var paused = false; // is the 30 second refresh paused?
 
 if (isQPage()) {
@@ -776,13 +775,9 @@ function highlightFrontlineQueue() {
                 $('#' + this).css({'font-weight':'bolder', 'color':'green'});
             }
             else if (num >= mediumCount && num < highCount) {
-                alertCounts = 0;
-                localStorage.setItem('qAlertCount', alertCounts);
                 $('#' + this).css({'font-weight':'bolder', 'color':'orange'});
             }
             else {
-                alertCounts++;
-                localStorage.setItem('qAlertCount', alertCounts);
                 $('#' + this).css({'font-weight':'bolder', 'color':'red'});
             }
         }
@@ -1085,13 +1080,6 @@ function destroy(el) {
     if (el && el.parentNode) {
         el.parentNode.removeChild(el);
     }
-}
-
-// Support Queue Alert!
-function supportQAlert(number) {
-    var currentCaseCount = parseInt(number);
-    alert('The Support Queue is above ' + highCount + ' !!!!' + '\n' + 'The Queue is currenty at ' + currentCaseCount +
-        '!!!!');
 }
 
 // Function for removing unused CSS or JS from page for optimization purposes
