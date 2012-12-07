@@ -934,7 +934,7 @@ function createCaseLinks(sf_id, jive_case_url) {
 
 function createCaseLinksFrontline(sf_id, jive_case_url) {
     if (isSupportQPage() == false) {
-        return '<a href="' + jive_case_url + '" title="' + JIVECOMMUNITY_DESC +
+        return '<a href="' + jive_case_url + '" target="_blank" title="' + JIVECOMMUNITY_DESC +
             '" class="sprite-icon sprite-favicon"> </a> &nbsp; ' +
             '<a href="javascript:;" id="' + sf_id + '_LEVEL_UP" title="' + T2_DESC +
             '" class="sprite-icon sprite-tier2-icon"> </a> &nbsp; ' +
