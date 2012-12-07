@@ -948,7 +948,7 @@ function createCaseLinksFrontline(sf_id, jive_case_url) {
 }
 
 function createCaseLinksAccountSupport(sf_id, jive_case_url) {
-    return '<a href="' + jive_case_url + '" title="' + JIVECOMMUNITY_DESC + '" ' +
+    return '<a href="' + jive_case_url + '" target="_blank" title="' + JIVECOMMUNITY_DESC + '" ' +
         'class="sprite-icon sprite-favicon"> </a> &nbsp; ' +
         '<a href="javascript:;" id="' + sf_id +
         '_SUPPORT_Q" title="' + FRONTLINE_DESC + '" class="sprite-icon sprite-tier2-icon"> </a> &nbsp; ' +
