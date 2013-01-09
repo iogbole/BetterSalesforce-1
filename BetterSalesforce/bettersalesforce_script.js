@@ -27,12 +27,12 @@ var TAYLOR_Q = '00B50000006MQy0';
 
 // S&M
 var ARNOLD_Q = '00B50000006Mk6c';
-var ELIZ_Q = '00B50000006Mk6X';
 var JOSH_Q = '00B50000006MQxq';
 
 // Girth
 var BEN_Q = '00B50000006MkP5';
 var BENW_Q = '00B50000006NcAj';
+var DOUG_Q = '00B50000006Mk6X';
 var ELAINE_Q = '00B50000006NcBq';
 var FRANK_Q = '00B50000006Mz3S';
 var PATRICK_Q = '00B50000006NcC0';
@@ -58,12 +58,8 @@ var SNM_Q = '00B50000006MXM8';
 var BACKLINE_ESCALATED_Q = '00B50000006MXCN';
 var CASES_TAKEN_Q = '00B50000006NS1g';
 
-// Salesforce
-var SF_URL = "500?fcf=";
-
 // Descriptions of Links
 var JIVECOMMUNITY_DESC = 'Open Case in Jive Community';
-var ACCEPT_DESC = 'Accept this case.';
 var T2_DESC = 'Bump IT!';
 var HOSTING_DESC = 'Send to Hosting Queue';
 var ACCOUNT_DESC = 'Send to Account Support Queue';
@@ -106,6 +102,10 @@ var queueTitle;
 var paused = false; // is the 30 second refresh paused?
 
 if (isQPage()) {
+
+    localStorage.shouldInit = true;
+    localStorage.refreshCount = 0;
+
     fixSalesforceUI();
     initJiveUI();
 
@@ -150,6 +150,7 @@ function fireQChangesWhenReady(firstRun, timesRun) {
         if (curr_mode == 'Girth') {
             setQueueCount(BEN_Q, $('#ben-in-progress'));
             setQueueCount(BENW_Q, $('#benw-in-progress'));
+            setQueueCount(DOUG_Q, $('#doug-in-progress'));
             setQueueCount(ELAINE_Q, $('#elaine-in-progress'));
             setQueueCount(FRANK_Q, $('#frank-in-progress'));
             setQueueCount(PATRICK_Q, $('#patrick-in-progress'));
@@ -163,7 +164,6 @@ function fireQChangesWhenReady(firstRun, timesRun) {
         }
         else if (curr_mode == 'SnM') {
             setQueueCount(ARNOLD_Q, $('#arnold-in-progress'));
-            setQueueCount(ELIZ_Q, $('#eliz-in-progress'));
             setQueueCount(JOSH_Q, $('#josh_leckbee-in-progress'));
         }
         else if (curr_mode == 'UK') {
@@ -290,6 +290,7 @@ function getSoloQueuesHtml() {
         html =
             '<span class="t2-queue"><a href="500?fcf=00B50000006MkP5" style="color:black">Ben (<span id="ben-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NcAj" style="color:black">Ben2 (<span id="benw-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6X" style="color:black">Doug (<span id="doug-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NcBq" style="color:black">Elaine (<span id="elaine-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006Mz3S" style="color:black">Frank (<span id="frank-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NcC0" style="color:black">Patrick (<span id="patrick-in-progress">*</span>)</a></span>' +
@@ -305,7 +306,6 @@ function getSoloQueuesHtml() {
     else if (localStorage.mode == 'SnM') {
         html =
             '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6c" style="color:black">Arnold (<span id="arnold-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6X" style="color:black">Eliz (<span id="eliz-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MDyq" style="color:black">Josh (<span id="josh_leckbee-in-progress">*</span>)</a></span>';
     }
     else if (localStorage.mode == 'UK') {
@@ -363,6 +363,13 @@ function getBigQueuesHtml() {
 
 // Initialize GUI objects
 function initJiveUI() {
+
+    if (localStorage.shouldInit == 1) {
+
+        console.log("here")
+        return;
+    }
+
     if (localStorage.mode == undefined || localStorage.mode == 'undefined' || localStorage.mode == 'Backline')
     {
         localStorage.mode = 'SnM';
@@ -431,6 +438,7 @@ function initJiveUI() {
     //Set title of page
     queueTitle = $('.title option:selected').text();
     document.title = '(*) ' + queueTitle;
+
 }
 
 function isQPage() {
@@ -508,7 +516,6 @@ function initQDetails(firstRun) {
         return false;
     }
     if (!cols || !cols.length) {
-        console.log("false");
         return false;
     }
     cols = cols[0].childNodes[0].childNodes[0].childNodes;
@@ -573,28 +580,32 @@ function refreshQ() {
     setTimeout(function () {
         fireQChangesWhenReady(false);
     }, 0);
+
+    localStorage.refreshCount++;
+
+    if (localStorage.refreshCount >= 5) {
+        localStorage.refreshCount = 0;
+        localStorage.shouldInit = 1;
+    } else {
+        localStorage.shouldInit = 0;
+    }
 }
 
 function changeMode() {
-    console.info("Changing Mode to " + $('#change-mode').val());
     localStorage.mode = $('#change-mode').val();
 }
 
 function highlightQueues() {
     if (localStorage.mode == 'Girth') {
-        console.log("BetterSalesforce: Highlighting for Girth.");
         highlightGirth();
     }
     else if (localStorage.mode == 'Surgical') {
-        console.log("BetterSalesforce: Highlighting for Surgical.");
         highlightSurgical();
     }
     else if (localStorage.mode == 'SnM') {
-        console.log("BetterSalesforce: Highlighting for Services and Modules.");
         highlightSnM();
     }
     else if (localStorage.mode == 'Account Support') {
-        console.log("BetterSalesforce: Highlighting for Account Support.");
         highlightSolo();
         highlightAS();
     }
@@ -703,7 +714,7 @@ function highlightSnM() {
 function highlightGirth() {
     var low = 6;
     var high = 13;
-    var arr = new Array('ben-in-progress', 'benw-in-progress', 'elaine-in-progress','frank-in-progress',
+    var arr = new Array('ben-in-progress', 'benw-in-progress', 'doug-in-progress', 'elaine-in-progress','frank-in-progress',
         'patrick-in-progress', 'tim_dooher-in-progress', 'vince-in-progress');
 
     $.each(arr, function () {
@@ -1011,7 +1022,7 @@ function addLinksToRow(linkTag) {
         $.get(sfurl).success(function (data) {
             added = true;
             var href = $(data).find('a[href^="https://community.jivesoftware.com"]').attr('href');
-            //console.log(href);
+
             if (href) {
                 if (localStorage.mode == 'Frontline')
                 {

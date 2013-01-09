@@ -32,30 +32,28 @@ function menu(menuItem) {
 
 
 function setMainPage() {
-    var mainHTML = '<div>Coming soon...</div>';
+    var mainHTML = '<div>Coming someday...</div>';
   
     $('.content').empty();
     $('.content').append(mainHTML);
 }
 
 function setModesPage() {
-    var modesHTML = '<div>Coming soon...</div>';
+    var modesHTML = '<div>Coming later than someday...</div>';
 
     $('.content').empty();
     $('.content').append(modesHTML);
 }
 
 function setAlertsPage() {
-    var alertsHTML = 'Coming soon...<p>Alert on P1:&nbsp;';
-  
+    var alertsHTML = '<p>Alert on P1:&nbsp;';
+
     if (alertOnP1) {
-  	    alertsHTML += '<input type="radio" name="alertonp1" value="alert_true" onClick="javascript: setAlert(true)" checked>Yes</input>&nbsp;' + 
-  	        '<input type="radio" name="alertonp1" value="alert_false" onClick="javascript: setAlert(false)">No</input>';
+  	    alertsHTML += '<button class="alertonp1">Disable</button>';
     } else {
-  	    alertsHTML += '<input type="radio" name="alertonp1" value="alert_true" onClick="javascript: setAlert(true)">Yes</input>&nbsp;' + 
-  	        '<input type="radio" name="alertonp1" value="alert_false" onClick="javascript: setAlert(false)" checked>No</input>';  
+  	    alertsHTML += '<button class="alertonp1">Enable</button>';
     }
-  
+
     $('.content').empty();
     $('.content').append(alertsHTML);
 }
@@ -64,3 +62,28 @@ function setAlert(val) {
     alertOnP1 = val;
     localStorage.setItem('alertonp1', alertOnP1);
 }
+
+function clickHandler(e) {
+    $('.main').click(function() {
+        menu('main');
+    });
+
+    $('.modes').click(function() {
+        menu('modes');
+    });
+
+    $('.alerts').click(function() {
+       menu('alerts');
+    });
+
+    $('button').click(function() {
+        setAlert(!alertOnP1);
+        console.log('here2');
+    });
+}
+
+// Add Event Listeners for Options
+document.addEventListener('DOMContentLoaded', function () {
+   $('a').bind('click', clickHandler);
+});
+
