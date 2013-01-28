@@ -5,6 +5,7 @@
 // @match https://na3.salesforce.com/*
 // ==/UserScript==
 
+
 // Helper functions
 var getId = function (arg) {
     return document.getElementById(arg);
@@ -30,6 +31,7 @@ var ARNOLD_Q = '00B50000006Mk6c';
 var JOSH_Q = '00B50000006MQxq';
 
 // Girth
+var AARON_Q = '00B50000006Nknd';
 var BEN_Q = '00B50000006MkP5';
 var BENW_Q = '00B50000006NcAj';
 var DOUG_Q = '00B50000006Mk6X';
@@ -39,14 +41,23 @@ var PATRICK_Q = '00B50000006NcC0';
 var TIM_Q = '00B50000006NB7W';
 var VINCE_Q = '00B50000006NL86';
 
-// UK
+//EMEA Frontline
+var FEMI_Q = '00B50000006NkFH';
 var IZABELA_Q = '00B50000006Muvr';
+var BINTA_Q = '00B50000006Nhik';
+var NEBIL_Q = '00B50000006N5Ol';
+
+//EMEA Backline
+
+var ISRAEL_Q ='00B50000006N6as'
+var ADAM_Q ='00B50000006N5Og'
 var SHAILESH_Q = '00B50000006Muvw';
+
 
 // Big Qs
 var BACKLINE_Q = '00B50000006MOiU';
 var SUPPORT_Q = '00B50000006LTCj';
-var EMEA_Q = '00B50000006LMxJ';
+var EMEA_Q = '00B50000006NkFM';
 var US2EMEA_Q = '00B50000006Mi54';
 var EMEA2US_Q = '00B50000006Mi4v';
 var SEV1_Q = '00B50000006Lh9v';
@@ -148,6 +159,7 @@ function fireQChangesWhenReady(firstRun, timesRun) {
         var curr_mode = localStorage.mode; // Get currently set queue mode
 
         if (curr_mode == 'Girth') {
+            setQueueCount(AARON_Q, $('#aaron-in-progress'));
             setQueueCount(BEN_Q, $('#ben-in-progress'));
             setQueueCount(BENW_Q, $('#benw-in-progress'));
             setQueueCount(DOUG_Q, $('#doug-in-progress'));
@@ -166,9 +178,20 @@ function fireQChangesWhenReady(firstRun, timesRun) {
             setQueueCount(ARNOLD_Q, $('#arnold-in-progress'));
             setQueueCount(JOSH_Q, $('#josh_leckbee-in-progress'));
         }
-        else if (curr_mode == 'UK') {
-            setQueueCount(IZABELA_Q, $('#izabela-in-progress'));
+
+        else if (curr_mode == 'EMEA-Backline') {
             setQueueCount(SHAILESH_Q, $('#shailesh-in-progress'));
+            setQueueCount(ADAM_Q, $('#adam-in-progress'));
+            setQueueCount(ISRAEL_Q, $('#israel-in-progress'));
+
+        }
+
+        else if (curr_mode == 'EMEA-Frontline') {
+            setQueueCount(IZABELA_Q, $('#izabela-in-progress'));
+            setQueueCount(FEMI_Q, $('#femi-in-progress'));
+            setQueueCount(BINTA_Q, $('#binta-in-progress'));
+            setQueueCount(NEBIL_Q, $('#nebil-in-progress'));
+
         }
         else {
             setQueueCount(SOLO_Q, $('#solo-in-progress'));
@@ -188,7 +211,10 @@ function fireQChangesWhenReady(firstRun, timesRun) {
             setQueueCount(CASES_TAKEN_Q, $('#cases-taken'));
             setQueueCount(SUPPORT_Q, $('#support-queue'));
 
-            if (curr_mode == 'UK') {
+            if (curr_mode == 'EMEA-Frontline') {
+                setQueueCount(EMEA_Q, $('#emea-queue'));
+            }
+            else if (curr_mode == 'EMEA-Backline') {
                 setQueueCount(EMEA_Q, $('#emea-queue'));
             }
             else if (curr_mode == 'Girth') {
@@ -228,56 +254,77 @@ function getModes() {
     if (currMode == 'Frontline') {
         modeString =
             '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+                '<OPTION VALUE = "EMEA-Backline">EMEA Backline</OPTION>' +
+                '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
                 '<OPTION VALUE = "Frontline" selected>Frontline</OPTION>' +
                 '<OPTION VALUE = "Girth">Girth</OPTION>' +
                 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-                '<OPTION VALUE = "SnM">SnM</OPTION>' +
-                '<OPTION VALUE = "UK">UK</OPTION>';
+                '<OPTION VALUE = "SnM">SnM</OPTION>';
     }
     else if (currMode == 'Girth') {
         modeString =
             '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+                '<OPTION VALUE = "EMEA-Backline">EMEA Backline</OPTION>' +
+                '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
                 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
                 '<OPTION VALUE = "Girth" selected>Girth</OPTION>' +
                 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-                '<OPTION VALUE = "SnM">SnM</OPTION>' +
-                '<OPTION VALUE = "UK">UK</OPTION>';
+                '<OPTION VALUE = "SnM">SnM</OPTION>';
+
     }
     else if (currMode == 'Surgical') {
         modeString =
             '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+                '<OPTION VALUE = "EMEA-Backline">EMEA Backline</OPTION>' +
+                '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
                 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
                 '<OPTION VALUE = "Girth">Girth</OPTION>' +
                 '<OPTION VALUE = "Surgical" selected>Surgical</OPTION>' +
-                '<OPTION VALUE = "SnM">SnM</OPTION>' +
-                '<OPTION VALUE = "UK">UK</OPTION>';
+                '<OPTION VALUE = "SnM">SnM</OPTION>';
     }
     else if (currMode == 'Account Support') {
         modeString =
             '<OPTION VALUE = "Account Support" selected>Account Support</OPTION>' +
+                '<OPTION VALUE = "EMEA-Backline">EMEA Backline</OPTION>' +
+                '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
                 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
                 '<OPTION VALUE = "Girth">Girth</OPTION>' +
                 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-                '<OPTION VALUE = "SnM">SnM</OPTION>' +
-                '<OPTION VALUE = "UK">UK</OPTION>';
+                '<OPTION VALUE = "SnM">SnM</OPTION>';
     }
-    else if (currMode == 'UK') {
+
+    else if (currMode == 'EMEA-Frontline') {
         modeString =
             '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+                '<OPTION VALUE = "EMEA-Backline">EMEA Backline</OPTION>' +
+                '<OPTION VALUE = "EMEA-Frontline" selected>EMEA Frontline</OPTION>' +
                 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
                 '<OPTION VALUE = "Girth">Girth</OPTION>' +
                 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-                '<OPTION VALUE = "SnM">SnM</OPTION>' +
-                '<OPTION VALUE = "UK" selected>UK</OPTION>';
+                '<OPTION VALUE = "SnM">SnM</OPTION>';
+
     }
+    else if (currMode == 'EMEA-Backline') {
+        modeString =
+            '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+                '<OPTION VALUE = "EMEA-Backline" selected>EMEA Backline</OPTION>' +
+                '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
+                '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
+                '<OPTION VALUE = "Girth">Girth</OPTION>' +
+                '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
+                '<OPTION VALUE = "SnM">SnM</OPTION>';
+    }
+
     else {
         modeString =
             '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
+                '<OPTION VALUE = "EMEA-Backline" selected>EMEA Backline</OPTION>' +
+                '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
                 '<OPTION VALUE = "Frontline">Frontline</OPTION>' +
                 '<OPTION VALUE = "Girth">Girth</OPTION>' +
                 '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-                '<OPTION VALUE = "SnM" selected>SnM</OPTION>' +
-                '<OPTION VALUE = "UK">UK</OPTION>';
+                '<OPTION VALUE = "SnM" selected>SnM</OPTION>' ;
+
     }
 
     return modeString;
@@ -288,7 +335,8 @@ function getSoloQueuesHtml() {
 
     if (localStorage.mode == 'Girth') {
         html =
-            '<span class="t2-queue"><a href="500?fcf=00B50000006MkP5" style="color:black">Ben (<span id="ben-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006Nknd" style="color:black">Aaron (<span id="aaron-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006MkP5" style="color:black">Ben (<span id="ben-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NcAj" style="color:black">Ben2 (<span id="benw-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6X" style="color:black">Doug (<span id="doug-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NcBq" style="color:black">Elaine (<span id="elaine-in-progress">*</span>)</a></span>' +
@@ -308,11 +356,21 @@ function getSoloQueuesHtml() {
             '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6c" style="color:black">Arnold (<span id="arnold-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MDyq" style="color:black">Josh (<span id="josh_leckbee-in-progress">*</span>)</a></span>';
     }
-    else if (localStorage.mode == 'UK') {
+
+    else if (localStorage.mode == 'EMEA-Frontline') {
         html =
             '<span class="t2-queue"><a href="500?fcf=00B50000006Muvr" style="color:black">Izabela (<span id="izabela-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006Muvw" style="color:black">Shailesh (<span id="shailesh-in-progress">*</span>)</a></span>';
+                '<span class="t2-queue"><a href="500?fcf=00B50000006N5Ol" style="color:black">Nebil (<span id="nebil-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006NkFH" style="color:black">Femi (<span id="femi-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006Nhik" style="color:black">Binta (<span id="binta-in-progress">*</span>)</a></span>' ;
     }
+    else if (localStorage.mode == 'EMEA-Backline') {
+        html =
+            '<span class="t2-queue"><a href="500?fcf=00B50000006Muvw" style="color:black">Shailesh (<span id="shailesh-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006N5Og" style="color:black">Adam (<span id="adam-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006N6as" style="color:black">Israel (<span id="israel-in-progress">*</span>)</a></span>';
+    }
+
     else {
         html =
             '<span class="t2-queue"><a href="500?fcf=00B50000006NMcv" style="color:black">My Queue(<span id="solo-in-progress">*</span>)</a></span>';
@@ -337,8 +395,11 @@ function getBigQueuesHtml() {
     else if (localStorage.mode == 'Surgical') {
         bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006MQvk" style="color:black">Surg (<span id="surg-queue">*</span>)</a></span>';
     }
-    else if (localStorage.mode == 'UK') {
-        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006LMxJ" style="color:black">EMEA (<span id="emea-queue">*</span>)</a></span>';
+    else if (localStorage.mode == 'EMEA-Frontline') {
+        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006NkFM" style="color:black"> EMEA HOT Accounts (<span id="emea-queue">*</span>)</a></span>';
+    }
+    else if (localStorage.mode == 'EMEA-Backline') {
+        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006NkFM" style="color:black"> EMEA HOT Accounts(<span id="emea-queue">*</span>)</a></span>';
     }
 
     // Daily Statistics
@@ -387,7 +448,7 @@ function initJiveUI() {
         ') no-repeat top left; width:16px; height:16px; display:inline-block; } ' +
         '.sprite-tier2-icon{ background-position:0 -376px; } .sprite-account_support{ background-position:0 0; } ' +
         '.sprite-hosting{background-position:0 -132px;} .sprite-favicon{background-position:0 -66px;} ' +
-        
+
         //Fixed the Action Column from shifting.
         '.x-grid3-td-ACTION_COLUMN {width:64px !important;} </style> ' +
         '<div id="q-panel" style="margin:5px 0px; padding: 5px; border:#CCC solid 1px"> <div style="float:left;width:15%"><div>Mode: ';
@@ -609,8 +670,12 @@ function highlightQueues() {
         highlightSolo();
         highlightAS();
     }
-    else if (localStorage.mode == 'UK') {
-        highlightUK();
+
+    else if (localStorage.mode == 'EMEA-Frontline') {
+        highlightEMEAFrontline();
+    }
+    else if (localStorage.mode == 'EMEA-Backline') {
+        highlightEMEABackline();
     }
     else {
         highlightSolo();
@@ -621,28 +686,6 @@ function highlightQueues() {
     highlightBacklineQueue();
     highlightEscalatedQueue();
     highlightTaken();
-}
-
-function highlightUK() {
-    var low = 6;
-    var high = 13;
-    var arr = new Array('izabela-in-progress', 'shailesh-in-progress');
-
-    $.each(arr, function () {
-        var count = $('#' + this).text();
-        if (count != '*') {
-            var num = parseInt(count);
-            if (num < low) {
-                $('#' + this).css({'font-weight':'bolder', 'color':'green'});
-            }
-            else if (num >= low && num < high) {
-                $('#' + this).css({'font-weight':'bolder', 'color':'orange'});
-            }
-            else {
-                $('#' + this).css({'font-weight':'bolder', 'color':'red'});
-            }
-        }
-    });
 }
 
 function highlightSolo() {
@@ -711,10 +754,53 @@ function highlightSnM() {
     });
 }
 
+function highlightEMEAFrontline() {
+    var low = 6;
+    var high = 13;
+    var arr = new Array('izabela-in-progress', 'nebil-in-progress', 'femi-in-progress', 'binta-in-progress');
+
+    $.each(arr, function () {
+        var count = $('#' + this).text();
+        if (count != '*') {
+            var num = parseInt(count);
+            if (num < low) {
+                $('#' + this).css({'font-weight':'bolder', 'color':'green'});
+            }
+            else if (num >= low && num < high) {
+                $('#' + this).css({'font-weight':'bolder', 'color':'orange'});
+            }
+            else {
+                $('#' + this).css({'font-weight':'bolder', 'color':'red'});
+            }
+        }
+    });
+}
+function highlightEMEABackline() {
+    var low = 6;
+    var high = 13;
+    var arr = new Array('shailesh-in-progress', 'adam-in-progress', 'israel-in-progress');
+
+    $.each(arr, function () {
+        var count = $('#' + this).text();
+        if (count != '*') {
+            var num = parseInt(count);
+            if (num < low) {
+                $('#' + this).css({'font-weight':'bolder', 'color':'green'});
+            }
+            else if (num >= low && num < high) {
+                $('#' + this).css({'font-weight':'bolder', 'color':'orange'});
+            }
+            else {
+                $('#' + this).css({'font-weight':'bolder', 'color':'red'});
+            }
+        }
+    });
+}
+
 function highlightGirth() {
     var low = 6;
     var high = 13;
-    var arr = new Array('ben-in-progress', 'benw-in-progress', 'doug-in-progress', 'elaine-in-progress','frank-in-progress',
+    var arr = new Array('aaron-in-progress','ben-in-progress', 'benw-in-progress', 'doug-in-progress', 'elaine-in-progress','frank-in-progress',
         'patrick-in-progress', 'tim_dooher-in-progress', 'vince-in-progress');
 
     $.each(arr, function () {
@@ -807,7 +893,7 @@ function highlightBacklineQueue() {
     else if (localStorage.mode == 'SnM') {
         arr.push('snm-queue');
     }
-    else if (localStorage.mode == 'UK') {
+    else if (localStorage.mode == 'EMEA-Backline') {
         arr.push('emea-queue');
     }
 
@@ -1095,11 +1181,11 @@ function destroy(el) {
 
 // Function for removing unused CSS or JS from page for optimization purposes
 function removejscssfile(filename, filetype){
- var targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none" //determine element type to create nodelist from
- var targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none" //determine corresponding attribute to test for
- var allsuspects=document.getElementsByTagName(targetelement)
- for (var i=allsuspects.length; i>=0; i--){ //search backwards within nodelist for matching elements to remove
-  if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(filename)!=-1)
-   allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
- }
+    var targetelement=(filetype=="js")? "script" : (filetype=="css")? "link" : "none" //determine element type to create nodelist from
+    var targetattr=(filetype=="js")? "src" : (filetype=="css")? "href" : "none" //determine corresponding attribute to test for
+    var allsuspects=document.getElementsByTagName(targetelement)
+    for (var i=allsuspects.length; i>=0; i--){ //search backwards within nodelist for matching elements to remove
+        if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(filename)!=-1)
+            allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
+    }
 }
