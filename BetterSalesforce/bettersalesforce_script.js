@@ -55,7 +55,6 @@ var SHAILESH_Q = '00B50000006Muvw';
 
 
 // Big Qs
-var BACKLINE_Q = '00B50000006MOiU';
 var SUPPORT_Q = '00B50000006LTCj';
 var EMEA_Q = '00B50000006NkFM';
 var US2EMEA_Q = '00B50000006Mi54';
@@ -206,7 +205,6 @@ function fireQChangesWhenReady(firstRun, timesRun) {
             setQueueCount(EMEA2US_Q, $('#emea2us-queue'));
         }
         else {
-            setQueueCount(BACKLINE_Q, $('#backline-in-progress'));
             setQueueCount(BACKLINE_ESCALATED_Q, $('#backline-escalated'));
             setQueueCount(CASES_TAKEN_Q, $('#cases-taken'));
             setQueueCount(SUPPORT_Q, $('#support-queue'));
@@ -383,7 +381,6 @@ function getBigQueuesHtml() {
     //Support, Backline, and Severity 1 Queues
     var bigQHtml =
         '<span class="t2-queue big"><a href="500?fcf=00B50000006Lh9v" id="sev1" style="font-size:120%;font-weight:bold;color:red;display:none;">NEW P1!!(<span id="sev1-queue">*</span>)</a></span>' +
-            '<span class="t2-queue big"><a href="500?fcf=00B50000006MOiU" style="color:black">Backline (<span id="backline-in-progress">*</span>)</a></span>' +
             '<span class="t2-queue big"><a href="500?fcf=00B50000006LTCj" style="color:black">Frontline (<span id="support-queue">*</span>)</a></span>';
 
     if (localStorage.mode == 'Girth') {
