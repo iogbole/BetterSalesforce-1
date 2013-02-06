@@ -384,13 +384,13 @@ function getBigQueuesHtml() {
             '<span class="t2-queue big"><a href="500?fcf=00B50000006LTCj" style="color:black">Frontline (<span id="support-queue">*</span>)</a></span>';
 
     if (localStorage.mode == 'Girth') {
-        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006MwXb" style="color:black">Girth (<span id="girth-queue">*</span>)</a></span>';
+        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006Nnk4" style="color:black">Girth (<span id="girth-queue">*</span>)</a></span>';
     }
     else if (localStorage.mode == 'SnM') {
-        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006MXM8" style="color:black">EP (<span id="snm-queue">*</span>)</a></span>';
+        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006Nnk9" style="color:black">EP (<span id="snm-queue">*</span>)</a></span>';
     }
     else if (localStorage.mode == 'Surgical') {
-        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006MQvk" style="color:black">RCA (<span id="surg-queue">*</span>)</a></span>';
+        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006NnkE" style="color:black">RCA (<span id="surg-queue">*</span>)</a></span>';
     }
     else if (localStorage.mode == 'EMEA-Frontline') {
         bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006NkFM" style="color:black"> EMEA HOT Accounts (<span id="emea-queue">*</span>)</a></span>';
