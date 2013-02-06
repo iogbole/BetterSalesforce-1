@@ -60,9 +60,9 @@ var EMEA_Q = '00B50000006NkFM';
 var US2EMEA_Q = '00B50000006Mi54';
 var EMEA2US_Q = '00B50000006Mi4v';
 var SEV1_Q = '00B50000006Lh9v';
-var GIRTH_Q = '00B50000006MwXb';
-var SURG_Q = '00B50000006MQvk';
-var SNM_Q = '00B50000006MXM8';
+var GIRTH_Q = '00B50000006Nnk4';
+var SURG_Q = '00B50000006NnkE';
+var SNM_Q = '00B50000006Nnk9';
 
 // Day Counts
 var BACKLINE_ESCALATED_Q = '00B50000006MXCN';
@@ -387,10 +387,10 @@ function getBigQueuesHtml() {
         bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006MwXb" style="color:black">Girth (<span id="girth-queue">*</span>)</a></span>';
     }
     else if (localStorage.mode == 'SnM') {
-        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006MXM8" style="color:black">SnM (<span id="snm-queue">*</span>)</a></span>';
+        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006MXM8" style="color:black">EP (<span id="snm-queue">*</span>)</a></span>';
     }
     else if (localStorage.mode == 'Surgical') {
-        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006MQvk" style="color:black">Surg (<span id="surg-queue">*</span>)</a></span>';
+        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006MQvk" style="color:black">RCA (<span id="surg-queue">*</span>)</a></span>';
     }
     else if (localStorage.mode == 'EMEA-Frontline') {
         bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006NkFM" style="color:black"> EMEA HOT Accounts (<span id="emea-queue">*</span>)</a></span>';
