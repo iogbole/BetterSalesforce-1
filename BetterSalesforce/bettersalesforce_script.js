@@ -39,6 +39,7 @@ var ELAINE_Q = '00B50000006NcBq';
 var FRANK_Q = '00B50000006Mz3S';
 var PATRICK_Q = '00B50000006NcC0';
 var TIM_Q = '00B50000006NB7W';
+var VAL_Q = '00B50000006NrwT';
 var VINCE_Q = '00B50000006NL86';
 
 //EMEA Frontline
@@ -113,9 +114,6 @@ var paused = false; // is the 30 second refresh paused?
 
 if (isQPage()) {
 
-    localStorage.shouldInit = true;
-    localStorage.refreshCount = 0;
-
     fixSalesforceUI();
     initJiveUI();
 
@@ -166,6 +164,7 @@ function fireQChangesWhenReady(firstRun, timesRun) {
             setQueueCount(FRANK_Q, $('#frank-in-progress'));
             setQueueCount(PATRICK_Q, $('#patrick-in-progress'));
             setQueueCount(TIM_Q, $('#tim_dooher-in-progress'));
+            setQueueCount(VAL_Q, $('#val-in-progress'));
             setQueueCount(VINCE_Q, $('#vince-in-progress'));
         }
         else if (curr_mode == 'Surgical') {
@@ -341,6 +340,7 @@ function getSoloQueuesHtml() {
                 '<span class="t2-queue"><a href="500?fcf=00B50000006Mz3S" style="color:black">Frank (<span id="frank-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NcC0" style="color:black">Patrick (<span id="patrick-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NB7W" style="color:black">Tim (<span id="tim_dooher-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006NrwT" style="color:black">Val (<span id="val-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NL86" style="color:black">Vince (<span id="vince-in-progress">*</span>)</a></span>';
     }
     else if (localStorage.mode == 'Surgical') {
@@ -422,16 +422,11 @@ function getBigQueuesHtml() {
 // Initialize GUI objects
 function initJiveUI() {
 
-    if (localStorage.shouldInit == 1) {
-
-        console.log("here")
-        return;
-    }
-
     if (localStorage.mode == undefined || localStorage.mode == 'undefined' || localStorage.mode == 'Backline')
     {
         localStorage.mode = 'SnM';
     }
+
     if (localStorage.refreshTime == undefined || localStorage.refreshTime == 'undefined' ||
         localStorage.refreshTime == 'NaN')
     {
@@ -558,6 +553,7 @@ function autoQRefresh() {
         var num = parseInt(qcount.innerHTML) - 1;
         if (num > 0) {
             qcount.innerHTML = num + '';
+            initRows();
         }
         else {
             refreshQ();
@@ -639,14 +635,6 @@ function refreshQ() {
         fireQChangesWhenReady(false);
     }, 0);
 
-    localStorage.refreshCount++;
-
-    if (localStorage.refreshCount >= 5) {
-        localStorage.refreshCount = 0;
-        localStorage.shouldInit = 1;
-    } else {
-        localStorage.shouldInit = 0;
-    }
 }
 
 function changeMode() {
@@ -798,7 +786,7 @@ function highlightGirth() {
     var low = 6;
     var high = 13;
     var arr = new Array('aaron-in-progress','ben-in-progress', 'benw-in-progress', 'doug-in-progress', 'elaine-in-progress','frank-in-progress',
-        'patrick-in-progress', 'tim_dooher-in-progress', 'vince-in-progress');
+        'patrick-in-progress', 'tim_dooher-in-progress', 'val-in-progress', 'vince-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
@@ -879,7 +867,7 @@ function highlightFrontlineQueue() {
 }
 
 function highlightBacklineQueue() {
-    var arr = new Array('backline-in-progress');
+    var arr = new Array();
 
     if (localStorage.mode == 'Girth') {
         arr.push('girth-queue');
@@ -1006,6 +994,7 @@ function initRows() {
         highlightRows(case_rows);
 
         document.title = '(' + inProgressCount + ') ' + queueTitle;
+
         addLinksToRows(case_rows);
     }
 }
