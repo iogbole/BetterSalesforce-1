@@ -334,7 +334,6 @@ function getSoloQueuesHtml() {
         html =
                 '<span class="t2-queue"><a href="500?fcf=00B50000006Nknd" style="color:black">Aaron (<span id="aaron-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MkP5" style="color:black">Ben (<span id="ben-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006NcAj" style="color:black">Ben2 (<span id="benw-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6X" style="color:black">Doug (<span id="doug-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NcBq" style="color:black">Elaine (<span id="elaine-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006Mz3S" style="color:black">Frank (<span id="frank-in-progress">*</span>)</a></span>' +
@@ -351,7 +350,7 @@ function getSoloQueuesHtml() {
     }
     else if (localStorage.mode == 'SnM') {
         html =
-            '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6c" style="color:black">Arnold (<span id="arnold-in-progress">*</span>)</a></span>' +
+            '<span class="t2-queue"><a href="500?fcf=00B50000006NcAj" style="color:black">Ben2 (<span id="benw-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MDyq" style="color:black">Josh (<span id="josh_leckbee-in-progress">*</span>)</a></span>';
     }
 
@@ -720,7 +719,7 @@ function highlightSurgical() {
 function highlightSnM() {
     var low = 6;
     var high = 13;
-    var arr = new Array('arnold-in-progress', 'eliz-in-progress','josh_leckbee-in-progress');
+    var arr = new Array('benw-in-progress','josh_leckbee-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
@@ -785,7 +784,7 @@ function highlightEMEABackline() {
 function highlightGirth() {
     var low = 6;
     var high = 13;
-    var arr = new Array('aaron-in-progress','ben-in-progress', 'benw-in-progress', 'doug-in-progress', 'elaine-in-progress','frank-in-progress',
+    var arr = new Array('aaron-in-progress','ben-in-progress', 'doug-in-progress', 'elaine-in-progress','frank-in-progress',
         'patrick-in-progress', 'tim_dooher-in-progress', 'val-in-progress', 'vince-in-progress');
 
     $.each(arr, function () {
