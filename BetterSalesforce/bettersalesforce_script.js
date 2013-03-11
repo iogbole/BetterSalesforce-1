@@ -27,7 +27,6 @@ var JACOB_Q = '00B50000006MQxl';
 var TAYLOR_Q = '00B50000006MQy0';
 
 // S&M
-var ARNOLD_Q = '00B50000006Mk6c';
 var JOSH_Q = '00B50000006MQxq';
 
 // Girth
@@ -158,7 +157,6 @@ function fireQChangesWhenReady(firstRun, timesRun) {
         if (curr_mode == 'Girth') {
             setQueueCount(AARON_Q, $('#aaron-in-progress'));
             setQueueCount(BEN_Q, $('#ben-in-progress'));
-            setQueueCount(BENW_Q, $('#benw-in-progress'));
             setQueueCount(DOUG_Q, $('#doug-in-progress'));
             setQueueCount(ELAINE_Q, $('#elaine-in-progress'));
             setQueueCount(FRANK_Q, $('#frank-in-progress'));
@@ -173,7 +171,7 @@ function fireQChangesWhenReady(firstRun, timesRun) {
             setQueueCount(TAYLOR_Q, $('#taylor_thornton-in-progress'));
         }
         else if (curr_mode == 'SnM') {
-            setQueueCount(ARNOLD_Q, $('#arnold-in-progress'));
+            setQueueCount(BENW_Q, $('#benw-in-progress'));
             setQueueCount(JOSH_Q, $('#josh_leckbee-in-progress'));
         }
 
