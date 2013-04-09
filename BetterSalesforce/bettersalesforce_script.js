@@ -156,7 +156,6 @@ function fireQChangesWhenReady(firstRun, timesRun) {
 
         if (curr_mode == 'Girth') {
             setQueueCount(AARON_Q, $('#aaron-in-progress'));
-            setQueueCount(BEN_Q, $('#ben-in-progress'));
             setQueueCount(DOUG_Q, $('#doug-in-progress'));
             setQueueCount(ELAINE_Q, $('#elaine-in-progress'));
             setQueueCount(FRANK_Q, $('#frank-in-progress'));
@@ -164,11 +163,6 @@ function fireQChangesWhenReady(firstRun, timesRun) {
             setQueueCount(TIM_Q, $('#tim_dooher-in-progress'));
             setQueueCount(VAL_Q, $('#val-in-progress'));
             setQueueCount(VINCE_Q, $('#vince-in-progress'));
-        }
-        else if (curr_mode == 'Surgical') {
-            setQueueCount(ALEX_Q, $('#alex_evans-in-progress'));
-            setQueueCount(JACOB_Q, $('#jacob-in-progress'));
-            setQueueCount(TAYLOR_Q, $('#taylor_thornton-in-progress'));
         }
         else if (curr_mode == 'SnM') {
             setQueueCount(BENW_Q, $('#benw-in-progress'));
@@ -179,14 +173,12 @@ function fireQChangesWhenReady(firstRun, timesRun) {
             setQueueCount(SHAILESH_Q, $('#shailesh-in-progress'));
             setQueueCount(ADAM_Q, $('#adam-in-progress'));
             setQueueCount(ISRAEL_Q, $('#israel-in-progress'));
-
+            setQueueCount(NEBIL_Q, $('#nebil-in-progress'));
         }
 
         else if (curr_mode == 'EMEA-Frontline') {
-            setQueueCount(IZABELA_Q, $('#izabela-in-progress'));
             setQueueCount(FEMI_Q, $('#femi-in-progress'));
             setQueueCount(BINTA_Q, $('#binta-in-progress'));
-            setQueueCount(NEBIL_Q, $('#nebil-in-progress'));
 
         }
         else {
