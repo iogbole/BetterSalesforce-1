@@ -14,55 +14,45 @@ var getClass = function (arg) {
     return document.getElementsByClassName(arg);
 };
 
-// Account Support
-var ACCOUNT_Q = '00B50000006LnHq';
-//var MODULE_Q = '00B50000005nIpQ';
-
-// Frontline
-var SOLO_Q = '00B50000006NMcv';
-
-// Surgical
-var ALEX_Q = '00B50000006MQxb';
-var JACOB_Q = '00B50000006MQxl';
-var TAYLOR_Q = '00B50000006MQy0';
-
-// S&M
-var JOSH_Q = '00B50000006MQxq';
-
-// Girth
-var AARON_Q = '00B50000006Nknd';
-var BEN_Q = '00B50000006MkP5';
-var BENW_Q = '00B50000006NcAj';
-var DOUG_Q = '00B50000006Mk6X';
-var ELAINE_Q = '00B50000006NcBq';
-var FRANK_Q = '00B50000006Mz3S';
-var PATRICK_Q = '00B50000006NcC0';
-var TIM_Q = '00B50000006NB7W';
-var VAL_Q = '00B50000006NrwT';
-var VINCE_Q = '00B50000006NL86';
-
-//EMEA Frontline
-var FEMI_Q = '00B50000006NkFH';
-var IZABELA_Q = '00B50000006Muvr';
-var BINTA_Q = '00B50000006Nhik';
-var NEBIL_Q = '00B50000006N5Ol';
-
-//EMEA Backline
-
-var ISRAEL_Q ='00B50000006N6as'
-var ADAM_Q ='00B50000006N5Og'
-var SHAILESH_Q = '00B50000006Muvw';
 
 
-// Big Qs
-var SUPPORT_Q = '00B50000006LTCj';
-var EMEA_Q = '00B50000006NkFM';
-var US2EMEA_Q = '00B50000006Mi54';
-var EMEA2US_Q = '00B50000006Mi4v';
-var SEV1_Q = '00B50000006Lh9v';
-var GIRTH_Q = '00B50000006Nnk4';
-var SURG_Q = '00B50000006NnkE';
-var SNM_Q = '00B50000006Nnk9';
+// Members
+var members = [
+    ['Ben', 'NcAj', 'ep'],
+    ['Josh', 'MQxq', 'ep'],
+    ['Aaron', 'Nknd', 'girth'],
+    ['Doug','Mk6X','girth'],
+    ['Elaine','NcBq','girth'],
+    ['Frank','Mz3S','girth'],
+    ['Patrick','NcC0','girth'],
+    ['Tim','NB7W','girth'],
+    ['Val','NrwT','girth'],
+    ['Vince','NL86','girth'],
+    ['Femi','NkFH','emeaf'],
+    ['Binta','Nhik','emeaf'],
+    ['Nebil','N5Ol','emeab'],
+    ['Israel','N6as','emeab'],
+    ['Adam','N50g','emeab'],
+    ['Shailesh','Muvw','emeab'],
+    ['You', 'NMcv', 'solo']
+];
+
+// Team Queues
+var teamQueues = [
+    ['as', 'Account Support', 'LnHq'],
+    ['fl', 'Frontline', 'LTCj'],
+    ['emea', 'EMEA', 'NkFM'],
+    ['us2', 'US2EMEA', 'Mi54'],
+    ['emea2', 'EMEA2US', 'Mi4v'],
+    ['sev1', 'Sev1', 'Lh9v'],
+    ['girth', 'Girth', 'Nnk4'],
+    ['ep', 'EP', 'Nnk9'],
+    ['taken', 'Cases Taken', 'NS1g'],
+    ['blesc', 'Backline Escalated', 'MXCN']
+];
+
+// SF queue prefix
+var sf_prefix = '00B50000006';
 
 // Day Counts
 var BACKLINE_ESCALATED_Q = '00B50000006MXCN';
@@ -95,7 +85,7 @@ var highCount = 50;
 function setQueueCount(view_id, dom_obj) {
     $.post("/_ui/common/list/ListServlet", {
         'action':'filter',
-        'filterId':view_id,
+        'filterId':sf_prefix+view_id,
         'filterType':'t',
         'page':'1',
         'rowsPerPage':'50'
@@ -136,6 +126,15 @@ function assignToQueue(sf_id, queue) {
     });
 }
 
+function setQueue(term) {
+
+    for (var member in members) {
+        if (member[2] == term) {
+            setQueueCount(member[0], $('#'+member[1].toString()));
+        }
+    }
+}
+
 function fireQChangesWhenReady(firstRun, timesRun) {
     if (timesRun == undefined) {
         timesRun = 0;
@@ -155,34 +154,19 @@ function fireQChangesWhenReady(firstRun, timesRun) {
         var curr_mode = localStorage.mode; // Get currently set queue mode
 
         if (curr_mode == 'Girth') {
-            setQueueCount(AARON_Q, $('#aaron-in-progress'));
-            setQueueCount(DOUG_Q, $('#doug-in-progress'));
-            setQueueCount(ELAINE_Q, $('#elaine-in-progress'));
-            setQueueCount(FRANK_Q, $('#frank-in-progress'));
-            setQueueCount(PATRICK_Q, $('#patrick-in-progress'));
-            setQueueCount(TIM_Q, $('#tim_dooher-in-progress'));
-            setQueueCount(VAL_Q, $('#val-in-progress'));
-            setQueueCount(VINCE_Q, $('#vince-in-progress'));
+            setQueue('girth');
         }
-        else if (curr_mode == 'SnM') {
-            setQueueCount(BENW_Q, $('#benw-in-progress'));
-            setQueueCount(JOSH_Q, $('#josh_leckbee-in-progress'));
+        else if (curr_mode == 'EP') {
+            setQueue('ep');
         }
-
         else if (curr_mode == 'EMEA-Backline') {
-            setQueueCount(SHAILESH_Q, $('#shailesh-in-progress'));
-            setQueueCount(ADAM_Q, $('#adam-in-progress'));
-            setQueueCount(ISRAEL_Q, $('#israel-in-progress'));
-            setQueueCount(NEBIL_Q, $('#nebil-in-progress'));
+            setQueue('emeab');
         }
-
         else if (curr_mode == 'EMEA-Frontline') {
-            setQueueCount(FEMI_Q, $('#femi-in-progress'));
-            setQueueCount(BINTA_Q, $('#binta-in-progress'));
-
+            setQueue('emeaf');
         }
         else {
-            setQueueCount(SOLO_Q, $('#solo-in-progress'));
+            setQueue('solo')
         }
 
         // Bigs
@@ -413,7 +397,7 @@ function initJiveUI() {
 
     if (localStorage.mode == undefined || localStorage.mode == 'undefined' || localStorage.mode == 'Backline')
     {
-        localStorage.mode = 'SnM';
+        localStorage.mode = 'EP';
     }
 
     if (localStorage.refreshTime == undefined || localStorage.refreshTime == 'undefined' ||
