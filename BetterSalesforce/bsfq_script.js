@@ -6,6 +6,9 @@
 // ==/UserScript==
 
 var version = "4.0.0";
+var defaultLayout = 0;
+var defaultMode = 0;
+var defaultRefreshTime = 25;
 
 // Entry point
 $(document).ready(function () {
@@ -13,10 +16,6 @@ $(document).ready(function () {
     fixUI();
     refreshList();
 
-    //initJiveUI();
-
-    //fireQChangesWhenReady(true);
-    //window.setInterval(autoQRefresh, 1000);
 });
 
 // Sends click event to the SF refresh button
@@ -26,6 +25,12 @@ function refreshList() {
 
 // Remove unnecessary styling and other DOM elements from the Salesforce page
 function fixUI() {
+
+    function addQueueElements() {
+        if (layout == defaultLayout) {
+
+        }
+    }
 
     function moveElements() {
 
@@ -84,4 +89,17 @@ function fixUI() {
     removeElements();
     removeTabs();
     removeStyling();
+}
+
+// Getters
+function getCurrentMode() {
+    return localStorage.mode ? localStorage.mode : defaultMode;
+}
+
+function getCurrentLayout() {
+    return localStorage.layout ? localStorage.layout : defaultLayout;
+}
+
+function getCurrentRefreshTime() {
+    return localStorage.refreshTime ? localStorage.refreshTime : defaultRefreshTime;
 }
