@@ -27,7 +27,7 @@ function refreshList() {
 function fixUI() {
 
     function addQueueElements() {
-        if (layout == defaultLayout) {
+        if (getCurrentLayout() == defaultLayout) {
 
         }
     }

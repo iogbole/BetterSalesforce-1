@@ -169,6 +169,7 @@ function fireQChangesWhenReady(firstRun, timesRun) {
             setQueue('solo')
         }
 
+        /*
         // Bigs
         if (curr_mode == 'Account Support') {
             setQueueCount(ACCOUNT_Q, $('#account-support-queue-count'));
@@ -202,6 +203,7 @@ function fireQChangesWhenReady(firstRun, timesRun) {
             setQueueCount(US2EMEA_Q, $('#us2emea-queue'));
             setQueueCount(EMEA2US_Q, $('#emea2us-queue'));
         }
+        */
         highlightQueues();
 
         //Start building the links after everything else calculates.
@@ -222,81 +224,13 @@ function getModes() {
     var modeString;
     var currMode = localStorage.mode;
 
-    if (currMode == 'Frontline') {
-        modeString =
-            '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
-                '<OPTION VALUE = "EMEA-Backline">EMEA Backline</OPTION>' +
-                '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
-                '<OPTION VALUE = "Frontline" selected>Frontline</OPTION>' +
-                '<OPTION VALUE = "Girth">Girth</OPTION>' +
-                '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-                '<OPTION VALUE = "SnM">SnM</OPTION>';
-    }
-    else if (currMode == 'Girth') {
-        modeString =
-            '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
-                '<OPTION VALUE = "EMEA-Backline">EMEA Backline</OPTION>' +
-                '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
-                '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-                '<OPTION VALUE = "Girth" selected>Girth</OPTION>' +
-                '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-                '<OPTION VALUE = "SnM">SnM</OPTION>';
-
-    }
-    else if (currMode == 'Surgical') {
-        modeString =
-            '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
-                '<OPTION VALUE = "EMEA-Backline">EMEA Backline</OPTION>' +
-                '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
-                '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-                '<OPTION VALUE = "Girth">Girth</OPTION>' +
-                '<OPTION VALUE = "Surgical" selected>Surgical</OPTION>' +
-                '<OPTION VALUE = "SnM">SnM</OPTION>';
-    }
-    else if (currMode == 'Account Support') {
-        modeString =
-            '<OPTION VALUE = "Account Support" selected>Account Support</OPTION>' +
-                '<OPTION VALUE = "EMEA-Backline">EMEA Backline</OPTION>' +
-                '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
-                '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-                '<OPTION VALUE = "Girth">Girth</OPTION>' +
-                '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-                '<OPTION VALUE = "SnM">SnM</OPTION>';
-    }
-
-    else if (currMode == 'EMEA-Frontline') {
-        modeString =
-            '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
-                '<OPTION VALUE = "EMEA-Backline">EMEA Backline</OPTION>' +
-                '<OPTION VALUE = "EMEA-Frontline" selected>EMEA Frontline</OPTION>' +
-                '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-                '<OPTION VALUE = "Girth">Girth</OPTION>' +
-                '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-                '<OPTION VALUE = "SnM">SnM</OPTION>';
-
-    }
-    else if (currMode == 'EMEA-Backline') {
-        modeString =
-            '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
-                '<OPTION VALUE = "EMEA-Backline" selected>EMEA Backline</OPTION>' +
-                '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
-                '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-                '<OPTION VALUE = "Girth">Girth</OPTION>' +
-                '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-                '<OPTION VALUE = "SnM">SnM</OPTION>';
-    }
-
-    else {
-        modeString =
-            '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
-                '<OPTION VALUE = "EMEA-Backline" selected>EMEA Backline</OPTION>' +
-                '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
-                '<OPTION VALUE = "Frontline">Frontline</OPTION>' +
-                '<OPTION VALUE = "Girth">Girth</OPTION>' +
-                '<OPTION VALUE = "Surgical">Surgical</OPTION>' +
-                '<OPTION VALUE = "SnM" selected>SnM</OPTION>' ;
-
-    }
+    modeString =
+            '<OPTION id="as" VALUE="Account Support">Account Support</OPTION>' +
+            '<OPTION id="emeab" VALUE="EMEA-Backline">EMEA Backline</OPTION>' +
+            '<OPTION id="emeaf" VALUE="EMEA-Frontline">EMEA Frontline</OPTION>' +
+            '<OPTION id="frontline" VALUE="Frontline">Frontline</OPTION>' +
+            '<OPTION id="girth" VALUE="Girth">Girth</OPTION>' +
+            '<OPTION id="ep" VALUE="SnM">SnM</OPTION>';
 
     return modeString;
 }
@@ -400,8 +334,7 @@ function initJiveUI() {
         localStorage.mode = 'EP';
     }
 
-    if (localStorage.refreshTime == undefined || localStorage.refreshTime == 'undefined' ||
-        localStorage.refreshTime == 'NaN')
+    if (localStorage.refreshTime == undefined || localStorage.refreshTime == 'undefined' || localStorage.refreshTime == 'NaN')
     {
         localStorage.refreshTime = 25;
     }
@@ -496,6 +429,7 @@ function fixSalesforceUI() {
     $('.controls').append($('<div class="clearingBox" />'));
     // Hide where those links used to be
     $('.subNav > .linkBar').hide();
+    //$('.bPageHeader').remove();
     // We hide the refresh button in the fireQChangesWhenReady function to pick up on post-refresh changes
     removejscssfile("dCustom0.css", "css");
     removejscssfile("Case.css", "css");
@@ -503,8 +437,6 @@ function fixSalesforceUI() {
     removejscssfile("chatterExtended.css","css");
     removejscssfile("dStandard.css","css");
     removejscssfile("chatterCore.css","css");
-    //removejscssfile("common.css","css");
-    //removejscssfile("ExtCSS-SFDC.css","css");
 }
 
 function removeOrWaitForRefreshButton() {
