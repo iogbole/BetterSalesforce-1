@@ -32,7 +32,8 @@ var ELAINE_Q = '00B50000006NcBq';
 var FRANK_Q = '00B50000006Mz3S';
 var MICHAEL_Q = '00B50000006MkP5';
 var PATRICK_Q = '00B50000006NcC0';
-var TIM_Q = '00B50000006NB7W';
+var TERVO_Q = '00B50000006MQy0';
+var TIM_Q = '00B50000006NzMb';
 var VAL_Q = '00B50000006NrwT';
 var VINCE_Q = '00B50000006NL86';
 
@@ -161,6 +162,7 @@ function fireQChangesWhenReady(firstRun, timesRun) {
             setQueueCount(FRANK_Q, $('#frank-in-progress'));
             setQueueCount(MICHAEL_Q, $('#michael-in-progress'));
             setQueueCount(PATRICK_Q, $('#patrick-in-progress'));
+            setQueueCount(TERVO_Q, $('#tervo-in-progress'));
             setQueueCount(TIM_Q, $('#tim_dooher-in-progress'));
             setQueueCount(VAL_Q, $('#val-in-progress'));
             setQueueCount(VINCE_Q, $('#vince-in-progress'));
@@ -315,7 +317,8 @@ function getSoloQueuesHtml() {
                 '<span class="t2-queue"><a href="500?fcf=00B50000006Mz3S" style="color:black">Frank (<span id="frank-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MkP5" style="color:black">Mike (<span id="michael-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NcC0" style="color:black">Patrick (<span id="patrick-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006NB7W" style="color:black">Tim (<span id="tim_dooher-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006MQy0" style="color:black">Tervo (<span id="tervo-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006NzMb" style="color:black">Tim (<span id="tim_dooher-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NrwT" style="color:black">Val (<span id="val-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NL86" style="color:black">Vince (<span id="vince-in-progress">*</span>)</a></span>';
     }
@@ -734,7 +737,7 @@ function highlightGirth() {
     var low = 6;
     var high = 13;
     var arr = new Array('aaron-in-progress', 'doug-in-progress', 'elaine-in-progress','frank-in-progress', 'michael-in-progress',
-        'patrick-in-progress', 'tim_dooher-in-progress', 'val-in-progress', 'vince-in-progress');
+        'patrick-in-progress', 'tervo-in-progress', 'tim_dooher-in-progress', 'val-in-progress', 'vince-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
