@@ -6,7 +6,7 @@
 // ==/UserScript==
 
 
-// Helper functions
+// Helper function
 var getId = function (arg) {
     return document.getElementById(arg);
 };
