@@ -1,0 +1,21 @@
+{
+    "browser_action": {
+        "default_icon": "images/icon.png",
+        "default_popup": "options/options.html"
+    },
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "content_scripts": [ {
+        "js": [ "jQuery-1.7.2-min.js","bettersalesforce_script.js" ],
+        "matches": [ "https://na3.salesforce.com/*" ]
+    } ],
+    "converted_from_user_script": true,
+    "description": "Makes Salesforce a bit more girthy",
+    "key": "yEGoQ9g7t/p4n0d1Zfb48POSJ09h/+5b8LH1aDnnEjw=",
+    "name": "BetterSalesforce",
+    "version": "3.18.0",
+    "icons": {"128": "images/icon.png"},
+    "manifest_version": 2,
+    "web_accessible_resources": ["images/bsf-sprites.png"]
+}
