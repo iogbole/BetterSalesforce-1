@@ -1,12 +1,12 @@
 // ==UserScript==
 // @name BetterSalesforce
 // @description Makes Salesforce a bit more bearable
-// @author Cory G., Seth P., Taylor T., Sean S., Josh L.
+// @author Cory G., Seth P., Taylor T., Sean S., Josh L., Aaron H.
 // @match https://na3.salesforce.com/*
 // ==/UserScript==
 
 
-// Helper functions
+// Helper function
 var getId = function (arg) {
     return document.getElementById(arg);
 };
@@ -19,37 +19,37 @@ var ACCOUNT_Q = '00B50000006LnHq';
 //var MODULE_Q = '00B50000005nIpQ';
 
 // Frontline
-var SOLO_Q = '00B50000006NMcv';
+var SOLO_Q = '00B50000006OT7X';
 
 // S&M
-var JOSH_Q = '00B50000006MQxq';
+var ELAINE_Q = '00B50000006NcBq';
 var BENW_Q = '00B50000006NcAj';
 
-// Girth
+// Throughput
 var AARON_Q = '00B50000006Nknd';
+var ALEX_Q = '00B50000006MQxb';
+var DDAY_Q = '00B50000006MkPA';
 var DOUG_Q = '00B50000006Mk6X';
-var ELAINE_Q = '00B50000006NcBq';
 var FRANK_Q = '00B50000006Mz3S';
 var MICHAEL_Q = '00B50000006MkP5';
 var PATRICK_Q = '00B50000006NcC0';
-var TIM_Q = '00B50000006NB7W';
+var TERVO_Q = '00B50000006OInb';
+var TIM_Q = '00B50000006NzMb';
 var VAL_Q = '00B50000006NrwT';
 var VINCE_Q = '00B50000006NL86';
 
-//EMEA Q definition by Israel 04/16/13
+
 //EMEA Frontline
-var FEMI_Q = '00B50000006NkFH';
-var TARA_Q = '00B50000006O2e4';
-var BINTA_Q = '00B50000006Nhik';
-var RAZAQ_Q = '00B50000006O2da';
+var BINTA_Q = '00B50000006O4D0';
+var JOHN_Q = '00B50000006OT7r';
+var RAZAQ_Q = '00B50000006Ntqc';
+var RICHARD_Q = '00B50000006ORJg';
 
 
 //EMEA Backline
-
 var ISRAEL_Q ='00B50000006N6as'
-var ADAM_Q ='00B50000006N5Og'
 var SHAILESH_Q = '00B50000006Muvw';
-var NEBIL_Q = '00B50000006NvSm';
+var TARA_Q = '00B50000006O2e4';
 
 var THROUGHPUT_Q = '00B50000006Nnk4';
 //-- END--
@@ -60,9 +60,9 @@ var EMEA_Q = '00B50000006NkFM';
 var US2EMEA_Q = '00B50000006Mi54';
 var EMEA2US_Q = '00B50000006Mi4v';
 var SEV1_Q = '00B50000006Lh9v';
-var GIRTH_Q = '00B50000006Nnk4';
+var THROUGHPUT_Q = '00B50000006Nnk4';
 var SURG_Q = '00B50000006NnkE';
-var SNM_Q = '00B50000006Nnk9';
+var EP_Q = '00B50000006Nnk9';
 
 // Day Counts
 var BACKLINE_ESCALATED_Q = '00B50000006MXCN';
@@ -154,36 +154,36 @@ function fireQChangesWhenReady(firstRun, timesRun) {
 
         var curr_mode = localStorage.mode; // Get currently set queue mode
 
-        if (curr_mode == 'Girth') {
+        if (curr_mode == 'Throughput') {
             setQueueCount(AARON_Q, $('#aaron-in-progress'));
+            setQueueCount(ALEX_Q, $('#alex-in-progress'));
+            setQueueCount(DDAY_Q, $('#dday-in-progress'));
             setQueueCount(DOUG_Q, $('#doug-in-progress'));
-            setQueueCount(ELAINE_Q, $('#elaine-in-progress'));
             setQueueCount(FRANK_Q, $('#frank-in-progress'));
             setQueueCount(MICHAEL_Q, $('#michael-in-progress'));
             setQueueCount(PATRICK_Q, $('#patrick-in-progress'));
+            setQueueCount(TERVO_Q, $('#tervo-in-progress'));
             setQueueCount(TIM_Q, $('#tim_dooher-in-progress'));
             setQueueCount(VAL_Q, $('#val-in-progress'));
             setQueueCount(VINCE_Q, $('#vince-in-progress'));
         }
-        else if (curr_mode == 'SnM') {
+        else if (curr_mode == 'EP') {
             setQueueCount(BENW_Q, $('#benw-in-progress'));
-            setQueueCount(JOSH_Q, $('#josh_leckbee-in-progress'));
+            setQueueCount(ELAINE_Q, $('#elaine-in-progress'));
         }
 
         else if (curr_mode == 'EMEA-Backline') {
             setQueueCount(SHAILESH_Q, $('#shailesh-in-progress'));
-            setQueueCount(ADAM_Q, $('#adam-in-progress'));
             setQueueCount(ISRAEL_Q, $('#israel-in-progress'));
-            setQueueCount(NEBIL_Q, $('#nebil-in-progress'));
+            setQueueCount(TARA_Q, $('#tara-in-progress'));
 
         }
 
         else if (curr_mode == 'EMEA-Frontline') {
-            setQueueCount(TARA_Q, $('#tara-in-progress'));
-            setQueueCount(FEMI_Q, $('#femi-in-progress'));
             setQueueCount(BINTA_Q, $('#binta-in-progress'));
+            setQueueCount(JOHN_Q, $('#john-in-progress'));
             setQueueCount(RAZAQ_Q, $('#razaq-in-progress'));
-
+            setQueueCount(RICHARD_Q, $('#richard-in-progress'));
         }
         else {
             setQueueCount(SOLO_Q, $('#solo-in-progress'));
@@ -210,11 +210,9 @@ function fireQChangesWhenReady(firstRun, timesRun) {
                 setQueueCount(EMEA_Q, $('#emea-queue'));
                 setQueueCount(THROUGHPUT_Q, $('#backline-queue'));
             }
-            else if (curr_mode == 'Girth') {
-                setQueueCount(GIRTH_Q, $('#girth-queue'));
-            }
-            else if (curr_mode == 'SnM') {
-                setQueueCount(SNM_Q, $('#snm-queue'));
+            else if (curr_mode == 'Throughput' || curr_mode == 'EP' || curr_mode == 'Frontline') {
+                setQueueCount(THROUGHPUT_Q, $('#throughput-queue'));
+                setQueueCount(EP_Q, $('#ep-queue'));
             }
 
             setQueueCount(SEV1_Q, $('#sev1-queue'));
@@ -247,17 +245,17 @@ function getModes() {
                 '<OPTION VALUE = "EMEA-Backline">EMEA Backline</OPTION>' +
                 '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
                 '<OPTION VALUE = "Frontline" selected>Frontline</OPTION>' +
-                '<OPTION VALUE = "Girth">Girth</OPTION>' +
-                '<OPTION VALUE = "SnM">SnM</OPTION>';
+                '<OPTION VALUE = "Throughput">Throughput</OPTION>' +
+                '<OPTION VALUE = "EP">EP</OPTION>';
     }
-    else if (currMode == 'Girth') {
+    else if (currMode == 'Throughput') {
         modeString =
             '<OPTION VALUE = "Account Support" >Account Support</OPTION>' +
                 '<OPTION VALUE = "EMEA-Backline">EMEA Backline</OPTION>' +
                 '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
                 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-                '<OPTION VALUE = "Girth" selected>Girth</OPTION>' +
-                '<OPTION VALUE = "SnM">SnM</OPTION>';
+                '<OPTION VALUE = "Throughput" selected>Throughput</OPTION>' +
+                '<OPTION VALUE = "EP">EP</OPTION>';
 
     }
     else if (currMode == 'Account Support') {
@@ -266,8 +264,8 @@ function getModes() {
                 '<OPTION VALUE = "EMEA-Backline">EMEA Backline</OPTION>' +
                 '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
                 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-                '<OPTION VALUE = "Girth">Girth</OPTION>' +
-                '<OPTION VALUE = "SnM">SnM</OPTION>';
+                '<OPTION VALUE = "Throughput">Throughput</OPTION>' +
+                '<OPTION VALUE = "EP">EP</OPTION>';
     }
 
     else if (currMode == 'EMEA-Frontline') {
@@ -276,8 +274,8 @@ function getModes() {
                 '<OPTION VALUE = "EMEA-Backline">EMEA Backline</OPTION>' +
                 '<OPTION VALUE = "EMEA-Frontline" selected>EMEA Frontline</OPTION>' +
                 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-                '<OPTION VALUE = "Girth">Girth</OPTION>' +
-                '<OPTION VALUE = "SnM">SnM</OPTION>';
+                '<OPTION VALUE = "Throughput">Throughput</OPTION>' +
+                '<OPTION VALUE = "EP">EP</OPTION>';
 
     }
     else if (currMode == 'EMEA-Backline') {
@@ -286,8 +284,8 @@ function getModes() {
                 '<OPTION VALUE = "EMEA-Backline" selected>EMEA Backline</OPTION>' +
                 '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
                 '<OPTION VALUE = "Frontline" >Frontline</OPTION>' +
-                '<OPTION VALUE = "Girth">Girth</OPTION>' +
-                '<OPTION VALUE = "SnM">SnM</OPTION>';
+                '<OPTION VALUE = "Throughput">Throughput</OPTION>' +
+                '<OPTION VALUE = "EP">EP</OPTION>';
     }
 
     else {
@@ -296,8 +294,8 @@ function getModes() {
                 '<OPTION VALUE = "EMEA-Backline" selected>EMEA Backline</OPTION>' +
                 '<OPTION VALUE = "EMEA-Frontline">EMEA Frontline</OPTION>' +
                 '<OPTION VALUE = "Frontline">Frontline</OPTION>' +
-                '<OPTION VALUE = "Girth">Girth</OPTION>' +
-                '<OPTION VALUE = "SnM" selected>SnM</OPTION>' ;
+                '<OPTION VALUE = "Throughput">Throughput</OPTION>' +
+                '<OPTION VALUE = "EP" selected>EP</OPTION>' ;
 
     }
 
@@ -307,43 +305,44 @@ function getModes() {
 function getSoloQueuesHtml() {
     var html = '';
 
-    if (localStorage.mode == 'Girth') {
+    if (localStorage.mode == 'Throughput') {
         html =
-            '<span class="t2-queue"><a href="500?fcf=00B50000006Nknd" style="color:black">Aaron (<span id="aaron-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6X" style="color:black">Doug (<span id="doug-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006NcBq" style="color:black">Elaine (<span id="elaine-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006Mz3S" style="color:black">Frank (<span id="frank-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006MkP5" style="color:black">Mike (<span id="michael-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006NcC0" style="color:black">Patrick (<span id="patrick-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006NB7W" style="color:black">Tim (<span id="tim_dooher-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006NrwT" style="color:black">Val (<span id="val-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006NL86" style="color:black">Vince (<span id="vince-in-progress">*</span>)</a></span>';
+            '<span class="t2-queue"><a href="500?fcf=00B50000006Nknd" style="color:black">Aaron(<span id="aaron-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006MQxb" style="color:black">Alex(<span id="alex-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006MkPA" style="color:black">DDay(<span id="dday-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6X" style="color:black">Doug(<span id="doug-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006Mz3S" style="color:black">Frank(<span id="frank-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006MkP5" style="color:black">Mike(<span id="michael-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006NcC0" style="color:black">Patrick(<span id="patrick-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006OInb" style="color:black">Tervo(<span id="tervo-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006NzMb" style="color:black">Tim(<span id="tim_dooher-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006NrwT" style="color:black">Val(<span id="val-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006NL86" style="color:black">Vince(<span id="vince-in-progress">*</span>)</a></span>';
     }
-    else if (localStorage.mode == 'SnM') {
+    else if (localStorage.mode == 'EP') {
         html =
-            '<span class="t2-queue"><a href="500?fcf=00B50000006NcAj" style="color:black">Ben2 (<span id="benw-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006MDyq" style="color:black">Josh (<span id="josh_leckbee-in-progress">*</span>)</a></span>';
+            '<span class="t2-queue"><a href="500?fcf=00B50000006NcAj" style="color:black">Ben2(<span id="benw-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006NcBq" style="color:black">Elaine(<span id="elaine-in-progress">*</span>)</a></span>';
     }
 
     else if (localStorage.mode == 'EMEA-Frontline') {
         html =
-            '<span class="t2-queue"><a href="500?fcf=00B50000006O2e4" style="color:black">Tara (<span id="tara-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006NkFH" style="color:black">Femi (<span id="femi-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006Nhik" style="color:black">Binta (<span id="binta-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006O2da" style="color:black">Razaq (<span id="razaq-in-progress">*</span>)</a></span>' ;
+            '<span class="t2-queue"><a href="500?fcf=00B50000006O4D0" style="color:black">Binta(<span id="binta-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006OT7r" style="color:black">John(<span id="john-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006Ntqc" style="color:black">Razaq(<span id="razaq-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006ORJg" style="color:black">Richard(<span id="richard-in-progress">*</span>)</a></span>' ;
     }
     else if (localStorage.mode == 'EMEA-Backline') {
         html =
-            '<span class="t2-queue"><a href="500?fcf=00B50000006Muvw" style="color:black">Shailesh (<span id="shailesh-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006N5Og" style="color:black">Adam (<span id="adam-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006NvSm" style="color:black">Nebil (<span id="nebil-in-progress">*</span>)</a></span>'+
-                '<span class="t2-queue"><a href="500?fcf=00B50000006N6as" style="color:black">Israel (<span id="israel-in-progress">*</span>)</a></span>';
+            '<span class="t2-queue"><a href="500?fcf=00B50000006N6as" style="color:black">Israel(<span id="israel-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006Muvw" style="color:black">Shailesh(<span id="shailesh-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006O2e4" style="color:black">Tara(<span id="tara-in-progress">*</span>)</a></span>' ;
 
     }
 
     else {
         html =
-            '<span class="t2-queue"><a href="500?fcf=00B50000006NMcv" style="color:black">My Queue(<span id="solo-in-progress">*</span>)</a></span>';
+            '<span class="t2-queue"><a href="500?fcf=00B50000006OT7X" style="color:black">My Queue(<span id="solo-in-progress">*</span>)</a></span>';
     }
 
     return html;
@@ -352,23 +351,22 @@ function getSoloQueuesHtml() {
 function getBigQueuesHtml() {
     //Support, Backline, and Severity 1 Queues
     var bigQHtml =
-        '<span class="t2-queue big"><a href="500?fcf=00B50000006Lh9v" id="sev1" style="font-size:120%;font-weight:bold;color:red;display:none;">NEW P1!!(<span id="sev1-queue">*</span>)</a></span>' +
-            '<span class="t2-queue big"><a href="500?fcf=00B50000006LTCj" style="color:black">Frontline (<span id="support-queue">*</span>)</a></span>';
+        '<span class="t2-queue big"><a href="500?fcf=00B50000006Lh9v" id="sev1" style="font-size:120%;font-weight:bold;color:red;display:none;">NEW Sev-1!!(<span id="sev1-queue">*</span>)</a></span>' +
+            '<span class="t2-queue big"><a href="500?fcf=00B50000006LTCj" style="color:black">Frontline(<span id="support-queue">*</span>)</a></span>';
 
-    if (localStorage.mode == 'Girth') {
-        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006Nnk4" style="color:black">Girth (<span id="girth-queue">*</span>)</a></span>';
+    if (localStorage.mode == 'Throughput' || localStorage.mode == 'EP' || localStorage.mode == 'Frontline') {
+        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006Nnk4" style="color:black">Throughput(<span id="throughput-queue">*</span>)</a></span>';
+        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006Nnk9" style="color:black">EP(<span id="ep-queue">*</span>)</a></span>';
     }
-    else if (localStorage.mode == 'SnM') {
-        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006Nnk9" style="color:black">EP (<span id="snm-queue">*</span>)</a></span>';
-    }
+
     else if (localStorage.mode == 'EMEA-Frontline') {
-        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006NkFM" style="color:black"> EMEA HOT Accounts (<span id="emea-queue">*</span>)</a></span>';
-        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006Nnk4" style="color:black"> BACKLINE (<span id="backline-queue">*</span>)</a></span>';
+        // bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006NkFM" style="color:black"> EMEA HOT Accounts (<span id="emea-queue">*</span>)</a></span>';
+        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006Nnk4" style="color:black"> Throughput(<span id="backline-queue">*</span>)</a></span>';
 
     }
     else if (localStorage.mode == 'EMEA-Backline') {
-        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006NkFM" style="color:black"> EMEA HOT Accounts(<span id="emea-queue">*</span>)</a></span>';
-        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006Nnk4" style="color:black"> BACKLINE (<span id="backline-queue">*</span>)</a></span>';
+        // bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006NkFM" style="color:black"> EMEA HOT Accounts(<span id="emea-queue">*</span>)</a></span>';
+        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006Nnk4" style="color:black"> Throughput(<span id="backline-queue">*</span>)</a></span>';
 
     }
 
@@ -397,7 +395,7 @@ function initJiveUI() {
 
     if (localStorage.mode == undefined || localStorage.mode == 'undefined' || localStorage.mode == 'Backline')
     {
-        localStorage.mode = 'SnM';
+        localStorage.mode = 'EP';
     }
 
     if (localStorage.refreshTime == undefined || localStorage.refreshTime == 'undefined' ||
@@ -424,7 +422,7 @@ function initJiveUI() {
 
     appensionHtml += 'Refresh: ';
 
-    appensionHtml += '<input type="range" min="5" max="45" step="5" value="' + localStorage.refreshTime +
+    appensionHtml += '<input type="range" min="15" max="60" step="5" value="' + localStorage.refreshTime +
         '" onChange="localStorage.refreshTime = value;" title="' + localStorage.refreshTime + '" />';
 
     appensionHtml += '</div></div><div style="float:left;width:60%;">';
@@ -615,11 +613,9 @@ function changeMode() {
 }
 
 function highlightQueues() {
-    if (localStorage.mode == 'Girth') {
-        highlightGirth();
-    }
-    else if (localStorage.mode == 'SnM') {
-        highlightSnM();
+    if (localStorage.mode == 'Throughput' || localStorage.mode == 'EP') {
+        highlightThroughput();
+        highlightEP();
     }
     else if (localStorage.mode == 'Account Support') {
         highlightSolo();
@@ -633,6 +629,8 @@ function highlightQueues() {
         highlightEMEABackline();
     }
     else {
+        highlightThroughput();
+        highlightEP();
         highlightSolo();
     }
 
@@ -665,10 +663,10 @@ function highlightSolo() {
     });
 }
 
-function highlightSnM() {
+function highlightEP() {
     var low = 6;
     var high = 13;
-    var arr = new Array('benw-in-progress','josh_leckbee-in-progress');
+    var arr = new Array('benw-in-progress', 'elaine-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
@@ -690,7 +688,7 @@ function highlightSnM() {
 function highlightEMEAFrontline() {
     var low = 6;
     var high = 13;
-    var arr = new Array('tara-in-progress', 'nebil-in-progress', 'femi-in-progress', 'binta-in-progress');
+    var arr = new Array('binta-in-progress', 'john-in-progress', 'razaq-in-progress', 'richard-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
@@ -711,7 +709,7 @@ function highlightEMEAFrontline() {
 function highlightEMEABackline() {
     var low = 6;
     var high = 13;
-    var arr = new Array('shailesh-in-progress', 'adam-in-progress', 'israel-in-progress');
+    var arr = new Array('tara-in-progress', 'shailesh-in-progress', 'israel-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
@@ -730,11 +728,11 @@ function highlightEMEABackline() {
     });
 }
 
-function highlightGirth() {
+function highlightThroughput() {
     var low = 6;
     var high = 13;
-    var arr = new Array('aaron-in-progress', 'doug-in-progress', 'elaine-in-progress','frank-in-progress', 'michael-in-progress',
-        'patrick-in-progress', 'tim_dooher-in-progress', 'val-in-progress', 'vince-in-progress');
+    var arr = new Array('aaron-in-progress', 'alex-in-progress', 'dday-in-progress','doug-in-progress', 'frank-in-progress', 'michael-in-progress',
+        'patrick-in-progress', 'tervo-in-progress', 'tim_dooher-in-progress', 'val-in-progress', 'vince-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
@@ -817,11 +815,9 @@ function highlightFrontlineQueue() {
 function highlightBacklineQueue() {
     var arr = new Array();
 
-    if (localStorage.mode == 'Girth') {
-        arr.push('girth-queue');
-    }
-    else if (localStorage.mode == 'SnM') {
-        arr.push('snm-queue');
+    if (localStorage.mode == 'Throughput' || localStorage.mode == 'EP' || localStorage.mode == 'Frontline') {
+        arr.push('throughput-queue');
+        arr.push('ep-queue');
     }
     else if (localStorage.mode == 'EMEA-Backline') {
         arr.push('emea-queue');
