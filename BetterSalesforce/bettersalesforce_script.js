@@ -381,7 +381,7 @@ function getBigQueuesHtml() {
     }
     bigQHtml +=
         '<br /><span class="t2-queue">You\'ve taken <span id="cases-taken">*</span> today.</span>' +
-            '<br /><span class="t2-old">Throughput is <span id="oldest-case">*</span> days behind.</span>' +
+            '<br /><span class="t2-old">Throughput is <span id="oldest-case">*</span>days behind.</span>' +
             '</div>' +
             '<div id="q-refresh" style="float:right;width:20%;text-align:right"><p>refreshing in <strong id="q-refresh-count">0</strong> seconds</p>' +
             '<a href="javascript:;" id="refresh-q-link">refresh queue</a> &nbsp; &nbsp; <a href="javascript:;" id="refresh-links">refresh links</a> &nbsp; &nbsp; <a href="javascript:;" id="pause-refresh">pause</a>' +
