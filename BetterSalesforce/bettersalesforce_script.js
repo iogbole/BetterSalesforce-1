@@ -25,7 +25,6 @@ var ELAINE_Q = '00B50000006NcBq';
 var BENW_Q = '00B50000006NcAj';
 
 // Throughput
-var AARON_Q = '00B50000006Nknd';
 var ALEX_Q = '00B50000006MQxb';
 var DDAY_Q = '00B50000006MkPA';
 var DOUG_Q = '00B50000006Mk6X';
@@ -156,7 +155,6 @@ function fireQChangesWhenReady(firstRun, timesRun) {
         var curr_mode = localStorage.mode; // Get currently set queue mode
 
         if (curr_mode == 'Throughput') {
-            setQueueCount(AARON_Q, $('#aaron-in-progress'));
             setQueueCount(ALEX_Q, $('#alex-in-progress'));
             setQueueCount(DDAY_Q, $('#dday-in-progress'));
             setQueueCount(DOUG_Q, $('#doug-in-progress'));
@@ -734,7 +732,7 @@ function highlightEMEABackline() {
 function highlightThroughput() {
     var low = 6;
     var high = 13;
-    var arr = new Array('aaron-in-progress', 'alex-in-progress', 'dday-in-progress','doug-in-progress', 'frank-in-progress', 'michael-in-progress',
+    var arr = new Array('alex-in-progress', 'dday-in-progress','doug-in-progress', 'frank-in-progress', 'michael-in-progress',
         'patrick-in-progress', 'tervo-in-progress', 'tim_dooher-in-progress', 'val-in-progress', 'vince-in-progress');
 
     $.each(arr, function () {
