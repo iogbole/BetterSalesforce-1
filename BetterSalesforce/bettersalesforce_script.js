@@ -377,8 +377,13 @@ function getBigQueuesHtml() {
                 '<span class="t2-queue big" id="us"><a href="500?fcf=00B50000006Mi4v" style="color:black">From_EMEA (<span id="emea2us-queue">*</span>)</a></span>';
     }
     bigQHtml +=
-        '<br /><span class="t2-queue">You\'ve taken <span id="cases-taken">*</span> today.</span>' +
-            '<br /><span class="t2-old">Throughput is <span id="oldest-case">*</span>days behind.</span>' +
+        '<br /><span class="t2-queue">You\'ve taken <span id="cases-taken">*</span> today.</span>';
+
+    if (localStorage.mode == 'Throughput' || localStorage.mode == 'EP' || localStorage.mode == 'EMEA-Backline') {
+            bigQHtml += '<br /><span class="t2-old">Throughput is <span id="oldest-case">*</span>days behind.</span>';
+    }
+
+    bigQHtml +=
             '</div>' +
             '<div id="q-refresh" style="float:right;width:20%;text-align:right"><p>refreshing in <strong id="q-refresh-count">0</strong> seconds</p>' +
             '<a href="javascript:;" id="refresh-q-link">refresh queue</a> &nbsp; &nbsp; <a href="javascript:;" id="refresh-links">refresh links</a> &nbsp; &nbsp; <a href="javascript:;" id="pause-refresh">pause</a>' +
@@ -613,7 +618,6 @@ function changeMode() {
 
 function highlightQueues() {
     if (localStorage.mode == 'Throughput' || localStorage.mode == 'EP') {
-        highlightThroughput();
         highlightDaysBehind();
         highlightEP();
     }
@@ -621,20 +625,16 @@ function highlightQueues() {
         highlightSolo();
         highlightAS();
     }
-
     else if (localStorage.mode == 'EMEA-Frontline') {
         highlightEMEAFrontline();
     }
     else if (localStorage.mode == 'EMEA-Backline') {
         highlightEMEABackline();
-    }
-    else {
-        highlightThroughput();
-        highlightEP();
-        highlightSolo();
+        highlightDaysBehind();
     }
 
     highlightSevOnes();
+    highlightThroughput();
     highlightFrontlineQueue();
     highlightBacklineQueue();
     highlightEscalatedQueue();
