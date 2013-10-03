@@ -306,7 +306,6 @@ function getSoloQueuesHtml() {
 
     if (localStorage.mode == 'Throughput') {
         html =
-            '<span class="t2-queue"><a href="500?fcf=00B50000006Nknd" style="color:black">Aaron(<span id="aaron-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MQxb" style="color:black">Alex(<span id="alex-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MkPA" style="color:black">DDay(<span id="dday-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006Mk6X" style="color:black">Doug(<span id="doug-in-progress">*</span>)</a></span>' +
