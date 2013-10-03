@@ -16,7 +16,6 @@ var getClass = function (arg) {
 
 // Account Support
 var ACCOUNT_Q = '00B50000006LnHq';
-//var MODULE_Q = '00B50000005nIpQ';
 
 // Frontline
 var SOLO_Q = '00B50000006OT7X';
@@ -151,6 +150,8 @@ function fireQChangesWhenReady(firstRun, timesRun) {
 
         $('#q-refresh').fadeIn();
         $('#q-loading').hide();
+
+        showOldest();
 
         var curr_mode = localStorage.mode; // Get currently set queue mode
 
@@ -380,6 +381,7 @@ function getBigQueuesHtml() {
     }
     bigQHtml +=
         '<br /><span class="t2-queue">You\'ve taken <span id="cases-taken">*</span> today.</span>' +
+            '<br /><span class="t2-old">Throughput is <span id="oldest-case">*</span> days behind.</span>' +
             '</div>' +
             '<div id="q-refresh" style="float:right;width:20%;text-align:right"><p>refreshing in <strong id="q-refresh-count">0</strong> seconds</p>' +
             '<a href="javascript:;" id="refresh-q-link">refresh queue</a> &nbsp; &nbsp; <a href="javascript:;" id="refresh-links">refresh links</a> &nbsp; &nbsp; <a href="javascript:;" id="pause-refresh">pause</a>' +
@@ -615,6 +617,7 @@ function changeMode() {
 function highlightQueues() {
     if (localStorage.mode == 'Throughput' || localStorage.mode == 'EP') {
         highlightThroughput();
+        highlightDaysBehind();
         highlightEP();
     }
     else if (localStorage.mode == 'Account Support') {
@@ -742,6 +745,27 @@ function highlightThroughput() {
                 $('#' + this).css({'font-weight':'bolder', 'color':'green'});
             }
             else if (num > low && num < high) {
+                $('#' + this).css({'font-weight':'bolder', 'color':'orange'});
+            }
+            else {
+                $('#' + this).css({'font-weight':'bolder', 'color':'red'});
+            }
+        }
+    });
+}
+
+function highlightDaysBehind() {
+    var arr = new Array('oldest-case');
+
+    $.each(arr, function () {
+        var count = $('#' + this).text();
+        if (count != '*') {
+            var num = parseInt(count);
+
+            if (num < 2) {
+                $('#' + this).css({'font-weight':'bolder', 'color':'green'});
+            }
+            else if (num >= 2 && num < 4) {
                 $('#' + this).css({'font-weight':'bolder', 'color':'orange'});
             }
             else {
@@ -880,6 +904,49 @@ function highlightTaken() {
             }
         }
     });
+}
+
+/* Calculates oldest case in Throughput and shows it as days behind */
+function showOldest() {
+    var view_id =  "00B50000006Nnk4";
+
+    $.post("https://na3.salesforce.com/500?fcf=00B50000006Nnk4", {
+    }, function (data) {
+        var dateColName = '"00N50000002SL1F":[[';
+        var nextCoLName = ']],"00N50000002SN0s":';
+        var datesStart = data.indexOf(dateColName);
+        var datesEnd = data.indexOf(nextCoLName);
+        var sub = data.substring(datesStart, datesEnd);
+
+        sub = sub.substring(dateColName.length, sub.length);
+        sub = sub.replace(/"/g, '');
+        sub = sub.replace(/\[/g, '');
+        sub = sub.replace(/\]/g, '');
+
+        var dateString = sub;
+
+        var list = dateString.split(',');
+        list = list
+            .map( // for each element in the list (each date)
+            function(val,idx){
+                // use the first part(before the dot(.)), replace the - with spaces and convert to date
+                return new Date(val.split(' ')[0].replace(/\//g,' ')).getTime();
+            })
+            .sort();
+
+        var d = daydiff(list[0], new Date().getTime());
+
+        $('#oldest-case').text(d);
+    }, 'text');
+}
+
+function daydiff(first, second) {
+
+    var millisecondsPerDay = 1000*60*60*24;
+    var millisBetween = second - first;
+    var days = millisBetween / millisecondsPerDay;
+
+    return Math.ceil(days);
 }
 
 function highlightRows(case_rows) {
