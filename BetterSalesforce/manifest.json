@@ -1,20 +1,25 @@
 {
     "browser_action": {
-        "default_icon": "images/icon.png",
-        "default_popup": "options/options.html"
+        "default_icon": "images/icon.png"
     },
     "background": {
         "scripts": ["background.js"]
     },
     "content_scripts": [ {
-        "js": [ "jQuery-1.7.2-min.js","bettersalesforce_script.js" ],
-        "matches": [ "https://na3.salesforce.com/*" ]
-    } ],
+        "matches": [ "https://na3.salesforce.com/*" ],
+        "js": [ "jQuery-1.7.2-min.js","bettersalesforce_script.js" ]
+        },
+        {
+            "matches": [ "*://*/admin/settings-cache!input.jspa" ],
+            "js": [ "jQuery-1.7.2-min.js","cloud_cache.js" ]
+        }
+    ],
     "converted_from_user_script": true,
     "description": "Makes Salesforce a bit more girthy",
     "key": "yEGoQ9g7t/p4n0d1Zfb48POSJ09h/+5b8LH1aDnnEjw=",
     "name": "BetterSalesforce",
-    "version": "3.21.0",
+    "update_url": "http://www.projexteam.com/bsfq/updates.xml",
+    "version": "3.22.0",
     "icons": {"128": "images/icon.png"},
     "manifest_version": 2,
     "web_accessible_resources": ["images/bsf-sprites.png"]

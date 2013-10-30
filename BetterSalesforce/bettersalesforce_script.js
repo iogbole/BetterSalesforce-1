@@ -118,6 +118,8 @@ if (isQPage()) {
     window.setInterval(autoQRefresh, 1000);
 }
 
+
+
 function assignToQueue(sf_id, queue) {
     $.get('/' + sf_id + '/a', function (data) {
         $.post("/" + sf_id + "/a", {
