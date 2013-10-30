@@ -10,7 +10,7 @@
         "js": [ "jQuery-1.7.2-min.js","bettersalesforce_script.js" ]
         },
         {
-            "matches": [ "*://*/admin/settings-cache!input.jspa" ],
+            "matches": [ "*://*/admin/settings-cache*.jspa" ],
             "js": [ "jQuery-1.7.2-min.js","cloud_cache.js" ]
         }
     ],
