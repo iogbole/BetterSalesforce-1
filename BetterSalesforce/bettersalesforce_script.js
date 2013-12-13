@@ -152,7 +152,7 @@ function fireQChangesWhenReady(firstRun, timesRun) {
         $('#q-refresh').fadeIn();
         $('#q-loading').hide();
 
-        showOldest();
+        showOldestThroughput();
 
         var curr_mode = localStorage.mode; // Get currently set queue mode
 
@@ -906,8 +906,15 @@ function highlightTaken() {
 }
 
 /* Calculates oldest case in Throughput and shows it as days behind */
-function showOldest() {
+function showOldestThroughput() {
     var view_id =  "00B50000006Nnk4";
+    var count = parseInt($('#throughput-queue').text());
+
+    if (count <= 0) {
+        $('#oldest-case').text('0');
+
+        return;
+    }
 
     $.post("https://na3.salesforce.com/500?fcf=00B50000006Nnk4", {
     }, function (data) {
