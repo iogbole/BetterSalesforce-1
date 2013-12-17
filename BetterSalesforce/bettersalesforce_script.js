@@ -59,11 +59,11 @@ var US2EMEA_Q = '00B50000006Mi54';
 var EMEA2US_Q = '00B50000006Mi4v';
 var SEV1_Q = '00B50000006Lh9v';
 var THROUGHPUT_Q = '00B50000006Nnk4';
-var SURG_Q = '00B50000006NnkE';
 var EP_Q = '00B50000006Nnk9';
 
 // Day Counts
 var BACKLINE_ESCALATED_Q = '00B50000006MXCN';
+var CASES_TAKEN_TOTAL = '00B50000006Oqwg';
 var CASES_TAKEN_Q = '00B50000006NS1g';
 
 // Descriptions of Links
@@ -100,6 +100,31 @@ function setQueueCount(view_id, dom_obj) {
     }, function (data) {
         dom_obj.text(data.match(/"totalRowCount":(\d+)/)[1]);
     }, 'text');
+}
+
+function setCTPQueueCount(view_id, dom_obj) {
+    var casesTaken = parseInt($('#cases-taken').text());
+
+    if (casesTaken <= 0 || isNaN(casesTaken)) {
+        dom_obj.text('0');
+
+        return;
+    }
+
+    var casesTakenTotal;
+
+    $.post("/_ui/common/list/ListServlet", {
+        'action':'filter',
+        'filterId':view_id,
+        'filterType':'t',
+        'page':'1',
+        'rowsPerPage':'50'
+    }, function (data) {
+        casesTakenTotal = parseInt((data.match(/"totalRowCount":(\d+)/)[1]));
+        dom_obj.text(Math.ceil(casesTaken/casesTakenTotal*100));
+    }, 'text');
+
+    highlightTakenPercent();
 }
 
 
@@ -201,6 +226,7 @@ function fireQChangesWhenReady(firstRun, timesRun) {
         else {
             setQueueCount(BACKLINE_ESCALATED_Q, $('#backline-escalated'));
             setQueueCount(CASES_TAKEN_Q, $('#cases-taken'));
+            setCTPQueueCount(CASES_TAKEN_TOTAL, $('#cases-taken-percent'));
             setQueueCount(SUPPORT_Q, $('#support-queue'));
 
             if (curr_mode == 'EMEA-Frontline') {
@@ -378,8 +404,14 @@ function getBigQueuesHtml() {
             '<span class="t2-queue big" id="us"><a href="500?fcf=00B50000006Mi54" style="color:black">From_US (<span id="us2emea-queue">*</span>)</a></span>' +
                 '<span class="t2-queue big" id="us"><a href="500?fcf=00B50000006Mi4v" style="color:black">From_EMEA (<span id="emea2us-queue">*</span>)</a></span>';
     }
+
+    if (localStorage.mode == 'Throughput' || localStorage.mode == 'EP') {
     bigQHtml +=
-        '<br /><span class="t2-queue">You\'ve taken <span id="cases-taken">*</span> today.</span>';
+        '<br /><span class="t2-queue">You\'ve taken <span id="cases-taken">*</span> today. Or <span id="cases-taken-percent">*</span>% of total cases taken today.</span>';
+    } else {
+        bigQHtml +=
+            '<br /><span class="t2-queue">You\'ve taken <span id="cases-taken">*</span> today.</span>';
+    }
 
     if (localStorage.mode == 'Throughput' || localStorage.mode == 'EP' || localStorage.mode == 'EMEA-Backline') {
             bigQHtml += '<br /><span class="t2-old">Throughput is <span id="oldest-case">*</span>days behind.</span>';
@@ -641,6 +673,7 @@ function highlightQueues() {
     highlightBacklineQueue();
     highlightEscalatedQueue();
     highlightTaken();
+    highlightTakenPercent();
 }
 
 function highlightSolo() {
@@ -884,25 +917,33 @@ function highlightEscalatedQueue() {
 }
 
 function highlightTaken() {
-    var high = 3;
-    var low = 2;
-    var arr = new Array('cases-taken');
-
-    $.each(arr, function () {
-        var count = $('#' + this).text();
-        if (count != '*') {
-            var num = parseInt(count);
-            if (num > high) {
-                $('#' + this).css({'font-weight':'bolder', 'color':'green'});
-            }
-            else if (num <= high && num > low) {
-                $('#' + this).css({'font-weight':'bolder', 'color':'orange'});
-            }
-            else {
-                $('#' + this).css({'font-weight':'bolder', 'color':'red'});
-            }
+    var count = $('#cases-taken').text();
+    if (count != '*') {
+        var num = parseInt(count);
+        if (num > 3) {
+            $('#cases-taken').css({'font-weight':'bolder', 'color':'green'});
         }
-    });
+        else if (num <= 3 && num > 2) {
+            $('#cases-taken').css({'font-weight':'bolder', 'color':'orange'});
+        }
+        else {
+            $('#cases-taken').css({'font-weight':'bolder', 'color':'red'});
+        }
+    }
+}
+
+function highlightTakenPercent() {
+    console.log("HERE");
+    var count = $('#cases-taken-percent').text();
+    if (count != '*') {
+        var num = parseInt(count);
+        if (num >= 8) {
+            $('#cases-taken-percent').css({'font-weight':'bolder', 'color':'green'});
+        }
+        else {
+            $('#cases-taken-percent').css({'font-weight':'bolder', 'color':'red'});
+        }
+    }
 }
 
 /* Calculates oldest case in Throughput and shows it as days behind */
