@@ -385,15 +385,8 @@ function getBigQueuesHtml() {
         bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006Nnk9" style="color:black">EP(<span id="ep-queue">*</span>)</a></span>';
     }
 
-    else if (localStorage.mode == 'EMEA-Frontline') {
-        // bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006NkFM" style="color:black"> EMEA HOT Accounts (<span id="emea-queue">*</span>)</a></span>';
+    else if (localStorage.mode == 'EMEA-Frontline' || localStorage.mode == 'EMEA-Backline') {
         bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006Nnk4" style="color:black"> Throughput(<span id="backline-queue">*</span>)</a></span>';
-
-    }
-    else if (localStorage.mode == 'EMEA-Backline') {
-        // bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006NkFM" style="color:black"> EMEA HOT Accounts(<span id="emea-queue">*</span>)</a></span>';
-        bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006Nnk4" style="color:black"> Throughput(<span id="backline-queue">*</span>)</a></span>';
-
     }
 
     // Daily Statistics
