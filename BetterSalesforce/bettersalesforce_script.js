@@ -1035,8 +1035,8 @@ function highlightRows(case_rows) {
 function initRows() {
     if (getClass('x-grid3-td-CASES_SUBJECT').length || getClass('x-grid3-td-Subject').length)
     {
-        inProgressCount = 0;
         var case_rows = getCaseRows();
+        inProgressCount ? case_rows.length : 0;
 
         //Highlight the row after the row is clicked
         highlightRows(case_rows);
