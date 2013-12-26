@@ -4,6 +4,12 @@ chrome.extension.onMessage.addListener(
     if (!request.greeting) {
         chrome.browserAction.setBadgeText({text: 'NULL'});
     } else {
-        chrome.browserAction.setBadgeText({text: '' + request.greeting});
+        // If there are no Sev 1s, then instead of showing "0" we just don't show the badge at all
+        if (request.greeting == 0){
+            chrome.browserAction.setBadgeText({text: ''});
+        } else {
+            chrome.browserAction.setBadgeText({text: '' + request.greeting});
+        }
+
     }
   });

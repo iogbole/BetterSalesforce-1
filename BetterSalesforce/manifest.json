@@ -22,7 +22,7 @@
     "key": "yEGoQ9g7t/p4n0d1Zfb48POSJ09h/+5b8LH1aDnnEjw=",
     "name": "BetterSalesforce",
     "update_url": "http://www.projexteam.com/bsfq/updates.xml",
-    "version": "3.29.2",
+    "version": "3.30.0",
     "icons": {"128": "images/icon.png"},
     "manifest_version": 2,
     "web_accessible_resources": ["images/bsf-sprites.png"]
