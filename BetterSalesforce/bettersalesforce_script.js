@@ -649,7 +649,6 @@ function highlightQueues() {
         highlightEP();
     }
     else if (localStorage.mode == 'Account Support') {
-        highlightSolo();
         highlightAS();
     }
     else if (localStorage.mode == 'EMEA-Frontline') {
@@ -660,6 +659,7 @@ function highlightQueues() {
         highlightDaysBehind();
     }
 
+    highlightSolo();
     highlightSevOnes();
     highlightThroughput();
     highlightFrontlineQueue();
