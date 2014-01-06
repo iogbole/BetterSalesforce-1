@@ -1,8 +1,8 @@
-function checkFor() {
+function checkForComments() {
     if ($('.supportal-casethread-latest-comment').length) {
         $('span.j-thread-info-block.font-color-meta a').clone().appendTo($('div.j-byline.font-color-meta').append(' - '));
-        clearInterval(myTime);
+        clearInterval(waitForCommentsTimer);
     }
 }
 
-var myTime = setInterval(function() {checkFor();}, 500);
+var waitForCommentsTimer = setInterval(function() {checkForComments();}, 500);

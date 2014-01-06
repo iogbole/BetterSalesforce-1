@@ -489,11 +489,6 @@ function initJiveUI() {
         paused = !paused;
         $('#pause-refresh').text(paused ? 'resume' : 'pause');
     });
-
-    //Set title of page
-    queueTitle = $('.title option:selected').text();
-    document.title = '(*) ' + queueTitle;
-
 }
 
 function isQPage() {
@@ -623,10 +618,6 @@ function refreshQ() {
     else {
         getClass('x-grid3-row')[0].appendChild(el);
     }
-
-    queueTitle = $('.title option:selected').text();
-    document.title = '(*) ' + queueTitle;
-
 
     //Trigger the SalesForce refresh 
     //jQuery's click() doesn't seem to fire the handler defined in the onclick attribute (boo),
@@ -926,7 +917,6 @@ function highlightTaken() {
 }
 
 function highlightTakenPercent() {
-    console.log("HERE");
     var count = $('#cases-taken-percent').text();
     if (count != '*') {
         var num = parseInt(count);
@@ -1036,11 +1026,13 @@ function initRows() {
     if (getClass('x-grid3-td-CASES_SUBJECT').length || getClass('x-grid3-td-Subject').length)
     {
         var case_rows = getCaseRows();
+        inProgressCount = 0;
         inProgressCount ? case_rows.length : 0;
 
         //Highlight the row after the row is clicked
         highlightRows(case_rows);
 
+        queueTitle = $('.title option:selected').text();
         document.title = '(' + inProgressCount + ') ' + queueTitle;
 
         addLinksToRows(case_rows);
