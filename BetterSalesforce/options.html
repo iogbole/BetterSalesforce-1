@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BSFQ Options v3.29.3</title>
+    <link href="options.css" type="text/css" rel="stylesheet" />
+</head>
+<body class="options_page">
+    <div id="wrapper">
+        <div id="header">
+            <h1>BetterSalesforce Queue Options v3.29.3</h1>
+        </div>
+        <div id="options">
+            <fieldset id="general">
+                <legend>General</legend>
+                <label>Refresh Rate (<label id="range_output">*</label> sec) :</label>
+                <input id="range_input" type="range" min="15" max="60" step="5" value="60">
+            </fieldset>
+            <fieldset id="teams">
+                <legend>Team Modes</legend>
+                <div id="team_panel">
+                    <button id="addTeam">+</button>
+                    <button id="removeTeam">-</button>
+                </div>
+            </fieldset>
+        </div>
+        <div id="footer">
+            <label id="footer_message">BetterSalesforce Queue v3.29.3 | Developed by Josh Leckbee | <a href="https://brewspace.jiveland.com/groups/support-bettersalesforce/blog" target="_blank">Product Development Blog</a></label>
+        </div>
+    </div>
+</body>
+<script src="jQuery-1.7.2-min.js"></script>
+<script src="options.js"></script>
+</html>

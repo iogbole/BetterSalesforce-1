@@ -5,4 +5,4 @@ function checkForComments() {
     }
 }
 
-var waitForCommentsTimer = setInterval(function() {checkForComments();}, 500);
+var waitForCommentsTimer = setInterval(function() {checkForComments();}, 250);
