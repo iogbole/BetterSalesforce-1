@@ -48,7 +48,15 @@ a	{ text-decoration:none; }
     font-size: 15px;
     padding: 0 5px;
 }
-#refresh_rate {
+#range_input {
     margin-left: 5px;
     position: fixed;
+}
+
+fieldset {
+    margin-top: 5px;
+}
+
+fieldset div {
+    margin-top: 5px;
 }

@@ -12,8 +12,18 @@
         <div id="options">
             <fieldset id="general">
                 <legend>General</legend>
-                <label>Refresh Rate (<label id="range_output">*</label> sec) :</label>
-                <input id="range_input" type="range" min="15" max="60" step="5" value="60">
+                <div id="refreshrate">
+                    <label>Refresh Rate (<span id="slidernumber">*</span> sec) :</label>
+                    <input id="range_input" type="range" min="15" max="60" step="5" value="60">
+                </div>
+                <div id="alertp1">
+                    <input id="check_alertp1" type="checkbox">
+                    <label for="check_alertp1">Show Alert Dropdown on new P1</label>
+                </div>
+                <div id="minimilist">
+                    <input id="check_minimilist" type="checkbox">
+                    <label for="check_minimilist">Minimilist View</label>
+                </div>
             </fieldset>
             <fieldset id="teams">
                 <legend>Team Modes</legend>
