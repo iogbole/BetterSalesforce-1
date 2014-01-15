@@ -90,7 +90,6 @@ var mediumCount = 25;
 var highCount = 50;
 
 var mode = localStorage.mode ? localStorage.mode : "Throughput";
-var refreshTime = localStorage.refreshTime ? localStorage.refreshTime : 60;
 
 
 function setQueueCount(view_id, dom_obj) {
@@ -427,6 +426,8 @@ function getBigQueuesHtml() {
 // Initialize GUI objects
 function initJiveUI() {    
 
+    localStorage.refreshTime = localStorage.refreshTime ? localStorage.refreshTime : 60;
+
     var appensionHtml = '<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; } .t2-queue span {padding-right:0 !important;} .big {float: right;} ' +
 
         //Sprite CSS
@@ -445,8 +446,8 @@ function initJiveUI() {
 
     appensionHtml += 'Refresh: ';
 
-    appensionHtml += '<input type="range" min="15" max="60" step="5" value="' + refreshTime +
-        '" onChange="refreshTime = value;" title="' + refreshTime + '" />';
+    appensionHtml += '<input type="range" min="15" max="60" step="5" value="' + localStorage.refreshTime +
+        '" onChange="localStorage.refreshTime = value;" title="' + localStorage.refreshTime + '" />';
 
     appensionHtml += '</div></div><div style="float:left;width:60%;">';
 
@@ -593,7 +594,7 @@ function initQDetails(firstRun) {
 }
 
 function refreshQ() {
-    $('#q-refresh-count').text(refreshTime);
+    $('#q-refresh-count').text(localStorage.refreshTime);
 
     //if not already refreshing
     // TODO: Do we need to guard against multiple refreshes?

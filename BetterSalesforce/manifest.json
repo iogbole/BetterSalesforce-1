@@ -12,7 +12,6 @@
             "js": [ "jQuery-1.7.2-min.js","bettersalesforce_script.js" ]
         },
         {
-            "run_at": "document_idle",
             "matches": [ "https://community.jivesoftware.com/casethread/*"],
             "js": [ "jQuery-1.7.2-min.js", "bettercommunity_script.js" ]
         }
@@ -25,8 +24,5 @@
     "version": "3.29.3",
     "icons": {"128": "images/icon.png"},
     "manifest_version": 2,
-    "web_accessible_resources": ["images/bsf-sprites.png"],
-    "permissions": [
-        "tabs"
-    ]
+    "web_accessible_resources": ["images/bsf-sprites.png"]
 }
