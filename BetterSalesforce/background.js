@@ -1,9 +1,9 @@
 // Script to Background listener, badge updates.
-chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
-    if (!request.greeting) {
-        chrome.browserAction.setBadgeText({text: 'NULL'});
-    } else {
-        chrome.browserAction.setBadgeText({text: '' + request.greeting});
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    switch (request.command) {
+        case 'greeting':
+            chrome.browserAction.setBadgeText({text: '' + request.data});
+            break;
     }
 });
 

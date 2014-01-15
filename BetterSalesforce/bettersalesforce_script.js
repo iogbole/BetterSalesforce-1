@@ -89,6 +89,9 @@ var subjCol, statusCol, pCol, slaCol, accountCol, selectedCase = null, selectedR
 var mediumCount = 25;
 var highCount = 50;
 
+var mode = localStorage.mode ? localStorage.mode : "Throughput";
+var refreshTime = localStorage.refreshTime ? localStorage.refreshTime : 60;
+
 
 function setQueueCount(view_id, dom_obj) {
     $.post("/_ui/common/list/ListServlet", {
@@ -179,7 +182,7 @@ function fireQChangesWhenReady(firstRun, timesRun) {
 
         showOldestThroughput();
 
-        var curr_mode = localStorage.mode; // Get currently set queue mode
+        var curr_mode = mode; // Get currently set queue mode
 
         if (curr_mode == 'Throughput') {
             setQueueCount(ALEX_Q, $('#alex-in-progress'));
@@ -264,7 +267,7 @@ function fireQChangesWhenReady(firstRun, timesRun) {
 
 function getModes() {
     var modeString;
-    var currMode = localStorage.mode;
+    var currMode = mode;
 
     if (currMode == 'Frontline') {
         modeString =
@@ -332,7 +335,7 @@ function getModes() {
 function getSoloQueuesHtml() {
     var html = '';
 
-    if (localStorage.mode == 'Throughput') {
+    if (mode == 'Throughput') {
         html =
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MQxb" style="color:black">Alex(<span id="alex-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006MkPA" style="color:black">DDay(<span id="dday-in-progress">*</span>)</a></span>' +
@@ -345,20 +348,20 @@ function getSoloQueuesHtml() {
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NrwT" style="color:black">Val(<span id="val-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NL86" style="color:black">Vince(<span id="vince-in-progress">*</span>)</a></span>';
     }
-    else if (localStorage.mode == 'EP') {
+    else if (mode == 'EP') {
         html =
             '<span class="t2-queue"><a href="500?fcf=00B50000006NcAj" style="color:black">Ben2(<span id="benw-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006NcBq" style="color:black">Elaine(<span id="elaine-in-progress">*</span>)</a></span>';
     }
 
-    else if (localStorage.mode == 'EMEA-Frontline') {
+    else if (mode == 'EMEA-Frontline') {
         html =
             '<span class="t2-queue"><a href="500?fcf=00B50000006O4D0" style="color:black">Binta(<span id="binta-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006OT7r" style="color:black">John(<span id="john-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006Ntqc" style="color:black">Razaq(<span id="razaq-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006ORJg" style="color:black">Richard(<span id="richard-in-progress">*</span>)</a></span>' ;
     }
-    else if (localStorage.mode == 'EMEA-Backline') {
+    else if (mode == 'EMEA-Backline') {
         html =
             '<span class="t2-queue"><a href="500?fcf=00B50000006N6as" style="color:black">Israel(<span id="israel-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006Muvw" style="color:black">Shailesh(<span id="shailesh-in-progress">*</span>)</a></span>' +
@@ -380,25 +383,25 @@ function getBigQueuesHtml() {
         '<span class="t2-queue big"><a href="500?fcf=00B50000006Lh9v" id="sev1" style="font-size:120%;font-weight:bold;color:red;display:none;">NEW Sev-1!!(<span id="sev1-queue">*</span>)</a></span>' +
             '<span class="t2-queue big"><a href="500?fcf=00B50000006LTCj" style="color:black">Frontline(<span id="support-queue">*</span>)</a></span>';
 
-    if (localStorage.mode == 'Throughput' || localStorage.mode == 'EP' || localStorage.mode == 'Frontline') {
+    if (mode == 'Throughput' || mode == 'EP' || mode == 'Frontline') {
         bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006Nnk4" style="color:black">Throughput(<span id="throughput-queue">*</span>)</a></span>';
         bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006Nnk9" style="color:black">EP(<span id="ep-queue">*</span>)</a></span>';
     }
 
-    else if (localStorage.mode == 'EMEA-Frontline' || localStorage.mode == 'EMEA-Backline') {
+    else if (mode == 'EMEA-Frontline' || mode == 'EMEA-Backline') {
         bigQHtml += '<span class="t2-queue big"><a href="500?fcf=00B50000006Nnk4" style="color:black"> Throughput(<span id="backline-queue">*</span>)</a></span>';
     }
 
     // Daily Statistics
     bigQHtml +=
         '<br /><span class="t2-queue">Today <span id="backline-escalated">*</span> cases have been escalated to Backline.</span>';
-    if (localStorage.mode != "Frontline") {
+    if (mode != "Frontline") {
         bigQHtml +=
             '<span class="t2-queue big" id="us"><a href="500?fcf=00B50000006Mi54" style="color:black">From_US (<span id="us2emea-queue">*</span>)</a></span>' +
                 '<span class="t2-queue big" id="us"><a href="500?fcf=00B50000006Mi4v" style="color:black">From_EMEA (<span id="emea2us-queue">*</span>)</a></span>';
     }
 
-    if (localStorage.mode == 'Throughput' || localStorage.mode == 'EP') {
+    if (mode == 'Throughput' || mode == 'EP') {
     bigQHtml +=
         '<br /><span class="t2-queue">You\'ve taken <span id="cases-taken">*</span> today. Or <span id="cases-taken-percent">*</span>% of total cases taken today.</span>';
     } else {
@@ -406,7 +409,7 @@ function getBigQueuesHtml() {
             '<br /><span class="t2-queue">You\'ve taken <span id="cases-taken">*</span> today.</span>';
     }
 
-    if (localStorage.mode == 'Throughput' || localStorage.mode == 'EP' || localStorage.mode == 'EMEA-Backline') {
+    if (mode == 'Throughput' || mode == 'EP' || mode == 'EMEA-Backline') {
             bigQHtml += '<br /><span class="t2-old">Throughput is <span id="oldest-case">*</span>days behind.</span>';
     }
 
@@ -422,18 +425,7 @@ function getBigQueuesHtml() {
 }
 
 // Initialize GUI objects
-function initJiveUI() {
-
-    if (localStorage.mode == undefined || localStorage.mode == 'undefined' || localStorage.mode == 'Backline')
-    {
-        localStorage.mode = 'EP';
-    }
-
-    if (localStorage.refreshTime == undefined || localStorage.refreshTime == 'undefined' ||
-        localStorage.refreshTime == 'NaN')
-    {
-        localStorage.refreshTime = 25;
-    }
+function initJiveUI() {    
 
     var appensionHtml = '<style>.x-grid3-row-table  tr:hover { background: #E3EFF3; } .t2-queue span {padding-right:0 !important;} .big {float: right;} ' +
 
@@ -453,8 +445,8 @@ function initJiveUI() {
 
     appensionHtml += 'Refresh: ';
 
-    appensionHtml += '<input type="range" min="15" max="60" step="5" value="' + localStorage.refreshTime +
-        '" onChange="localStorage.refreshTime = value;" title="' + localStorage.refreshTime + '" />';
+    appensionHtml += '<input type="range" min="15" max="60" step="5" value="' + refreshTime +
+        '" onChange="refreshTime = value;" title="' + refreshTime + '" />';
 
     appensionHtml += '</div></div><div style="float:left;width:60%;">';
 
@@ -462,7 +454,7 @@ function initJiveUI() {
     appensionHtml += getSoloQueuesHtml();
 
     // Account Support View	
-    if (localStorage.mode == 'Account Support') {
+    if (mode == 'Account Support') {
         appensionHtml +=
             '<span class="t2-queue big"><a href="500?fcf=00B50000006LnHq" style="color:black">Account Support (<span id="account-support-queue-count">*</span>)</a></span>' +
                 '<span class="t2-queue big"><a href="500?fcf=00B50000006LTCj" style="color:black">Support (<span id="support-queue">*</span>)</a></span>' +
@@ -601,7 +593,7 @@ function initQDetails(firstRun) {
 }
 
 function refreshQ() {
-    $('#q-refresh-count').text(localStorage.refreshTime);
+    $('#q-refresh-count').text(refreshTime);
 
     //if not already refreshing
     // TODO: Do we need to guard against multiple refreshes?
@@ -635,18 +627,18 @@ function changeMode() {
 }
 
 function highlightQueues() {
-    if (localStorage.mode == 'Throughput' || localStorage.mode == 'EP') {
+    if (mode == 'Throughput' || mode == 'EP') {
         highlightDaysBehind();
         highlightEP();
     }
-    else if (localStorage.mode == 'Account Support') {
+    else if (mode == 'Account Support') {
         highlightSolo();
         highlightAS();
     }
-    else if (localStorage.mode == 'EMEA-Frontline') {
+    else if (mode == 'EMEA-Frontline') {
         highlightEMEAFrontline();
     }
-    else if (localStorage.mode == 'EMEA-Backline') {
+    else if (mode == 'EMEA-Backline') {
         highlightEMEABackline();
         highlightDaysBehind();
     }
@@ -800,11 +792,11 @@ function highlightSevOnes() {
             var num = parseInt(count);
             if (num < 1) {
                 $('#sev1').css({'display':'none'});
-                chrome.extension.sendMessage({greeting:'0'});
+                chrome.extension.sendMessage({command: 'greeting', name: 'greeting', data: '0'});
             }
             else {
                 $('#sev1').css({'display':'inline'});
-                chrome.extension.sendMessage({greeting:'' + num});
+                chrome.extension.sendMessage({command: 'greeting', name: 'greeting', data: '' + num});
             }
             ;
         }
@@ -855,11 +847,11 @@ function highlightFrontlineQueue() {
 function highlightBacklineQueue() {
     var arr = new Array();
 
-    if (localStorage.mode == 'Throughput' || localStorage.mode == 'EP' || localStorage.mode == 'Frontline') {
+    if (mode == 'Throughput' || mode == 'EP' || mode == 'Frontline') {
         arr.push('throughput-queue');
         arr.push('ep-queue');
     }
-    else if (localStorage.mode == 'EMEA-Backline') {
+    else if (mode == 'EMEA-Backline') {
         arr.push('emea-queue');
     }
 
@@ -1088,7 +1080,7 @@ function insertCaseLinks(dom, sf_id, links) {
     $(dom).prepend(links);
 
     // If in Frontline View
-    if (localStorage.mode == 'Frontline') {
+    if (mode == 'Frontline') {
         $(dom).find('a[id$="_LEVEL_UP"]').click(function () {
             assignToQueue(sf_id, BACKLINE_QUEUE);
         });
@@ -1101,7 +1093,7 @@ function insertCaseLinks(dom, sf_id, links) {
     }
 
     // If in Account Support View
-    else if (localStorage.mode == 'Account Support') {
+    else if (mode == 'Account Support') {
         if ($(dom).find('a[href*=jivesoftware]').length) {
             return;
         } // Links already populated
@@ -1136,11 +1128,11 @@ function addLinksToRow(linkTag) {
             var href = $(data).find('a[href^="https://community.jivesoftware.com"]').attr('href');
 
             if (href) {
-                if (localStorage.mode == 'Frontline')
+                if (mode == 'Frontline')
                 {
                     caseLinks[sf_id] = createCaseLinksFrontline(sf_id, href);
                 }
-                else if (localStorage.mode == 'Account Support')
+                else if (mode == 'Account Support')
                 {
                     caseLinks[sf_id] = createCaseLinksAccountSupport(sf_id, href);
                 }
