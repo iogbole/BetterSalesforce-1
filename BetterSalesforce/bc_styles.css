@@ -1,0 +1,33 @@
+span.comment-nav {
+    position: absolute;
+    right:0px;
+    top:0px;
+    margin-top:6px;
+    border-color: inherit;
+}
+
+span.comment-nav label {
+    cursor: pointer;
+    border: 1px solid;
+    border-color: inherit;
+    padding: 6px;
+    text-decoration: none;
+}
+
+span.comment-nav label:hover {
+    background-color: #00679b;
+    color: #FFFFFF;
+}
+
+.prev-comment {
+    /*border-top-left-radius: 5px;*/
+    border-bottom-left-radius: 5px;
+}
+
+.next-comment {
+    !important;
+    padding-left: 16px !important;
+    padding-right: 17px !important;
+    border-top-right-radius: 5px;
+    /*border-bottom-right-radius: 5px;*/
+}
