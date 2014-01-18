@@ -136,16 +136,6 @@ var inProgressCount = 0;
 var queueTitle;
 var paused = false; // is the 30 second refresh paused?
 
-if (isQPage()) {
-
-    fixSalesforceUI();
-    initJiveUI();
-
-    fireQChangesWhenReady(true);
-    window.setInterval(autoQRefresh, 1000);
-}
-
-
 
 function assignToQueue(sf_id, queue) {
     $.get('/' + sf_id + '/a', function (data) {
@@ -793,11 +783,11 @@ function highlightSevOnes() {
             var num = parseInt(count);
             if (num < 1) {
                 $('#sev1').css({'display':'none'});
-                chrome.extension.sendMessage({command: 'greeting', name: 'greeting', data: '0'});
+                chrome.runtime.sendMessage({command: 'greeting', name: 'greeting', data: '0'});
             }
             else {
                 $('#sev1').css({'display':'inline'});
-                chrome.extension.sendMessage({command: 'greeting', name: 'greeting', data: '' + num});
+                chrome.runtime.sendMessage({command: 'greeting', name: 'greeting', data: '' + num});
             }
             ;
         }
@@ -1207,4 +1197,13 @@ function removejscssfile(filename, filetype){
         if (allsuspects[i] && allsuspects[i].getAttribute(targetattr)!=null && allsuspects[i].getAttribute(targetattr).indexOf(filename)!=-1)
             allsuspects[i].parentNode.removeChild(allsuspects[i]) //remove element by calling parentNode.removeChild()
     }
+}
+
+if (isQPage()) {
+
+    fixSalesforceUI();
+    initJiveUI();
+
+    fireQChangesWhenReady(true);
+    window.setInterval(autoQRefresh, 1000);
 }

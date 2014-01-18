@@ -9,11 +9,11 @@
     [
         {
             "matches": [ "https://na3.salesforce.com/*" ],
-            "js": [ "jQuery-1.7.2-min.js","bettersalesforce_script.js" ]
+            "js": [ "jquery-2.0.3.min.js","bettersalesforce_script.js" ]
         },
         {
             "matches": [ "https://community.jivesoftware.com/casethread/*"],
-            "js": [ "jQuery-1.7.2-min.js", "bettercommunity_script.js" ],
+            "js": [ "jquery-2.0.3.min.js", "bettercommunity_script.js" ],
             "css": [ "bc_styles.css"]
         }
     ],
@@ -25,5 +25,6 @@
     "version": "3.29.3",
     "icons": {"128": "images/icon.png"},
     "manifest_version": 2,
-    "web_accessible_resources": ["images/bsf-sprites.png"]
+    "web_accessible_resources": ["images/bsf-sprites.png"],
+    "permissions": [ "storage" ]
 }
