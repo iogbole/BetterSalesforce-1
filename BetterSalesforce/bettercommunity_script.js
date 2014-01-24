@@ -1,4 +1,5 @@
 var preferences = [];
+var waitForCommentsTimer;
 
 
 function checkForComments() {
@@ -69,7 +70,7 @@ function isModuleEnabled(name, default_value) {
 }
 
 function run() {
-    var waitForCommentsTimer = setInterval(function () {
+    waitForCommentsTimer = setInterval(function () {
         checkForComments();
     }, 500);
 }
