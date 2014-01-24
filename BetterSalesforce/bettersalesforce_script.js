@@ -136,7 +136,6 @@ var inProgressCount = 0;
 var queueTitle;
 var paused = false; // is the 30 second refresh paused?
 
-
 function assignToQueue(sf_id, queue) {
     $.get('/' + sf_id + '/a', function (data) {
         $.post("/" + sf_id + "/a", {
@@ -512,6 +511,9 @@ function fixSalesforceUI() {
     removejscssfile("chatterCore.css","css");
     //removejscssfile("common.css","css");
     //removejscssfile("ExtCSS-SFDC.css","css");
+    if (window.location.search.indexOf('00B50000006Nnk4') >= 0) {
+        $('div.listButtons').before('<div><input value="Accept" class="btn" name="accept" onclick="this.form.action = \'/p/case/CaseMassAction?retURL=%2F500%3Ffcf%3D00B50000006Nnk4j&amp;from=\'" title="Accept" type="submit"></div>');
+    }
 }
 
 function removeOrWaitForRefreshButton() {
