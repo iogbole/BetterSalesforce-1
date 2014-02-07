@@ -38,16 +38,16 @@ var VINCE_Q = '00B50000006NL86';
 
 
 //EMEA Frontline
-var BINTA_Q = '00B50000006O4D0';
-var JOHN_Q = '00B50000006OT7r';
 var RAZAQ_Q = '00B50000006Ntqc';
 var RICHARD_Q = '00B50000006ORJg';
+var TARA_Q = '00B50000006O2e4';
 
 
 //EMEA Backline
 var ISRAEL_Q ='00B50000006N6as'
 var SHAILESH_Q = '00B50000006Muvw';
-var TARA_Q = '00B50000006O2e4';
+var HARDEEP_Q = '00B50000006Ocrv';
+var JOHN_Q = '00B50000006OT7r';
 
 var THROUGHPUT_Q = '00B50000006Nnk4';
 //-- END--
@@ -201,13 +201,12 @@ function fireQChangesWhenReady(firstRun, timesRun) {
         else if (curr_mode == 'EMEA-Backline') {
             setQueueCount(SHAILESH_Q, $('#shailesh-in-progress'));
             setQueueCount(ISRAEL_Q, $('#israel-in-progress'));
-            setQueueCount(TARA_Q, $('#tara-in-progress'));
-
+            setQueueCount(JOHN_Q, $('#john-in-progress'));
+            setQueueCount(HARDEEP_Q, $('#hardeep-in-progress'));
         }
 
         else if (curr_mode == 'EMEA-Frontline') {
-            setQueueCount(BINTA_Q, $('#binta-in-progress'));
-            setQueueCount(JOHN_Q, $('#john-in-progress'));
+            setQueueCount(TARA_Q, $('#tara-in-progress'));
             setQueueCount(RAZAQ_Q, $('#razaq-in-progress'));
             setQueueCount(RICHARD_Q, $('#richard-in-progress'));
         }
@@ -353,16 +352,16 @@ function getSoloQueuesHtml() {
 
     else if (localStorage.mode == 'EMEA-Frontline') {
         html =
-            '<span class="t2-queue"><a href="500?fcf=00B50000006O4D0" style="color:black">Binta(<span id="binta-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006OT7r" style="color:black">John(<span id="john-in-progress">*</span>)</a></span>' +
+             '<span class="t2-queue"><a href="500?fcf=00B50000006O2e4" style="color:black">Tara(<span id="tara-in-progress">*</span>)</a></span>'+
                 '<span class="t2-queue"><a href="500?fcf=00B50000006Ntqc" style="color:black">Razaq(<span id="razaq-in-progress">*</span>)</a></span>' +
                 '<span class="t2-queue"><a href="500?fcf=00B50000006ORJg" style="color:black">Richard(<span id="richard-in-progress">*</span>)</a></span>' ;
     }
     else if (localStorage.mode == 'EMEA-Backline') {
         html =
-            '<span class="t2-queue"><a href="500?fcf=00B50000006N6as" style="color:black">Israel(<span id="israel-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006Muvw" style="color:black">Shailesh(<span id="shailesh-in-progress">*</span>)</a></span>' +
-                '<span class="t2-queue"><a href="500?fcf=00B50000006O2e4" style="color:black">Tara(<span id="tara-in-progress">*</span>)</a></span>' ;
+            '<span class="t2-queue"><a href="500?fcf=00B50000006Muvw" style="color:black">Shailesh(<span id="shailesh-in-progress">*</span>)</a></span>' +
+                '<span class="t2-queue"><a href="500?fcf=00B50000006OT7r" style="color:black">John(<span id="john-in-progress">*</span>)</a></span>' +
+             '<span class="t2-queue"><a href="500?fcf=00B50000006Ocrv" style="color:black">Hardeep(<span id="hardeep-in-progress">*</span>)</a></span>' +
+            '<span class="t2-queue"><a href="500?fcf=00B50000006N6as" style="color:black">Israel(<span id="israel-in-progress">*</span>)</a></span>' ;
 
     }
 
@@ -649,6 +648,7 @@ function highlightQueues() {
     else if (localStorage.mode == 'EMEA-Backline') {
         highlightEMEABackline();
         highlightDaysBehind();
+
     }
 
     highlightSevOnes();
@@ -707,7 +707,7 @@ function highlightEP() {
 function highlightEMEAFrontline() {
     var low = 6;
     var high = 13;
-    var arr = new Array('binta-in-progress', 'john-in-progress', 'razaq-in-progress', 'richard-in-progress');
+    var arr = new Array('razaq-in-progress', 'richard-in-progress','tara-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
@@ -728,7 +728,7 @@ function highlightEMEAFrontline() {
 function highlightEMEABackline() {
     var low = 6;
     var high = 13;
-    var arr = new Array('tara-in-progress', 'shailesh-in-progress', 'israel-in-progress');
+    var arr = new Array('shailesh-in-progress', 'israel-in-progress', 'hardeep-in-progress','john-in-progress');
 
     $.each(arr, function () {
         var count = $('#' + this).text();
@@ -858,9 +858,6 @@ function highlightBacklineQueue() {
     if (localStorage.mode == 'Throughput' || localStorage.mode == 'EP' || localStorage.mode == 'Frontline') {
         arr.push('throughput-queue');
         arr.push('ep-queue');
-    }
-    else if (localStorage.mode == 'EMEA-Backline') {
-        arr.push('emea-queue');
     }
 
     $.each(arr, function () {
